@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Pinkprint Lawyer — Mockup 5: Grid</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Brand tokens ── */
+    :root {
+      --pink:    #ff89c5;
+      --magenta: #c43670;
+      --blush:   #faf4f7;
+      --plum:    #230d18;
+    }
+
+    body { font-family: 'Jost', sans-serif; background-color: var(--blush); color: var(--plum); -webkit-font-smoothing: antialiased; }
+
+    /* ── Font family ── */
+    .font-display { font-family: 'Bodoni Moda', serif; }
+
+    /* ── Brand text colors ── */
+    .text-pink     { color: var(--pink)            !important; }
+    .text-magenta  { color: var(--magenta)          !important; }
+    .text-blush    { color: var(--blush)            !important; }
+    .text-plum     { color: var(--plum)             !important; }
+    .text-plum-60  { color: rgba(35,13,24,.6)       !important; }
+    .text-plum-40  { color: rgba(35,13,24,.4)       !important; }
+    .text-white-75 { color: rgba(255,255,255,.75)   !important; }
+    .text-white-40 { color: rgba(255,255,255,.4)    !important; }
+
+    /* ── Brand bg colors ── */
+    .bg-pink    { background-color: var(--pink)    !important; }
+    .bg-magenta { background-color: var(--magenta) !important; }
+    .bg-blush   { background-color: var(--blush)   !important; }
+    .bg-plum    { background-color: var(--plum)    !important; }
+
+    /* ── Border color overrides ── */
+    .border-plum-12  { border-color: rgba(35,13,24,.12)  !important; }
+    .border-white-10 { border-color: rgba(255,255,255,.1) !important; }
+    .border-white-30 { border-color: rgba(255,255,255,.3) !important; }
+
+    /* ── Typography: labels ── */
+    .label { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--magenta); }
+    .label-muted-white { color: rgba(255,255,255,.45); }
+
+    /* ── Typography: display headings ── */
+    .hero-headline {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -.02em;
+    }
+    .section-heading {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .heading-lg {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .about-lead { font-size: 19px; line-height: 1.75; color: rgba(35,13,24,.75); }
+    .body-text  { font-size: 16px; line-height: 1.8;  color: rgba(35,13,24,.6);  }
+
+    /* ── Decorative numbers ── */
+    .card-num {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1;
+      color: rgba(196,54,112,.15);
+    }
+    .start-num {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 5rem;
+      font-weight: 700;
+      line-height: 1;
+      color: rgba(196,54,112,.08);
+    }
+    .section-num {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(5rem, 12vw, 10rem);
+      font-weight: 700;
+      line-height: .85;
+      color: rgba(196,54,112,.06);
+      letter-spacing: -.04em;
+      user-select: none;
+    }
+
+    /* ── Pull quote ── */
+    .pull-quote {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+    .quote-mark {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 7rem;
+      font-weight: 700;
+      color: var(--magenta);
+      line-height: .7;
+      display: block;
+    }
+
+    /* ── Ghost decorative text ── */
+    .ghost-text {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(4rem, 10vw, 10rem);
+      font-weight: 700;
+      font-style: italic;
+      color: rgba(255,255,255,.05);
+      line-height: 1;
+      letter-spacing: -.04em;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* ── Footer watermark ── */
+    .footer-watermark {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.05;
+      color: rgba(255,255,255,.05);
+      letter-spacing: -.02em;
+      user-select: none;
+    }
+    .footer-watermark span { color: rgba(196,54,112,.25); }
+
+    /* ── Buttons ── */
+    .btn-plum {
+      font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      background-color: var(--plum); color: #fff;
+      border-radius: 0; padding: 10px 24px; border: none;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-plum:hover { background-color: var(--magenta); color: #fff; }
+
+    .btn-magenta {
+      font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      background-color: var(--magenta); color: #fff;
+      border-radius: 0; padding: 14px 30px; border: none;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-magenta:hover { background-color: var(--plum); color: #fff; }
+
+    .btn-outline-plum {
+      font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: var(--plum); background: none;
+      border: 1px solid rgba(35,13,24,.3); border-radius: 0;
+      padding: 13px 24px; text-decoration: none; display: inline-block;
+    }
+    .btn-outline-plum:hover { border-color: var(--magenta); color: var(--magenta); }
+
+    .btn-outline-white {
+      font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: #fff; background: none;
+      border: 1px solid rgba(255,255,255,.35); border-radius: 0;
+      padding: 13px 24px; text-decoration: none; display: inline-block;
+    }
+    .btn-outline-white:hover { border-color: var(--pink); color: var(--pink); }
+
+    .btn-pink {
+      font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      background-color: var(--pink); color: var(--plum);
+      border-radius: 0; padding: 14px 30px; border: none;
+      text-decoration: none; display: inline-block; cursor: pointer;
+    }
+    .btn-pink:hover { background-color: #fff; color: var(--plum); }
+
+    /* ── Product tag ── */
+    .product-tag { display: inline-block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #fff; background-color: var(--magenta); padding: 4px 10px; }
+    .product-tag-light { background-color: var(--pink); color: var(--plum); }
+
+    /* ── Form ── */
+    .input-underline {
+      font-family: 'Jost', sans-serif; font-size: 14px;
+      background: none; border: none;
+      border-bottom: 1px solid rgba(255,255,255,.3);
+      color: #fff; padding: 12px 0; width: 100%; outline: none;
+    }
+    .input-underline::placeholder { color: rgba(255,255,255,.35); }
+    .input-underline:focus { border-bottom-color: var(--pink); }
+
+    /* ── Navbar ── */
+    .site-nav { position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(35,13,24,.1); }
+    .navbar-brand-text { font-family: 'Bodoni Moda', serif; font-size: 16px; letter-spacing: .04em; color: var(--plum); text-decoration: none; font-weight: 700; }
+    .nav-link-item { font-size: 13px; font-weight: 500; color: rgba(35,13,24,.6); letter-spacing: .02em; text-decoration: none; }
+    .nav-link-item:hover { color: var(--magenta); }
+
+    /* ── Helpers ── */
+    .ratio-portrait { aspect-ratio: 3/4; width: 100%; object-fit: cover; object-position: top; display: block; }
+    .img-grayscale  { filter: grayscale(100%) contrast(1.05); }
+    .credential-list { font-size: 13px; line-height: 1.9; color: rgba(35,13,24,.6); }
+    .footer-link { font-size: 12px; color: rgba(255,255,255,.4); text-decoration: none; display: block; letter-spacing: .02em; }
+    .footer-link:hover { color: var(--pink); }
+    .text-white-40 { color: rgba(255,255,255,.4) !important; }
+    .text-white-40:hover { color: var(--pink) !important; }
+  </style>
+</head>
+<body class="bg-blush">
+
+  <!-- ── NAVBAR ── -->
+  <nav class="site-nav bg-blush">
+    <div class="d-flex align-items-center justify-content-between px-4 px-lg-5 py-4">
+      <a href="#" class="navbar-brand-text">The Pinkprint Lawyer</a>
+      <ul class="d-none d-lg-flex list-unstyled mb-0 gap-5">
+        <li><a href="#" class="nav-link-item">Home</a></li>
+        <li><a href="#" class="nav-link-item">About</a></li>
+        <li><a href="#" class="nav-link-item">Shop</a></li>
+        <li><a href="#" class="nav-link-item">Contact</a></li>
+        <li><a href="#" class="nav-link-item">Membership</a></li>
+        <li><a href="#" class="nav-link-item">Legal/Admin</a></li>
+      </ul>
+      <a href="#" class="btn-plum">Get the Guide</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="border-bottom border-plum-12">
+    <div class="row g-0 min-vh-100">
+
+      <!-- Left: text + CTAs -->
+      <div class="col-lg-6 d-flex flex-column justify-content-between p-4 p-lg-5 border-end border-plum-12">
+        <div>
+          <p class="label mb-4">First-Generation. Practicing. Prepared.</p>
+          <h1 class="hero-headline text-plum mb-0">
+            Your<br>
+            Pink<em class="text-magenta">print</em><br>
+            for Law<br>
+            School &amp;<br>
+            Beyond.
+          </h1>
+        </div>
+        <div>
+          <p class="body-text mb-4">
+            Practical, evidence-informed resources designed to help you move through law school — from pre-law to bar prep and beyond — with clarity and intention. This is not about perfection. It is about preparation.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#" class="btn-magenta">Start Here</a>
+            <a href="#" class="btn-outline-plum">Explore the Pinkprints</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: photo + stat bar -->
+      <div class="col-lg-6 d-flex flex-column position-relative">
+        <div class="position-relative flex-grow-1 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=900&q=85"
+               class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover img-grayscale"
+               alt="Attorney at work" />
+        </div>
+        <div class="row g-0 border-top border-plum-12 bg-blush flex-shrink-0">
+          <div class="col-4 p-4 border-end border-plum-12">
+            <div class="font-display fw-bold fs-2 text-plum lh-1">1K+</div>
+            <div class="label mt-2">Students Guided</div>
+          </div>
+          <div class="col-4 p-4 border-end border-plum-12">
+            <div class="font-display fw-bold fs-2 text-plum lh-1">4</div>
+            <div class="label mt-2">Pinkprints</div>
+          </div>
+          <div class="col-4 p-4">
+            <div class="font-display fw-bold fs-2 text-plum lh-1">J.D.</div>
+            <div class="label mt-2">Practicing Attorney</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section class="border-bottom border-plum-12">
+    <div class="row g-0">
+
+      <!-- Sidebar: photo + credentials -->
+      <div class="col-lg-3 border-end border-plum-12 d-flex flex-column">
+        <div class="p-4 p-lg-4 border-bottom border-plum-12">
+          <p class="label mb-3">About Shakierah</p>
+          <img src="https://cdn.rit.edu/images/news/2024-04/WEB-20240210_shakira-smith_nycalumniupdate_0011_jamod.jpg"
+               class="ratio-portrait img-grayscale"
+               alt="Shakierah Smith" />
+        </div>
+        <div class="p-4">
+          <p class="label mb-2">Credentials</p>
+          <p class="credential-list mb-0">
+            First-generation law graduate<br>
+            Practicing attorney<br>
+            Published researcher<br>
+            Dedicated mentor
+          </p>
+        </div>
+      </div>
+
+      <!-- Main content -->
+      <div class="col-lg-9 p-4 p-lg-5">
+        <span class="section-num d-block mb-0">01</span>
+        <h2 class="section-heading text-plum mb-4 mt-n3">About <em class="text-magenta">Shakierah</em></h2>
+        <p class="about-lead mb-4">Law school does not come with instructions. This is the roadmap.</p>
+        <p class="body-text mb-3">
+          Shakierah Smith is a first-generation law graduate, practicing attorney, and published researcher who has navigated every stage of the legal journey without a roadmap. She built The Pinkprint Lawyer to be the resource she wished she had — evidence-informed, honest, and grounded in the realities of what it takes to succeed.
+        </p>
+        <p class="body-text mb-0">
+          Her work sits at the intersection of academic strategy and professional development, with a commitment to mentoring those who are building a legal career without the benefit of family connections or institutional insiders.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── WHO THIS PLATFORM SERVES ── -->
+  <section class="border-bottom border-plum-12">
+
+    <!-- Section header -->
+    <div class="row g-0 border-bottom border-plum-12">
+      <div class="col-lg-6 p-4 p-lg-5 border-end border-plum-12">
+        <p class="label mb-3">Who This Platform Serves</p>
+        <h2 class="section-heading text-plum mb-0">Built for <em class="text-magenta">every</em><br>stage of the journey.</h2>
+      </div>
+      <div class="col-lg-6 p-4 p-lg-5 d-flex align-items-end">
+        <p class="body-text mb-0">
+          This platform is built for students who want direction without intimidation. There is already enough of that in law school.
+        </p>
+      </div>
+    </div>
+
+    <!-- 3-col audience cards -->
+    <div class="row g-0 border-bottom border-plum-12">
+      <div class="col-lg-4 p-4 p-lg-5 border-end border-plum-12">
+        <div class="card-num mb-3">01</div>
+        <p class="label mb-2">Pre-Law</p>
+        <h3 class="font-display fw-bold fs-4 text-plum mb-3">Aspiring Law Students</h3>
+        <p class="body-text mb-0">You are preparing for law school and want to make well-informed decisions before day one.</p>
+      </div>
+      <div class="col-lg-4 p-4 p-lg-5 border-end border-plum-12">
+        <div class="card-num mb-3">02</div>
+        <p class="label mb-2">Currently Enrolled</p>
+        <h3 class="font-display fw-bold fs-4 text-plum mb-3">Current Law Students</h3>
+        <p class="body-text mb-0">You are managing coursework, examinations, and professional opportunities — you want structure, not overwhelm.</p>
+      </div>
+      <div class="col-lg-4 p-4 p-lg-5">
+        <div class="card-num mb-3">03</div>
+        <p class="label mb-2">Post-Graduation</p>
+        <h3 class="font-display fw-bold fs-4 text-plum mb-3">Bar Candidates &amp; New Attorneys</h3>
+        <p class="body-text mb-0">You are transitioning into the profession and want to approach what comes next with confidence and clarity.</p>
+      </div>
+    </div>
+
+    <!-- CTA band -->
+    <div class="bg-magenta p-4 p-lg-5">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-4">
+          <p class="label label-muted-white mb-2">Not Sure Where to Start?</p>
+          <h3 class="heading-lg fst-italic text-white mb-0">We'll help you find your path.</h3>
+        </div>
+        <div class="col-lg-4">
+          <p class="text-white-75 mb-3">Answer a few simple questions and we'll point you to the right Pinkprint for your current season.</p>
+          <a href="#" class="btn-outline-white">Start Here →</a>
+        </div>
+        <div class="col-lg-4 d-none d-lg-flex justify-content-end align-items-center">
+          <span class="ghost-text">Pinkprint</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── FEATURED DIGITAL PRODUCTS ── -->
+  <section class="border-bottom border-plum-12">
+
+    <!-- Header row -->
+    <div class="d-flex align-items-end justify-content-between p-4 p-lg-5 border-bottom border-plum-12">
+      <div>
+        <p class="label mb-3">Featured Digital Products</p>
+        <h2 class="section-heading text-plum mb-0">
+          Each <em class="text-magenta">Pinkprint</em> is designed<br class="d-none d-lg-block">
+          for a specific stage.
+        </h2>
+      </div>
+      <a href="#" class="btn-outline-plum d-none d-lg-block flex-shrink-0 ms-4">View all Pinkprints</a>
+    </div>
+
+    <!-- Product cards: 6 / 3 / 3 -->
+    <div class="row g-0">
+      <div class="col-lg-6 bg-plum p-4 p-lg-5 d-flex flex-column gap-3 border-end border-white-10">
+        <span class="product-tag product-tag-light">Featured</span>
+        <h3 class="font-display fw-bold fs-3 text-white mb-0">The Pre-Law<br><em>Pinkprint</em></h3>
+        <p class="text-white-75 mb-0 flex-grow-1">
+          Everything you need to know before law school begins — decisions, timelines, and the questions most applicants forget to ask.
+        </p>
+        <div>
+          <a href="#" class="btn-outline-white">Get this Pinkprint</a>
+        </div>
+      </div>
+      <div class="col-lg-3 p-4 p-lg-5 d-flex flex-column gap-3 border-end border-plum-12">
+        <span class="product-tag">Popular</span>
+        <h3 class="font-display fw-bold text-plum mb-0">The 1L <em>Survival</em> Pinkprint</h3>
+        <p class="body-text mb-0 flex-grow-1">Study systems, exam strategy, and how to manage the first year without losing yourself in the process.</p>
+        <div>
+          <a href="#" class="btn-outline-plum">Explore</a>
+        </div>
+      </div>
+      <div class="col-lg-3 p-4 p-lg-5 d-flex flex-column gap-3">
+        <span class="product-tag">New</span>
+        <h3 class="font-display fw-bold text-plum mb-0">The Bar Prep <em>Pinkprint</em></h3>
+        <p class="body-text mb-0 flex-grow-1">A structured approach to bar preparation — pacing your study schedule and managing exam-day nerves.</p>
+        <div>
+          <a href="#" class="btn-outline-plum">Explore</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products intro note -->
+    <div class="p-4 p-lg-5 border-top border-plum-12">
+      <p class="body-text mb-0">
+        Each pinkprint is designed to address a specific stage of the law school journey, with clear takeaways and realistic strategies you can apply immediately. Resources cover pre-law preparation, law school study systems, examination preparation, internship positioning, career development, and post-graduate guidance.
+      </p>
+    </div>
+
+  </section>
+
+  <!-- ── PULL QUOTE ── -->
+  <div class="bg-plum border-bottom border-white-10 p-4 p-lg-5">
+    <div class="row align-items-start g-4">
+      <div class="col-auto">
+        <span class="quote-mark">&ldquo;</span>
+      </div>
+      <div class="col">
+        <p class="pull-quote text-white mb-0">
+          Law school does not reward confusion.<br>
+          It rewards <span class="text-pink">preparation.</span>
+        </p>
+      </div>
+      <div class="col-lg-3 d-none d-lg-block text-end pt-2">
+        <p class="label label-muted-white mb-2">From the community</p>
+        <p class="small text-white-40 mb-0 lh-lg">
+          "The Pinkprint changed how I approached finals week. I stopped guessing and started executing."
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── START HERE ── -->
+  <section class="border-bottom border-plum-12">
+
+    <!-- 3-col top: intro + 2 options -->
+    <div class="row g-0">
+      <div class="col-lg-4 p-4 p-lg-5 border-end border-plum-12 d-flex flex-column justify-content-between">
+        <div>
+          <p class="label mb-3">Find Your Path</p>
+          <h2 class="section-heading text-plum mb-3">
+            Not sure<br>which resource<br>is <em class="text-magenta">right for you?</em>
+          </h2>
+          <p class="body-text mb-0">
+            Start here. This section helps you identify exactly what you need based on where you are in your journey.
+          </p>
+        </div>
+        <div class="mt-4">
+          <a href="#" class="btn-magenta">Start Here →</a>
+        </div>
+      </div>
+      <div class="col-lg-4 p-4 p-lg-5 border-end border-plum-12 d-flex flex-column">
+        <div class="start-num mb-3">01</div>
+        <h3 class="font-display fw-bold fs-4 text-plum mb-3">New to Law School</h3>
+        <p class="body-text flex-grow-1 mb-4">
+          You are considering law school or preparing your application. You want to understand what's ahead before you commit.
+        </p>
+        <a href="#" class="btn-outline-plum">Get started</a>
+      </div>
+      <div class="col-lg-4 p-4 p-lg-5 d-flex flex-column">
+        <div class="start-num mb-3">02</div>
+        <h3 class="font-display fw-bold fs-4 text-plum mb-3">Currently Enrolled</h3>
+        <p class="body-text flex-grow-1 mb-4">
+          You are in law school right now and need a clearer system for studying, networking, and staying on track.
+        </p>
+        <a href="#" class="btn-outline-plum">Get started</a>
+      </div>
+    </div>
+
+    <!-- Full-width third option -->
+    <div class="row g-0 border-top border-plum-12 align-items-center p-4 p-lg-5">
+      <div class="col-auto me-4 me-lg-5 d-none d-lg-block">
+        <span class="start-num">03</span>
+      </div>
+      <div class="col">
+        <h3 class="font-display fw-bold fs-4 text-plum mb-2">Recently Graduated or Preparing for the Bar</h3>
+        <p class="body-text mb-0">
+          You have completed law school and are now preparing for the bar exam or transitioning into your first position in the profession. You want to approach what comes next with confidence and clarity.
+        </p>
+      </div>
+      <div class="col-auto ms-4 d-none d-lg-block">
+        <a href="#" class="btn-outline-plum">Get started</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── EMAIL OPT-IN ── -->
+  <section class="border-bottom border-plum-12">
+    <div class="row g-0">
+
+      <!-- Left: copy -->
+      <div class="col-lg-6 bg-magenta p-4 p-lg-5 d-flex flex-column justify-content-between">
+        <div>
+          <p class="label label-muted-white mb-3">Free Resource</p>
+          <h2 class="heading-lg fst-italic text-white mb-4">The checklist law school never gave you.</h2>
+          <p class="text-white-75 mb-0">
+            A practical checklist covering what is often left unsaid, so you can prepare with intention and confidence. Know what to expect, what to prepare, and what most students wish they had done before day one.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="col-lg-6 bg-plum p-4 p-lg-5 d-flex flex-column justify-content-center">
+        <p class="label label-muted-white mb-4">Get the free checklist</p>
+        <form onsubmit="return false" class="d-flex flex-column gap-3">
+          <input type="text"  class="input-underline" placeholder="First name" />
+          <input type="email" class="input-underline" placeholder="Email address" />
+          <div class="pt-2">
+            <button class="btn-pink">Send it to me</button>
+          </div>
+          <p class="small text-white-40 mb-0">No spam. One email. Unsubscribe anytime.</p>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="bg-plum">
+
+    <!-- Watermark headline -->
+    <div class="p-4 p-lg-5 border-bottom border-white-10">
+      <p class="footer-watermark mb-0">
+        Your <span>Pinkprint</span> for Law School, the Bar, and Beyond.
+      </p>
+    </div>
+
+    <!-- Footer grid -->
+    <div class="row g-0 p-4 p-lg-5">
+      <div class="col-lg-3 pe-lg-5 mb-4 mb-lg-0">
+        <div class="font-display fw-bold text-white mb-2">The Pinkprint Lawyer</div>
+        <p class="small text-white-40 mb-0 lh-lg">
+          Practical, evidence-informed guidance for every stage of the law school journey. Built by a first-generation attorney, for the next generation.
+        </p>
+      </div>
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <div class="row g-3">
+          <div class="col-4"><a href="#" class="footer-link">Home</a></div>
+          <div class="col-4"><a href="#" class="footer-link">About</a></div>
+          <div class="col-4"><a href="#" class="footer-link">Shop</a></div>
+          <div class="col-4"><a href="#" class="footer-link">Membership</a></div>
+          <div class="col-4"><a href="#" class="footer-link">Contact</a></div>
+          <div class="col-4"><a href="#" class="footer-link">Legal/Admin</a></div>
+        </div>
+      </div>
+      <div class="col-lg-3 text-lg-end">
+        <p class="small text-white-40 mb-0 lh-lg">
+          &copy; 2025 The Pinkprint Lawyer<br>All rights reserved.
+        </p>
+      </div>
+    </div>
+
+  </footer>
+
+</body>
+</html>

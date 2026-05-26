@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Pinkprint Lawyer — Mockup 1: Light Editorial</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Brand tokens ── */
+    :root {
+      --pink-light: #ff89c5;
+      --pink-tint:  #ffeaf4;
+      --pink-tint-mid: #fbd6e9;
+      --pink-deep:  #c43670;
+      --blush:      #faf4f7;
+      --blush-mid:  #f2e4ec;
+      --plum:       #230d18;
+      --plum-mid:   #3d1a2e;
+      --plum-soft:  #4f2240;
+      --muted-pp:   #8a6a7a;
+    }
+
+    /* ── Color utilities Bootstrap doesn't cover ── */
+    .bg-plum       { background-color: var(--plum) !important; }
+    .bg-plum-mid   { background-color: var(--plum-mid) !important; }
+    .bg-rose       { background-color: var(--pink-deep) !important; }
+    .bg-pink-tint  { background-color: var(--pink-tint) !important; }
+    .bg-blush      { background-color: var(--blush) !important; }
+    .bg-blush-mid  { background-color: var(--blush-mid) !important; }
+    .text-plum     { color: var(--plum) !important; }
+    .text-rose     { color: var(--pink-deep) !important; }
+    .text-pink     { color: var(--pink-light) !important; }
+    .text-muted-pp { color: var(--muted-pp) !important; }
+    .text-light-75 { color: rgba(255,255,255,0.75) !important; }
+    .text-light-50 { color: rgba(255,255,255,0.5) !important; }
+    .border-blush  { border-color: var(--blush-mid) !important; }
+
+    /* ── Typography ── */
+    body          { font-family: 'DM Sans', sans-serif; }
+    h1,h2,h3,h4,h5,blockquote { font-family: 'Playfair Display', serif; }
+    .ls-wide      { letter-spacing: 2px; }
+    .ls-tight     { letter-spacing: -0.025em; }
+
+    /* ── Nav ── */
+    .navbar-blur  { backdrop-filter: blur(12px); }
+
+    /* ── Buttons (brand colours) ── */
+    .btn-plum     { background-color: var(--plum); color: #fff; border: none; }
+    .btn-plum:hover { background-color: var(--pink-deep); color: #fff; }
+    .btn-outline-plum { background: transparent; color: var(--plum); border: 2px solid var(--plum); }
+    .btn-outline-plum:hover { background-color: var(--plum); color: #fff; }
+    .btn-rose     { background-color: var(--pink-deep); color: #fff; border: none; }
+    .btn-rose:hover { background-color: var(--plum); color: #fff; }
+    .btn-ghost-light { background: transparent; color: var(--plum); border: 1.5px solid var(--blush-mid); }
+    .btn-ghost-light:hover { border-color: var(--pink-deep); color: var(--pink-deep); }
+    .btn-outline-light { background: transparent; color: var(--pink-light); border: 1.5px solid rgba(255,137,197,0.4); }
+    .btn-outline-light:hover { background-color: var(--pink-deep); color: #fff; border-color: var(--pink-deep); }
+    .btn-white    { background-color: #fff; color: var(--pink-deep); border: none; }
+    .btn-white:hover { background-color: var(--blush); color: var(--plum); }
+
+    /* ── Icon containers ── */
+    .icon-wrap-tint  { background-color: var(--pink-tint); color: var(--pink-deep); }
+    .icon-wrap-white { background-color: #fff; color: var(--pink-deep); }
+    .icon-wrap-dim   { background-color: rgba(255,137,197,0.15); color: var(--pink-light); }
+    .icon-wrap-ghost { background-color: rgba(255,255,255,0.2); color: #fff; }
+
+    /* ── Hero image ── */
+    .hero-img { width: 100%; height: 540px; object-fit: cover; object-position: top;
+                filter: sepia(0.8) saturate(3) hue-rotate(280deg) brightness(1.05);
+                mix-blend-mode: multiply; display: block; }
+
+    /* ── About image ── */
+    .about-img { width: 100%; height: 520px; object-fit: cover; object-position: top center; display: block; }
+
+    /* ── Card hover lift ── */
+    .card-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-lift:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(35,13,24,0.1); }
+
+    /* ── Inline card link ── */
+    .card-link { font-size: 14px; font-weight: 600; color: var(--pink-deep); text-decoration: none; }
+    .card-link:hover { color: var(--plum); }
+    .card-link-light { font-size: 14px; font-weight: 600; color: #fff; text-decoration: none; }
+    .card-link-light:hover { color: var(--pink-light); }
+
+    /* ── Opt-in input ── */
+    .optin-input { background-color: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15); border-right: none; border-radius: 10px 0 0 10px; padding: 14px 20px; font-size: 15px; color: #fff; width: 100%; }
+    .optin-input::placeholder { color: rgba(255,255,255,0.35); }
+    .optin-input:focus { outline: none; border-color: var(--pink-light); }
+    .btn-optin { background-color: var(--pink-deep); color: #fff; font-size: 15px; font-weight: 600; border-radius: 0 10px 10px 0; padding: 14px 24px; border: none; white-space: nowrap; }
+    .btn-optin:hover { background-color: var(--pink-light); color: var(--plum); }
+
+    /* ── About credential row ── */
+    .cred-row + .cred-row { border-top: 1px solid rgba(255,255,255,0.08); }
+  </style>
+</head>
+<body class="bg-white">
+
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg sticky-top py-3 bg-white border-bottom border-blush">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (1).png" alt="The Pinkprint Lawyer" height="46" />
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNav" aria-label="Open navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center">
+        <ul class="navbar-nav gap-4">
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px" href="#">Resources</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px" href="#">The Pinkprints</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px" href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="d-none d-lg-flex align-items-center gap-2">
+        <a href="#" class="btn btn-ghost-light rounded-3 px-4 py-2 fw-semibold" style="font-size:14px">Log In</a>
+        <a href="#" class="btn btn-rose rounded-3 px-4 py-2 fw-semibold" style="font-size:14px">Start Here</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- OFFCANVAS MOBILE NAV -->
+  <div class="offcanvas offcanvas-end bg-blush" tabindex="-1" id="mobileNav">
+    <div class="offcanvas-header bg-blush">
+      <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (1).png" alt="The Pinkprint Lawyer" height="40" />
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column gap-3 pt-4">
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">Resources</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">The Pinkprints</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">About</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">Blog</a>
+      <div class="d-flex flex-column gap-2 mt-3">
+        <a href="#" class="btn btn-ghost-light rounded-3 py-2 fw-semibold">Log In</a>
+        <a href="#" class="btn btn-rose rounded-3 py-2 fw-semibold">Start Here</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="py-5 py-lg-6 bg-white" style="padding-top:96px!important;padding-bottom:96px!important">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <span class="d-inline-flex align-items-center gap-2 bg-pink-tint text-rose rounded-pill px-3 py-2 fw-semibold mb-4" style="font-size:13px">
+            <i class="bi bi-patch-check-fill"></i> Practicing Attorney &amp; Mentor
+          </span>
+          <h1 class="display-4 fw-semibold text-plum ls-tight lh-sm mb-4">Your <em class="text-rose">Pinkprint</em> for Law School, the Bar, and Beyond.</h1>
+          <p class="lead text-plum mb-5" style="font-family:'DM Sans',sans-serif; line-height:1.7">I am Shakierah Smith — a first-generation law graduate, practicing attorney, and dedicated mentor for students navigating law school and the legal profession with clarity, confidence, and intention.</p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#" class="btn btn-plum rounded-3 px-4 py-3 fw-semibold">Start Here <i class="bi bi-arrow-right ms-1"></i></a>
+            <a href="#" class="btn btn-outline-plum rounded-3 px-4 py-3 fw-semibold">Explore the Pinkprints</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="rounded-5 overflow-hidden bg-blush-mid">
+            <img src="https://images.unsplash.com/vector-1775025870074-892399cbf787?q=80&w=1172&auto=format&fit=crop" alt="Legal scales of justice illustration" class="hero-img" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDENTIAL BAR -->
+  <div class="bg-pink-tint border-top border-bottom border-blush py-3">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between gap-3">
+        <span class="d-flex align-items-center gap-2 fw-medium text-plum" style="font-size:13px"><i class="bi bi-award-fill text-rose"></i> First-Generation Graduate</span>
+        <span class="d-none d-md-block bg-pink-tint-mid" style="width:1px;height:20px"></span>
+        <span class="d-flex align-items-center gap-2 fw-medium text-plum" style="font-size:13px"><i class="bi bi-briefcase-fill text-rose"></i> Practicing Attorney</span>
+        <span class="d-none d-md-block" style="width:1px;height:20px;background:var(--pink-tint-mid)"></span>
+        <span class="d-flex align-items-center gap-2 fw-medium text-plum" style="font-size:13px"><i class="bi bi-journal-richtext text-rose"></i> Published Researcher</span>
+        <span class="d-none d-md-block" style="width:1px;height:20px;background:var(--pink-tint-mid)"></span>
+        <span class="d-flex align-items-center gap-2 fw-medium text-plum" style="font-size:13px"><i class="bi bi-people-fill text-rose"></i> Dedicated Mentor</span>
+        <span class="d-none d-md-block" style="width:1px;height:20px;background:var(--pink-tint-mid)"></span>
+        <span class="d-flex align-items-center gap-2 fw-medium text-plum" style="font-size:13px"><i class="bi bi-book-fill text-rose"></i> Author</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHO IT'S FOR -->
+  <section class="bg-blush" style="padding:96px 0">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="text-rose fw-semibold text-uppercase ls-wide mb-2" style="font-size:11px">Who This Platform Serves</p>
+        <h2 class="text-plum ls-tight mb-3">Built for every stage<br class="d-none d-md-block" /> of the legal journey.</h2>
+        <p class="mx-auto text-muted-pp" style="max-width:520px;font-size:16px;line-height:1.7">Built for students who want direction without intimidation. There is already enough of that in law school.</p>
+      </div>
+      <div class="row g-4">
+
+        <div class="col-md-4">
+          <div class="bg-white rounded-4 p-4 h-100 d-flex flex-column">
+            <div class="icon-wrap-tint rounded-3 d-flex align-items-center justify-content-center mb-4 flex-shrink-0" style="width:56px;height:56px">
+              <i class="bi bi-mortarboard-fill fs-4"></i>
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2" style="font-size:11px">01 — Aspiring</p>
+            <h3 class="text-plum mb-3" style="font-size:1.3rem">Pre-Law Students</h3>
+            <p class="text-plum mb-4" style="font-size:15px;line-height:1.65">You are preparing for law school and want to make well-informed decisions before day one. This is your foundation.</p>
+            <div class="mt-auto">
+              <span class="d-inline-flex align-items-center gap-2 bg-blush text-muted-pp rounded-pill px-3 py-2 fw-semibold" style="font-size:12px">
+                <i class="bi bi-arrow-right-circle"></i> Pre-Law Pinkprint
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="bg-white rounded-4 p-4 h-100 d-flex flex-column">
+            <div class="icon-wrap-tint rounded-3 d-flex align-items-center justify-content-center mb-4 flex-shrink-0" style="width:56px;height:56px">
+              <i class="bi bi-book-fill fs-4"></i>
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2" style="font-size:11px">02 — Current</p>
+            <h3 class="text-plum mb-3" style="font-size:1.3rem">Law Students</h3>
+            <p class="text-plum mb-4" style="font-size:15px;line-height:1.65">You are managing coursework, examinations, and professional opportunities. You want structure, not overwhelm.</p>
+            <div class="mt-auto">
+              <span class="d-inline-flex align-items-center gap-2 bg-blush text-muted-pp rounded-pill px-3 py-2 fw-semibold" style="font-size:12px">
+                <i class="bi bi-arrow-right-circle"></i> Study System
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="bg-white rounded-4 p-4 h-100 d-flex flex-column">
+            <div class="icon-wrap-tint rounded-3 d-flex align-items-center justify-content-center mb-4 flex-shrink-0" style="width:56px;height:56px">
+              <i class="bi bi-briefcase-fill fs-4"></i>
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2" style="font-size:11px">03 — Graduates</p>
+            <h3 class="text-plum mb-3" style="font-size:1.3rem">Bar Candidates</h3>
+            <p class="text-plum mb-4" style="font-size:15px;line-height:1.65">You are transitioning into the profession and want to approach what comes next with confidence and clarity.</p>
+            <div class="mt-auto">
+              <span class="d-inline-flex align-items-center gap-2 bg-blush text-muted-pp rounded-pill px-3 py-2 fw-semibold" style="font-size:12px">
+                <i class="bi bi-arrow-right-circle"></i> Bar Prep Guide
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SHAKIERAH -->
+  <section class="bg-plum" style="padding:96px 0">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-5">
+          <div class="rounded-4 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80" alt="Shakierah Smith, Attorney" class="about-img" />
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <p class="text-pink fw-semibold text-uppercase ls-wide mb-3" style="font-size:11px">Meet Shakierah Smith</p>
+          <h2 class="text-white ls-tight mb-4">A roadmap built from<br class="d-none d-lg-block" /> lived experience.</h2>
+          <p class="text-light-75 mb-4" style="font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.75">Shakierah Smith is a first-generation law graduate, practicing attorney, and published researcher who has navigated every stage of the legal journey without a roadmap. She built The Pinkprint Lawyer to be the resource she wished she had — evidence-informed, honest, and grounded in the realities of what it takes to succeed.</p>
+          <p class="text-light-75 mb-5" style="font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.75">Her work sits at the intersection of academic strategy and professional development, with a commitment to mentoring those who are building a legal career without the benefit of family connections or institutional insiders.</p>
+
+          <div class="mb-5">
+            <div class="cred-row d-flex align-items-start gap-3 py-3">
+              <div class="icon-wrap-dim rounded-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width:40px;height:40px"><i class="bi bi-award-fill" style="font-size:18px"></i></div>
+              <div><div class="text-white fw-semibold mb-1" style="font-size:14px">Juris Doctor (J.D.)</div><div class="text-light-50" style="font-size:13px">First-generation law graduate</div></div>
+            </div>
+            <div class="cred-row d-flex align-items-start gap-3 py-3">
+              <div class="icon-wrap-dim rounded-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width:40px;height:40px"><i class="bi bi-briefcase-fill" style="font-size:18px"></i></div>
+              <div><div class="text-white fw-semibold mb-1" style="font-size:14px">Practicing Attorney</div><div class="text-light-50" style="font-size:13px">Active member of the bar</div></div>
+            </div>
+            <div class="cred-row d-flex align-items-start gap-3 py-3">
+              <div class="icon-wrap-dim rounded-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width:40px;height:40px"><i class="bi bi-journal-richtext" style="font-size:18px"></i></div>
+              <div><div class="text-white fw-semibold mb-1" style="font-size:14px">Published Researcher</div><div class="text-light-50" style="font-size:13px">Evidence-informed frameworks for legal education</div></div>
+            </div>
+            <div class="cred-row d-flex align-items-start gap-3 py-3">
+              <div class="icon-wrap-dim rounded-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width:40px;height:40px"><i class="bi bi-book-fill" style="font-size:18px"></i></div>
+              <div><div class="text-white fw-semibold mb-1" style="font-size:14px">Author — The Law School Pinkprint</div><div class="text-light-50" style="font-size:13px">Available now in print and digital</div></div>
+            </div>
+          </div>
+
+          <a href="#" class="btn btn-outline-light rounded-3 px-4 py-3 fw-semibold">Read the Full Story <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="bg-white" style="padding:96px 0">
+    <div class="container">
+      <div class="row align-items-end mb-5">
+        <div class="col-md-8">
+          <p class="text-rose fw-semibold text-uppercase ls-wide mb-2" style="font-size:11px">Featured Digital Products</p>
+          <h2 class="text-plum ls-tight">Each pinkprint addresses a specific<br class="d-none d-md-block" /> stage of your journey.</h2>
+        </div>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+          <a href="#" class="btn btn-outline-plum rounded-3 px-4 py-3 fw-semibold">View All Resources</a>
+        </div>
+      </div>
+      <div class="row g-4">
+
+        <div class="col-sm-6 col-lg-3">
+          <div class="bg-blush rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div class="icon-wrap-white rounded-3 d-flex align-items-center justify-content-center mb-4 flex-shrink-0" style="width:52px;height:52px">
+              <i class="bi bi-journal-bookmark-fill" style="font-size:22px"></i>
+            </div>
+            <p class="text-muted-pp fw-semibold text-uppercase ls-wide mb-2" style="font-size:11px">Stage 01 · Aspiring</p>
+            <h4 class="text-plum mb-3" style="font-size:1.15rem">Pre-Law Preparation</h4>
+            <p class="text-plum mb-4" style="font-size:14px;line-height:1.65;font-family:'DM Sans',sans-serif">Planning tools for prospective students making evidence-informed decisions before day one.</p>
+            <span class="d-inline-flex align-items-center gap-2 bg-pink-tint text-rose rounded-pill px-3 py-2 fw-semibold mb-4" style="font-size:12px"><i class="bi bi-lightning-fill"></i> Foundation</span>
+            <div class="mt-auto">
+              <a href="#" class="card-link d-inline-flex align-items-center gap-2">Get This Pinkprint <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <div class="bg-rose rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div class="icon-wrap-ghost rounded-3 d-flex align-items-center justify-content-center mb-4 flex-shrink-0" style="width:52px;height:52px">
+              <i class="bi bi-book-fill text-white" style="font-size:22px"></i>
+            </div>
+            <p class="fw-semibold text-uppercase ls-wide mb-2 text-light-50" style="font-size:11px">Stage 02 · Current</p>
+            <h4 class="text-white mb-3" style="font-size:1.15rem">Law School Study System</h4>
+            <p class="text-light-75 mb-4" style="font-size:14px;line-height:1.65;font-family:'DM Sans',sans-serif">Academic strategy and study frameworks designed to help you perform at your best without the overwhelm.</p>
+            <span class="d-inline-flex align-items-center gap-2 rounded-pill px-3 py-2 fw-semibold mb-4" style="font-size:12px;background:rgba(255,255,255,0.2);color:#fff"><i class="bi bi-star-fill"></i> Most Popular</span>
+            <div class="mt-auto">
+              <a href="#" class="card-link-light d-inline-flex align-items-center gap-2">Get This Pinkprint <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <div class="bg-blush rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div class="icon-wrap-white rounded-3 d-flex align-items-center justify-content-center mb-4 flex-shrink-0" style="width:52px;height:52px">
+              <i class="bi bi-clipboard2-check-fill" style="font-size:22px"></i>
+            </div>
+            <p class="text-muted-pp fw-semibold text-uppercase ls-wide mb-2" style="font-size:11px">Stage 03 · Graduates</p>
+            <h4 class="text-plum mb-3" style="font-size:1.15rem">Bar Exam &amp; Career Prep</h4>
+            <p class="text-plum mb-4" style="font-size:14px;line-height:1.65;font-family:'DM Sans',sans-serif">Examination preparation, internship positioning, and career development for the next stage.</p>
+            <span class="d-inline-flex align-items-center gap-2 bg-pink-tint text-rose rounded-pill px-3 py-2 fw-semibold mb-4" style="font-size:12px"><i class="bi bi-check-circle-fill"></i> Comprehensive</span>
+            <div class="mt-auto">
+              <a href="#" class="card-link d-inline-flex align-items-center gap-2">Get This Pinkprint <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <div class="bg-blush rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div class="icon-wrap-white rounded-3 d-flex align-items-center justify-content-center mb-4 flex-shrink-0" style="width:52px;height:52px">
+              <i class="bi bi-briefcase-fill" style="font-size:22px"></i>
+            </div>
+            <p class="text-muted-pp fw-semibold text-uppercase ls-wide mb-2" style="font-size:11px">Stage 04 · Attorneys</p>
+            <h4 class="text-plum mb-3" style="font-size:1.15rem">Early Career Guidance</h4>
+            <p class="text-plum mb-4" style="font-size:14px;line-height:1.65;font-family:'DM Sans',sans-serif">Post-graduate and early-career resources for attorneys entering the profession with confidence.</p>
+            <span class="d-inline-flex align-items-center gap-2 bg-pink-tint text-rose rounded-pill px-3 py-2 fw-semibold mb-4" style="font-size:12px"><i class="bi bi-graph-up-arrow"></i> Career-Focused</span>
+            <div class="mt-auto">
+              <a href="#" class="card-link d-inline-flex align-items-center gap-2">Get This Pinkprint <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="bg-pink-tint" style="padding:96px 0">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="text-rose fw-semibold text-uppercase ls-wide mb-2" style="font-size:11px">How It Works</p>
+        <h2 class="text-plum ls-tight mb-3">Three steps to moving forward<br class="d-none d-md-block" /> with clarity.</h2>
+        <p class="mx-auto text-muted-pp" style="max-width:480px;font-size:16px;line-height:1.7">This is not about perfection. It is about preparation — one intentional step at a time.</p>
+      </div>
+      <div class="row g-4">
+
+        <div class="col-md-4">
+          <div class="bg-white rounded-4 p-4 h-100 d-flex flex-column">
+            <div class="fw-semibold text-plum mb-4" style="font-family:'Playfair Display',serif;font-size:3rem;line-height:1;opacity:0.15">01</div>
+            <div class="icon-wrap-tint rounded-3 d-flex align-items-center justify-content-center mb-4 flex-shrink-0" style="width:52px;height:52px">
+              <i class="bi bi-compass-fill" style="font-size:22px"></i>
+            </div>
+            <h4 class="text-plum mb-3" style="font-size:1.2rem">Find Your Stage</h4>
+            <p class="text-plum mb-0" style="font-size:15px;line-height:1.65;font-family:'DM Sans',sans-serif">Identify where you are in your legal journey — pre-law, enrolled, or post-graduate. This determines everything that follows.</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="bg-white rounded-4 p-4 h-100 d-flex flex-column">
+            <div class="fw-semibold text-plum mb-4" style="font-family:'Playfair Display',serif;font-size:3rem;line-height:1;opacity:0.15">02</div>
+            <div class="icon-wrap-tint rounded-3 d-flex align-items-center justify-content-center mb-4 flex-shrink-0" style="width:52px;height:52px">
+              <i class="bi bi-map-fill" style="font-size:22px"></i>
+            </div>
+            <h4 class="text-plum mb-3" style="font-size:1.2rem">Choose Your Pinkprint</h4>
+            <p class="text-plum mb-0" style="font-size:15px;line-height:1.65;font-family:'DM Sans',sans-serif">Select the resource that fits your current season. Each pinkprint is purpose-built with clear takeaways you can apply immediately.</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="bg-white rounded-4 p-4 h-100 d-flex flex-column">
+            <div class="fw-semibold text-plum mb-4" style="font-family:'Playfair Display',serif;font-size:3rem;line-height:1;opacity:0.15">03</div>
+            <div class="icon-wrap-tint rounded-3 d-flex align-items-center justify-content-center mb-4 flex-shrink-0" style="width:52px;height:52px">
+              <i class="bi bi-rocket-takeoff-fill" style="font-size:22px"></i>
+            </div>
+            <h4 class="text-plum mb-3" style="font-size:1.2rem">Move with Clarity</h4>
+            <p class="text-plum mb-0" style="font-size:15px;line-height:1.65;font-family:'DM Sans',sans-serif">Apply the strategies, follow the frameworks, and advance through your legal education with intention — not guesswork.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="bg-blush" style="padding:96px 0">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="text-rose fw-semibold text-uppercase ls-wide mb-2" style="font-size:11px">Student Stories</p>
+        <h2 class="text-plum ls-tight">Real students. Real results.</h2>
+      </div>
+      <div class="row g-4">
+
+        <div class="col-md-4">
+          <div class="bg-white rounded-4 p-4 h-100 d-flex flex-column">
+            <div class="text-rose mb-3" style="font-size:13px;letter-spacing:2px">★★★★★</div>
+            <i class="bi bi-quote text-pink mb-3" style="font-size:28px"></i>
+            <blockquote class="fst-italic text-plum mb-4 flex-grow-1" style="font-size:1.05rem;line-height:1.65">"The Pinkprint gave me a framework I could actually use. I went into my 1L year knowing exactly what to expect and how to handle it."</blockquote>
+            <div class="d-flex align-items-center gap-3 mt-auto">
+              <div class="icon-wrap-tint rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width:44px;height:44px"><i class="bi bi-person-fill" style="font-size:20px"></i></div>
+              <div>
+                <div class="text-plum fw-semibold" style="font-size:14px">Alicia M.</div>
+                <div class="text-muted-pp" style="font-size:12px">1L · Howard University School of Law</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="bg-white rounded-4 p-4 h-100 d-flex flex-column">
+            <div class="text-rose mb-3" style="font-size:13px;letter-spacing:2px">★★★★★</div>
+            <i class="bi bi-quote text-pink mb-3" style="font-size:28px"></i>
+            <blockquote class="fst-italic text-plum mb-4 flex-grow-1" style="font-size:1.05rem;line-height:1.65">"As a first-generation student, I had no idea what I didn't know. This platform filled every gap — from study strategy to understanding the bar process."</blockquote>
+            <div class="d-flex align-items-center gap-3 mt-auto">
+              <div class="icon-wrap-tint rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width:44px;height:44px"><i class="bi bi-person-fill" style="font-size:20px"></i></div>
+              <div>
+                <div class="text-plum fw-semibold" style="font-size:14px">Jordan T.</div>
+                <div class="text-muted-pp" style="font-size:12px">2L · Temple University Beasley School of Law</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="bg-white rounded-4 p-4 h-100 d-flex flex-column">
+            <div class="text-rose mb-3" style="font-size:13px;letter-spacing:2px">★★★★★</div>
+            <i class="bi bi-quote text-pink mb-3" style="font-size:28px"></i>
+            <blockquote class="fst-italic text-plum mb-4 flex-grow-1" style="font-size:1.05rem;line-height:1.65">"The bar prep pinkprint helped me structure my schedule and approach the exam with confidence instead of panic. Genuinely life-changing."</blockquote>
+            <div class="d-flex align-items-center gap-3 mt-auto">
+              <div class="icon-wrap-tint rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width:44px;height:44px"><i class="bi bi-person-fill" style="font-size:20px"></i></div>
+              <div>
+                <div class="text-plum fw-semibold" style="font-size:14px">Danielle R.</div>
+                <div class="text-muted-pp" style="font-size:12px">Recent Graduate · Bar Candidate</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- START HERE -->
+  <section class="bg-rose" style="padding:96px 0">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="fw-semibold text-uppercase ls-wide mb-2 text-white" style="font-size:11px;opacity:0.6">Find Your Path</p>
+        <h2 class="text-white ls-tight mb-3">Not sure where to start?</h2>
+        <p class="mx-auto text-white" style="max-width:560px;font-size:17px;line-height:1.65;opacity:0.75">Choose your current stage and we'll point you to exactly what you need.</p>
+      </div>
+      <div class="row g-4 mb-5">
+
+        <div class="col-md-4">
+          <div class="rounded-4 p-4 h-100 d-flex flex-column" style="background:rgba(255,255,255,0.12);backdrop-filter:blur(8px)">
+            <div class="icon-wrap-ghost rounded-3 d-flex align-items-center justify-content-center mb-4 flex-shrink-0" style="width:52px;height:52px">
+              <i class="bi bi-mortarboard-fill text-white" style="font-size:22px"></i>
+            </div>
+            <span class="d-inline-flex align-items-center rounded-pill px-3 py-2 fw-semibold mb-3 text-white text-uppercase ls-wide" style="font-size:11px;background:rgba(255,255,255,0.2)">New to Law School</span>
+            <h4 class="text-white mb-3" style="font-size:1.2rem">Just Getting Started</h4>
+            <p class="text-white mb-4" style="font-size:14px;line-height:1.65;opacity:0.75;font-family:'DM Sans',sans-serif">Explore the Pre-Law Pinkprint and foundation resources designed to set you up before day one.</p>
+            <a href="#" class="card-link-light d-inline-flex align-items-center gap-2 mt-auto">Explore Pre-Law Resources <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="rounded-4 p-4 h-100 d-flex flex-column" style="background:rgba(255,255,255,0.12);backdrop-filter:blur(8px)">
+            <div class="icon-wrap-ghost rounded-3 d-flex align-items-center justify-content-center mb-4 flex-shrink-0" style="width:52px;height:52px">
+              <i class="bi bi-book-fill text-white" style="font-size:22px"></i>
+            </div>
+            <span class="d-inline-flex align-items-center rounded-pill px-3 py-2 fw-semibold mb-3 text-white text-uppercase ls-wide" style="font-size:11px;background:rgba(255,255,255,0.2)">Currently Enrolled</span>
+            <h4 class="text-white mb-3" style="font-size:1.2rem">In the Middle of It</h4>
+            <p class="text-white mb-4" style="font-size:14px;line-height:1.65;opacity:0.75;font-family:'DM Sans',sans-serif">Find study systems, academic strategy guides, and exam prep frameworks built for active students.</p>
+            <a href="#" class="card-link-light d-inline-flex align-items-center gap-2 mt-auto">Explore Study Resources <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="rounded-4 p-4 h-100 d-flex flex-column" style="background:rgba(255,255,255,0.12);backdrop-filter:blur(8px)">
+            <div class="icon-wrap-ghost rounded-3 d-flex align-items-center justify-content-center mb-4 flex-shrink-0" style="width:52px;height:52px">
+              <i class="bi bi-clipboard2-check-fill text-white" style="font-size:22px"></i>
+            </div>
+            <span class="d-inline-flex align-items-center rounded-pill px-3 py-2 fw-semibold mb-3 text-white text-uppercase ls-wide" style="font-size:11px;background:rgba(255,255,255,0.2)">Post-Graduate</span>
+            <h4 class="text-white mb-3" style="font-size:1.2rem">Preparing for the Bar</h4>
+            <p class="text-white mb-4" style="font-size:14px;line-height:1.65;opacity:0.75;font-family:'DM Sans',sans-serif">Access bar prep frameworks and early-career transition tools for graduates entering the profession.</p>
+            <a href="#" class="card-link-light d-inline-flex align-items-center gap-2 mt-auto">Explore Bar &amp; Career Prep <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+      </div>
+      <div class="text-center">
+        <a href="#" class="btn btn-white rounded-3 px-4 py-3 fw-semibold">Start Here — Take the Quiz <i class="bi bi-arrow-right ms-1"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMAIL OPT-IN -->
+  <section class="bg-plum" style="padding:96px 0">
+    <div class="container">
+      <div class="bg-plum-mid rounded-5 p-5">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6">
+            <p class="text-pink fw-semibold text-uppercase ls-wide mb-3" style="font-size:11px">Free Resource</p>
+            <h2 class="text-white ls-tight mb-3">Get the Free Checklist</h2>
+            <p class="text-light-75 mb-0" style="font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7">A practical checklist covering what is often left unsaid — so you can prepare with intention and confidence.</p>
+          </div>
+          <div class="col-lg-6">
+            <div class="d-flex mb-2">
+              <input type="email" class="optin-input" placeholder="Enter your email address" aria-label="Email address" />
+              <button class="btn-optin">Get It Free</button>
+            </div>
+            <p class="text-light-50 mb-0" style="font-size:12px"><i class="bi bi-shield-check me-1"></i> No spam. Unsubscribe anytime.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-top border-blush" style="padding:64px 0 32px">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-4">
+          <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (1).png" alt="The Pinkprint Lawyer" height="42" />
+          <p class="text-muted-pp mt-3 mb-3" style="font-size:14px;line-height:1.6">Your roadmap through law school<br />and into the profession.</p>
+          <div class="d-flex gap-2">
+            <a href="#" aria-label="Instagram" class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none" style="width:36px;height:36px"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn" class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none" style="width:36px;height:36px"><i class="bi bi-linkedin"></i></a>
+            <a href="#" aria-label="TikTok" class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none" style="width:36px;height:36px"><i class="bi bi-tiktok"></i></a>
+            <a href="#" aria-label="YouTube" class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none" style="width:36px;height:36px"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3" style="font-size:11px">Resources</p>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2" style="font-size:14px">The Pinkprints</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2" style="font-size:14px">Blog</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2" style="font-size:14px">Free Checklist</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2" style="font-size:14px">Start Here Quiz</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3" style="font-size:11px">About</p>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2" style="font-size:14px">Shakierah Smith</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2" style="font-size:14px">Our Mission</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2" style="font-size:14px">The Book</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2" style="font-size:14px">Press</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3" style="font-size:11px">Connect</p>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2" style="font-size:14px">Instagram</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2" style="font-size:14px">LinkedIn</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2" style="font-size:14px">Newsletter</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2" style="font-size:14px">Contact</a>
+        </div>
+      </div>
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 border-top border-blush pt-4 mt-5">
+        <p class="text-muted-pp mb-0" style="font-size:13px">© 2025 The Pinkprint Lawyer. All rights reserved.</p>
+        <div class="d-flex gap-4">
+          <a href="#" class="text-muted-pp text-decoration-none" style="font-size:13px">Privacy Policy</a>
+          <a href="#" class="text-muted-pp text-decoration-none" style="font-size:13px">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

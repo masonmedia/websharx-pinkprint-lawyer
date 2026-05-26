@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Pinkprint Lawyer — Mockup 4: Editorial</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Bodoni Moda ≈ Alga | Jost ≈ Agenda -->
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink:    #ff89c5;
+      --magenta: #c43670;
+      --blush:   #faf4f7;
+      --plum:    #230d18;
+      --white:   #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background-color: var(--blush);
+      color: var(--plum);
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .display-font { font-family: 'Bodoni Moda', serif; }
+    .label {
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--magenta);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--blush);
+      border-bottom: 1px solid rgba(35,13,24,0.1);
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--plum);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--plum);
+      text-decoration: none;
+      opacity: 0.65;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--magenta); }
+    .btn-nav {
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--white);
+      background-color: var(--plum);
+      border: none;
+      padding: 10px 24px;
+      text-decoration: none;
+    }
+    .btn-nav:hover { background-color: var(--magenta); color: var(--white); }
+
+    /* ── HERO ── */
+    .hero {
+      height: 100vh;
+      max-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr auto;
+      border-bottom: 1px solid rgba(35,13,24,0.12);
+      overflow: hidden;
+    }
+    .hero-text-block {
+      padding: 56px 56px 48px 48px;
+      border-right: 1px solid rgba(35,13,24,0.12);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 40px;
+    }
+    .hero-headline {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(2.6rem, 4.5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--plum);
+      margin: 0;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--magenta);
+    }
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .hero-body {
+      font-size: 15px;
+      line-height: 1.65;
+      color: rgba(35,13,24,0.65);
+      max-width: 460px;
+      margin: 0;
+    }
+    .hero-cta-row {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .btn-primary-editorial {
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--white);
+      background-color: var(--magenta);
+      border: none;
+      padding: 14px 30px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary-editorial:hover { background-color: var(--plum); color: var(--white); }
+    .btn-ghost-editorial {
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--plum);
+      background: none;
+      border: 1px solid rgba(35,13,24,0.35);
+      padding: 14px 24px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-ghost-editorial:hover { border-color: var(--magenta); color: var(--magenta); }
+
+    /* Hero right: image + stats */
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-image {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(100%) contrast(1.05);
+      display: block;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-top: 1px solid rgba(35,13,24,0.12);
+    }
+    .stat-cell {
+      padding: 20px 28px;
+      border-right: 1px solid rgba(35,13,24,0.12);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-number {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--plum);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(35,13,24,0.5);
+      margin-top: 6px;
+    }
+
+    /* ── SECTION: ABOUT ── */
+    .section-about {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      border-bottom: 1px solid rgba(35,13,24,0.12);
+    }
+    .about-sidebar {
+      padding: 64px 40px 64px 48px;
+      border-right: 1px solid rgba(35,13,24,0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .about-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background-color: rgba(196,54,112,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(35,13,24,0.3);
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+    .about-content {
+      padding: 64px 64px 64px 56px;
+    }
+    .section-number {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 10rem;
+      font-weight: 700;
+      line-height: 0.85;
+      color: rgba(196,54,112,0.08);
+      letter-spacing: -0.04em;
+      margin-bottom: -32px;
+      display: block;
+      user-select: none;
+    }
+    .about-content h2 {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--plum);
+      margin-bottom: 28px;
+    }
+    .about-content h2 em { font-style: italic; color: var(--magenta); }
+    .about-lead {
+      font-size: 19px;
+      line-height: 1.75;
+      color: rgba(35,13,24,0.75);
+      margin-bottom: 20px;
+    }
+    .about-body {
+      font-size: 17px;
+      line-height: 1.8;
+      color: rgba(35,13,24,0.6);
+    }
+
+    /* ── SECTION: AUDIENCE ── */
+    .section-audience {
+      border-bottom: 1px solid rgba(35,13,24,0.12);
+      padding: 0;
+    }
+    .audience-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid rgba(35,13,24,0.12);
+    }
+    .audience-header-left {
+      padding: 56px 48px;
+      border-right: 1px solid rgba(35,13,24,0.12);
+    }
+    .audience-header-left h2 {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--plum);
+      margin: 12px 0 0;
+    }
+    .audience-header-right {
+      padding: 56px 48px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .audience-header-right p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(35,13,24,0.65);
+      margin: 0;
+      max-width: 400px;
+    }
+    /* Bento audience grid */
+    .audience-bento {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
+    .audience-card {
+      padding: 48px 44px;
+      border-right: 1px solid rgba(35,13,24,0.12);
+      border-bottom: 1px solid rgba(35,13,24,0.12);
+      position: relative;
+    }
+    .audience-card:nth-child(3) { border-right: none; }
+    /* Full-width bottom card */
+    .audience-card-wide {
+      grid-column: 1 / -1;
+      padding: 48px 44px;
+      background-color: var(--magenta);
+      display: grid;
+      grid-template-columns: 1fr 1fr 2fr;
+      align-items: center;
+      gap: 48px;
+      border-bottom: none;
+    }
+    .audience-card-num {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--pink);
+      margin-bottom: 16px;
+    }
+    .audience-card h3 {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--plum);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .audience-card p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(35,13,24,0.65);
+      margin: 0;
+    }
+    .audience-card-wide .label { color: rgba(255,255,255,0.6); }
+    .audience-card-wide h3 {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      font-style: italic;
+      color: var(--white);
+      margin-bottom: 0;
+      line-height: 1.15;
+    }
+    .audience-card-wide p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.75);
+      margin: 0;
+    }
+    .btn-wide {
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--magenta);
+      background-color: var(--white);
+      border: none;
+      padding: 14px 28px;
+      text-decoration: none;
+      display: inline-block;
+      align-self: flex-start;
+      margin-top: 20px;
+      white-space: nowrap;
+    }
+
+    /* ── SECTION: PRODUCTS ── */
+    .section-products {
+      border-bottom: 1px solid rgba(35,13,24,0.12);
+    }
+    .products-header {
+      padding: 56px 48px 40px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(35,13,24,0.12);
+    }
+    .products-header h2 {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--plum);
+      margin: 12px 0 0;
+      max-width: 480px;
+    }
+    .products-header h2 em { font-style: italic; color: var(--magenta); }
+    .products-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+    .product-card {
+      padding: 48px 44px;
+      border-right: 1px solid rgba(35,13,24,0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .product-card:last-child { border-right: none; }
+    .product-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      background-color: var(--magenta);
+      padding: 4px 10px;
+      align-self: flex-start;
+    }
+    .product-card h3 {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--plum);
+      line-height: 1.2;
+      margin: 0;
+    }
+    .product-card h3 em { font-style: italic; }
+    .product-card p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(35,13,24,0.6);
+      margin: 0;
+      flex: 1;
+    }
+    .product-card-featured {
+      background-color: var(--plum);
+    }
+    .product-card-featured .product-tag { background-color: var(--pink); color: var(--plum); }
+    .product-card-featured h3 { color: var(--white); }
+    .product-card-featured p { color: rgba(255,255,255,0.6); }
+    .btn-product {
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--magenta);
+      background: none;
+      border: 1px solid rgba(196,54,112,0.3);
+      padding: 10px 20px;
+      text-decoration: none;
+      align-self: flex-start;
+      margin-top: 8px;
+    }
+    .btn-product:hover { background-color: var(--magenta); color: var(--white); border-color: var(--magenta); }
+    .btn-product-light {
+      color: var(--pink);
+      border-color: rgba(255,137,197,0.3);
+    }
+    .btn-product-light:hover { background-color: var(--pink); color: var(--plum); border-color: var(--pink); }
+
+    /* ── PULL QUOTE BAND ── */
+    .pull-quote-band {
+      background-color: var(--plum);
+      padding: 80px 48px;
+      display: grid;
+      grid-template-columns: 80px 1fr 200px;
+      align-items: start;
+      gap: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .pull-quote-mark {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 8rem;
+      font-weight: 700;
+      color: var(--magenta);
+      line-height: 0.7;
+    }
+    .pull-quote-text {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--white);
+    }
+    .pull-quote-text span { color: var(--pink); }
+    .pull-quote-meta {
+      padding-top: 12px;
+      text-align: right;
+    }
+    .pull-quote-meta .label { color: rgba(255,255,255,0.35); }
+    .pull-quote-meta p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin: 8px 0 0;
+      line-height: 1.5;
+    }
+
+    /* ── SECTION: START HERE ── */
+    .section-start {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid rgba(35,13,24,0.12);
+    }
+    .start-intro {
+      padding: 64px 48px;
+      border-right: 1px solid rgba(35,13,24,0.12);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .start-intro h2 {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--plum);
+      margin: 12px 0 20px;
+    }
+    .start-intro h2 em { font-style: italic; color: var(--magenta); }
+    .start-intro p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(35,13,24,0.65);
+      flex: 1;
+      margin: 0 0 32px;
+    }
+    .start-option {
+      padding: 64px 44px;
+      border-right: 1px solid rgba(35,13,24,0.12);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .start-option:last-child { border-right: none; }
+    .start-option-num {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 4.5rem;
+      font-weight: 700;
+      color: rgba(196,54,112,0.1);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .start-option h3 {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--plum);
+      margin-bottom: 12px;
+    }
+    .start-option p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(35,13,24,0.6);
+      flex: 1;
+      margin: 0 0 28px;
+    }
+    .btn-start {
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--plum);
+      background: none;
+      border: none;
+      padding: 0;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-start:hover { color: var(--magenta); }
+    .btn-start::after { content: '→'; }
+
+    /* ── EMAIL OPT-IN ── */
+    .section-optin {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid rgba(35,13,24,0.12);
+    }
+    .optin-left {
+      background-color: var(--magenta);
+      padding: 72px 56px;
+    }
+    .optin-left h2 {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.15;
+      color: var(--white);
+      margin: 12px 0 20px;
+    }
+    .optin-left p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.8);
+      margin: 0;
+    }
+    .optin-right {
+      background-color: var(--plum);
+      padding: 72px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .optin-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .optin-input {
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      background: none;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      color: var(--white);
+      padding: 12px 0;
+      width: 100%;
+      outline: none;
+    }
+    .optin-input::placeholder { color: rgba(255,255,255,0.35); }
+    .optin-input:focus { border-bottom-color: var(--pink); }
+    .btn-optin {
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--plum);
+      background-color: var(--pink);
+      border: none;
+      padding: 16px 32px;
+      cursor: pointer;
+      align-self: flex-start;
+      margin-top: 8px;
+    }
+    .btn-optin:hover { background-color: var(--white); }
+    .optin-fine {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      margin: 12px 0 0;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background-color: var(--plum);
+      padding: 0;
+    }
+    .footer-headline {
+      padding: 64px 48px 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-headline p {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.05;
+      color: rgba(255,255,255,0.08);
+      margin: 0;
+      letter-spacing: -0.02em;
+      user-select: none;
+    }
+    .footer-headline p span { color: rgba(196,54,112,0.3); }
+    .footer-bottom {
+      display: grid;
+      grid-template-columns: 280px 1fr auto;
+      align-items: start;
+      gap: 48px;
+      padding: 48px;
+    }
+    .footer-brand-name {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .footer-brand-desc {
+      font-size: 12px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.35);
+    }
+    .footer-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .footer-links a:hover { color: var(--pink); }
+    .footer-legal {
+      text-align: right;
+    }
+    .footer-legal p {
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 991px) {
+      nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+
+      .hero { grid-template-columns: 1fr; height: auto; max-height: none; }
+      .hero-text-block { border-right: none; padding: 48px 24px 40px; }
+      .hero-right { border-top: 1px solid rgba(35,13,24,0.12); }
+      .hero-image { height: 320px; }
+      .hero-stats { grid-template-columns: 1fr 1fr 1fr; }
+      .stat-cell { padding: 20px 16px; }
+
+      .section-about { grid-template-columns: 1fr; }
+      .about-sidebar { border-right: none; border-bottom: 1px solid rgba(35,13,24,0.12); padding: 40px 24px; }
+      .about-content { padding: 40px 24px; }
+      .section-number { font-size: 5rem; margin-bottom: -16px; }
+
+      .audience-header { grid-template-columns: 1fr; }
+      .audience-header-left { border-right: none; border-bottom: 1px solid rgba(35,13,24,0.12); padding: 40px 24px; }
+      .audience-header-right { padding: 32px 24px; }
+      .audience-bento { grid-template-columns: 1fr; }
+      .audience-card { border-right: none; }
+      .audience-card-wide { grid-column: 1; grid-template-columns: 1fr; gap: 20px; }
+      .btn-wide { margin-top: 0; }
+
+      .products-header { flex-direction: column; gap: 20px; align-items: flex-start; padding: 40px 24px 32px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .product-card { border-right: none; border-bottom: 1px solid rgba(35,13,24,0.12); padding: 40px 24px; }
+
+      .pull-quote-band { grid-template-columns: 60px 1fr; padding: 56px 24px; }
+      .pull-quote-meta { display: none; }
+
+      .section-start { grid-template-columns: 1fr; }
+      .start-intro { border-right: none; border-bottom: 1px solid rgba(35,13,24,0.12); padding: 48px 24px; }
+      .start-option { border-right: none; border-bottom: 1px solid rgba(35,13,24,0.12); padding: 40px 24px; }
+
+      .section-optin { grid-template-columns: 1fr; }
+      .optin-left, .optin-right { padding: 48px 24px; }
+
+      .footer-bottom { grid-template-columns: 1fr; gap: 32px; padding: 40px 24px; }
+      .footer-headline { padding: 40px 24px 32px; }
+      .footer-legal { text-align: left; }
+      .footer-links { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-brand">The Pinkprint Lawyer</a>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Shop</a></li>
+      <li><a href="#">Membership</a></li>
+      <li><a href="#">Legal/Admin</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <a href="#" class="btn-nav">Get the Guide</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <!-- Left: headline + body + CTAs -->
+    <div class="hero-text-block">
+      <div>
+        <p class="label mb-4">First-Generation. Practicing. Prepared.</p>
+        <h1 class="hero-headline">
+          Your<br>
+          Pink<em>print</em><br>
+          for Law<br>
+          School &amp;<br>
+          Beyond.
+        </h1>
+      </div>
+      <div class="hero-meta">
+        <p class="hero-body">
+          Practical, evidence-informed resources to help you move through law school — from pre-law to bar prep — with clarity and intention. This is not about perfection. It is about preparation.
+        </p>
+        <div class="hero-cta-row">
+          <a href="#" class="btn-primary-editorial">Start Here</a>
+          <a href="#" class="btn-ghost-editorial">Explore the Pinkprints</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: B&W image + stats under -->
+    <div class="hero-right">
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=900&q=85" alt="Attorney at work" />
+      </div>
+      <div class="hero-stats">
+        <div class="stat-cell">
+          <div class="stat-number">1K+</div>
+          <div class="stat-label">Students Guided</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Pinkprints</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-number">J.D.</div>
+          <div class="stat-label">Practicing Attorney</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section-about">
+    <div class="about-sidebar">
+      <div>
+        <p class="label mb-3">About Shakierah</p>
+        <img src="https://cdn.rit.edu/images/news/2024-04/WEB-20240210_shakira-smith_nycalumniupdate_0011_jamod.jpg" alt="Shakierah Smith" style="width:100%; aspect-ratio:3/4; object-fit:cover; object-position:top; display:block;">
+      </div>
+      <div>
+        <p class="label mb-2">Credentials</p>
+        <p style="font-size:13px; line-height:1.7; color:rgba(35,13,24,0.6); margin:0;">
+          First-generation law graduate<br>
+          Practicing attorney<br>
+          Published researcher<br>
+          Dedicated mentor
+        </p>
+      </div>
+    </div>
+    <div class="about-content">
+      <span class="section-number">01</span>
+      <h2>About<br><em>Shakierah</em></h2>
+      <p class="about-lead">
+        Law school does not come with instructions. This is the roadmap.
+      </p>
+      <p class="about-body">
+        Shakierah Smith is a first-generation law graduate, practicing attorney, and published researcher who has navigated every stage of the legal journey without a roadmap. She built The Pinkprint Lawyer to be the resource she wished she had — evidence-informed, honest, and grounded in the realities of what it takes to succeed.
+      </p>
+      <p class="about-body" style="margin-top:16px;">
+        Her work sits at the intersection of academic strategy and professional development, with a commitment to mentoring those who are building a legal career without the benefit of family connections or institutional insiders.
+      </p>
+    </div>
+  </section>
+
+  <!-- AUDIENCE -->
+  <section class="section-audience">
+    <div class="audience-header">
+      <div class="audience-header-left">
+        <p class="label mb-3">Who This Platform Serves</p>
+        <h2>Built for <em>every</em><br>stage of the journey.</h2>
+      </div>
+      <div class="audience-header-right bg-secondary bg-opacity-10">
+        <p>This platform is built for students who want direction without intimidation. There is already enough of that in law school.</p>
+      </div>
+    </div>
+    <div class="audience-bento">
+      <div class="audience-card">
+        <div class="audience-card-num">01</div>
+        <p class="label mb-2">Pre-Law</p>
+        <h3>Aspiring Law Students</h3>
+        <p>You are preparing for law school and want to make well-informed decisions before day one.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-card-num">02</div>
+        <p class="label mb-2">Currently Enrolled</p>
+        <h3>Current Law Students</h3>
+        <p>You are managing coursework, examinations, and professional opportunities — you want structure, not overwhelm.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-card-num">03</div>
+        <p class="label mb-2">Post-Graduation</p>
+        <h3>Bar Candidates &amp; New Attorneys</h3>
+        <p>You are transitioning into the profession and want to approach what comes next with confidence and clarity.</p>
+      </div>
+      <div class="audience-card-wide">
+        <div>
+          <p class="label mb-2">Not Sure Where to Start?</p>
+          <h3>We'll help<br>you find your<br>path.</h3>
+        </div>
+        <div>
+          <p>Answer a few simple questions and we'll point you to the right Pinkprint for your current season.</p>
+          <a href="#" class="btn-wide">Start Here →</a>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:flex-end;">
+          <div style="font-family:'Bodoni Moda',serif; font-size:clamp(4rem,8vw,8rem); font-weight:700; font-style:italic; color:rgba(255,255,255,0.07); line-height:1; user-select:none; letter-spacing:-0.04em;">Pinkprint</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="section-products">
+    <div class="products-header">
+      <div>
+        <p class="label mb-3">Featured Digital Products</p>
+        <h2>Each <em>Pinkprint</em> is designed<br>for a specific stage.</h2>
+      </div>
+      <a href="#" class="btn-ghost-editorial" style="white-space:nowrap; padding-bottom:8px;">View all Pinkprints</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card product-card-featured">
+        <span class="product-tag">Featured</span>
+        <h3>The Pre-Law<br><em>Pinkprint</em></h3>
+        <p>Everything you need to know before law school begins — decisions, timelines, and the questions most applicants forget to ask.</p>
+        <a href="#" class="btn-product btn-product-light">Get this Pinkprint</a>
+      </div>
+      <div class="product-card">
+        <span class="product-tag">Popular</span>
+        <h3>The 1L <em>Survival</em> Pinkprint</h3>
+        <p>Study systems, exam strategy, and how to manage the first year without losing yourself in the process.</p>
+        <a href="#" class="btn-product">Explore</a>
+      </div>
+      <div class="product-card">
+        <span class="product-tag">New</span>
+        <h3>The Bar Prep <em>Pinkprint</em></h3>
+        <p>A structured approach to bar preparation — from pacing your study schedule to managing exam-day nerves.</p>
+        <a href="#" class="btn-product">Explore</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote-band">
+    <div class="pull-quote-mark">"</div>
+    <p class="pull-quote-text">
+      Law school does not reward confusion.<br>
+      It rewards <span>preparation.</span>
+    </p>
+    <div class="pull-quote-meta">
+      <p class="label">From the community</p>
+      <p>"The Pinkprint changed how I approached finals week. I stopped guessing and started executing."</p>
+    </div>
+  </div>
+
+  <!-- START HERE -->
+  <section class="section-start">
+    <div class="start-intro">
+      <div>
+        <p class="label mb-3">Find Your Path</p>
+        <h2>Not sure which<br>resource is<br><em>right for you?</em></h2>
+        <p>Start here. This section helps you identify exactly what you need based on where you are in your journey.</p>
+      </div>
+      <a href="#" class="btn-primary-editorial" style="align-self:flex-start;">Start Here →</a>
+    </div>
+    <div class="start-option">
+      <div class="start-option-num">01</div>
+      <h3>New to Law School</h3>
+      <p>You are considering law school or preparing your application. You want to understand what's ahead before you commit.</p>
+      <a href="#" class="btn-start">Get started</a>
+    </div>
+    <div class="start-option">
+      <div class="start-option-num">02</div>
+      <h3>Currently Enrolled</h3>
+      <p>You are in law school right now and need a clearer system for studying, networking, and staying on track.</p>
+      <a href="#" class="btn-start">Get started</a>
+    </div>
+  </section>
+
+  <!-- EMAIL OPT-IN -->
+  <section class="section-optin">
+    <div class="optin-left">
+      <p class="label mb-3" style="color:rgba(255,255,255,0.6);">Free Resource</p>
+      <h2>The checklist law school never gave you.</h2>
+      <p>A practical guide covering what is often left unsaid — so you can prepare with intention and confidence before day one.</p>
+    </div>
+    <div class="optin-right">
+      <p class="label mb-4" style="color:rgba(255,255,255,0.4);">Get the free checklist</p>
+      <form class="optin-form" onsubmit="return false;">
+        <input type="text" class="optin-input" placeholder="First name" />
+        <input type="email" class="optin-input" placeholder="Email address" />
+        <button class="btn-optin">Send it to me</button>
+        <p class="optin-fine">No spam. One email. Unsubscribe anytime.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-headline">
+      <p>Your <span>Pinkprint</span> for Law School, the Bar, and Beyond.</p>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-brand-name">The Pinkprint Lawyer</div>
+        <p class="footer-brand-desc">Practical, evidence-informed guidance for every stage of the law school journey. Built by a first-generation attorney, for the next generation.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Shop</a>
+        <a href="#">Membership</a>
+        <a href="#">Contact</a>
+        <a href="#">Legal/Admin</a>
+      </div>
+      <div class="footer-legal">
+        <p>© 2025 The Pinkprint Lawyer<br>All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Pinkprint Lawyer — Mockup 2: Dark Luxury</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink-light: #ff89c5;
+      --pink-deep: #c43670;
+      --blush: #faf4f7;
+      --plum: #230d18;
+      --plum-mid: #3d1a2e;
+      --plum-soft: #4f2240;
+      --white: #ffffff;
+      --body-light: rgba(255,255,255,0.75);
+      --muted-light: rgba(255,255,255,0.45);
+    }
+
+    body { font-family: 'DM Sans', sans-serif; background-color: var(--plum); color: var(--white); }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+    /* NAV */
+    .navbar { background-color: transparent; border-bottom: 1px solid rgba(255,255,255,0.08); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); background-color: rgba(35,13,24,0.9); }
+    .navbar-brand img { height: 44px; }
+    .nav-link { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75) !important; }
+    .nav-link:hover { color: var(--pink-light) !important; }
+    .btn-nav-cta { background-color: var(--pink-deep); color: var(--white); font-size: 14px; font-weight: 600; border-radius: 10px; padding: 10px 22px; border: none; }
+    .btn-nav-cta:hover { background-color: var(--pink-light); color: var(--plum); }
+    .navbar-toggler { border-color: rgba(255,255,255,0.2); }
+    .navbar-toggler-icon { filter: invert(1); }
+    .offcanvas { background-color: var(--plum-mid); }
+    .offcanvas-header { background-color: var(--plum); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .btn-close { filter: invert(1); }
+
+    /* HERO */
+    .hero { position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; padding: 96px 0; }
+    .hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1600&q=80'); background-size: cover; background-position: center; opacity: 0.12; }
+    .hero-gradient { position: absolute; inset: 0; background: radial-gradient(ellipse at 60% 50%, rgba(196,54,112,0.15) 0%, transparent 65%); }
+    .hero-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--pink-light); }
+    .hero h1 { font-size: clamp(2.6rem, 6vw, 4.5rem); line-height: 1.05; color: var(--white); letter-spacing: -0.02em; }
+    .hero h1 em { color: var(--pink-light); font-style: italic; }
+    .hero-lead { font-size: 17px; line-height: 1.7; color: var(--body-light); max-width: 540px; }
+    .btn-hero-primary { background-color: var(--pink-deep); color: var(--white); font-size: 15px; font-weight: 600; border-radius: 10px; padding: 14px 28px; border: none; }
+    .btn-hero-primary:hover { background-color: var(--pink-light); color: var(--plum); }
+    .btn-hero-ghost { background-color: transparent; color: var(--white); font-size: 15px; font-weight: 600; border-radius: 10px; padding: 14px 28px; border: 2px solid rgba(255,255,255,0.3); }
+    .btn-hero-ghost:hover { border-color: var(--pink-light); color: var(--pink-light); }
+    .hero-photo { position: relative; }
+    .hero-photo img { width: 100%; max-width: 440px; border-radius: 20px; box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(196,54,112,0.2); object-fit: cover; height: 520px; }
+
+    /* DIVIDER BAND */
+    .band-divider { background-color: var(--pink-deep); padding: 24px 0; }
+    .band-divider p { font-size: 15px; font-weight: 500; color: var(--white); margin: 0; letter-spacing: 0.01em; }
+
+    /* ABOUT */
+    .section-about { background-color: var(--plum); padding: 96px 0; }
+    .section-about h2 { color: var(--white); font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -0.01em; }
+    .about-lead { font-size: 17px; line-height: 1.75; color: var(--body-light); }
+    .about-photo img { width: 100%; border-radius: 20px; object-fit: cover; height: 500px; box-shadow: 0 30px 70px rgba(0,0,0,0.5); }
+    .credential-item { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .credential-item i { font-size: 18px; color: var(--pink-light); flex-shrink: 0; }
+    .credential-item span { font-size: 15px; color: var(--body-light); }
+
+    /* AUDIENCE */
+    .section-audience { background-color: var(--plum-mid); padding: 96px 0; }
+    .section-label { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--pink-light); }
+    .section-audience h2 { color: var(--white); font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -0.01em; }
+    .audience-card { background-color: var(--plum-soft); border-radius: 20px; padding: 36px 32px; height: 100%; }
+    .audience-card-num { font-size: 12px; font-weight: 600; color: var(--pink-light); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+    .audience-card h3 { font-size: 1.3rem; color: var(--white); margin-bottom: 12px; }
+    .audience-card p { font-size: 15px; color: var(--body-light); line-height: 1.65; margin: 0; }
+    .audience-icon { font-size: 28px; color: var(--pink-light); margin-bottom: 20px; }
+
+    /* PRODUCTS */
+    .section-products { background-color: var(--plum); padding: 96px 0; }
+    .section-products h2 { color: var(--white); font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -0.01em; }
+    .product-row { border-bottom: 1px solid rgba(255,255,255,0.08); padding: 36px 0; }
+    .product-row:last-child { border-bottom: none; }
+    .product-num { font-size: 13px; font-weight: 600; color: var(--pink-deep); letter-spacing: 1.5px; }
+    .product-row h4 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--white); margin-bottom: 8px; }
+    .product-row p { font-size: 15px; color: var(--body-light); margin: 0; line-height: 1.6; }
+    .product-tag { display: inline-block; background-color: rgba(255,137,197,0.15); color: var(--pink-light); font-size: 12px; font-weight: 600; border-radius: 999px; padding: 4px 14px; }
+    .btn-product { background-color: transparent; color: var(--pink-light); font-size: 14px; font-weight: 600; border: 1px solid var(--pink-deep); border-radius: 8px; padding: 8px 18px; text-decoration: none; }
+    .btn-product:hover { background-color: var(--pink-deep); color: var(--white); }
+
+    /* BOOK SPOTLIGHT */
+    .section-book { background-color: var(--plum-mid); padding: 96px 0; }
+    .section-book h2 { color: var(--white); font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -0.01em; }
+    .book-cover img { width: 100%; max-width: 300px; border-radius: 12px; box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(196,54,112,0.25); }
+    .book-feature { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+    .book-feature i { font-size: 20px; color: var(--pink-light); flex-shrink: 0; margin-top: 2px; }
+    .book-feature p { font-size: 15px; color: var(--body-light); margin: 0; line-height: 1.6; }
+    .btn-book { background-color: var(--pink-deep); color: var(--white); font-size: 15px; font-weight: 600; border-radius: 10px; padding: 14px 32px; border: none; text-decoration: none; display: inline-block; }
+    .btn-book:hover { background-color: var(--pink-light); color: var(--plum); }
+
+    /* TESTIMONIALS */
+    .section-testimonials { background-color: var(--plum); padding: 96px 0; }
+    .section-testimonials h2 { color: var(--white); font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -0.01em; }
+    .testimonial-card { background-color: var(--plum-mid); border-radius: 20px; padding: 36px 32px; height: 100%; }
+    .testimonial-quote { font-size: 15px; color: var(--body-light); line-height: 1.75; font-style: italic; margin-bottom: 24px; }
+    .testimonial-name { font-size: 14px; font-weight: 600; color: var(--white); }
+    .testimonial-role { font-size: 13px; color: var(--muted-light); }
+    .testimonial-stars i { color: var(--pink-light); font-size: 14px; }
+
+    /* START HERE */
+    .section-start { background-color: var(--blush); padding: 96px 0; }
+    .section-start .section-label { color: var(--pink-deep); }
+    .section-start h2 { color: var(--plum); font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -0.01em; }
+    .start-path { background-color: var(--white); border-radius: 20px; padding: 36px 32px; height: 100%; box-shadow: 0 2px 20px rgba(35,13,24,0.06); }
+    .start-path-icon { font-size: 32px; color: var(--pink-deep); margin-bottom: 16px; }
+    .start-path h4 { font-size: 1.15rem; color: var(--plum); margin-bottom: 8px; }
+    .start-path p { font-size: 14px; color: #7a5a6a; line-height: 1.6; margin: 0; }
+    .btn-start-dark { background-color: var(--plum); color: var(--white); font-size: 15px; font-weight: 600; border-radius: 10px; padding: 14px 32px; border: none; }
+    .btn-start-dark:hover { background-color: var(--pink-deep); color: var(--white); }
+
+    /* EMAIL OPT-IN */
+    .section-optin { background-color: var(--plum-mid); padding: 96px 0; }
+    .optin-card { background-color: var(--plum-soft); border-radius: 24px; padding: 64px 48px; }
+    .section-optin h2 { color: var(--white); font-size: clamp(1.8rem, 3vw, 2.6rem); }
+    .section-optin p { color: var(--body-light); font-size: 17px; }
+    .optin-input { background-color: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px 0 0 10px; padding: 14px 20px; font-size: 15px; color: var(--white); width: 100%; }
+    .optin-input::placeholder { color: rgba(255,255,255,0.4); }
+    .optin-input:focus { outline: none; border-color: var(--pink-light); background-color: rgba(255,255,255,0.12); }
+    .btn-optin { background-color: var(--pink-deep); color: var(--white); font-size: 15px; font-weight: 600; border-radius: 0 10px 10px 0; padding: 14px 24px; border: none; white-space: nowrap; }
+    .btn-optin:hover { background-color: var(--pink-light); color: var(--plum); }
+    .optin-note { font-size: 12px; color: var(--muted-light); margin-top: 10px; }
+
+    /* FOOTER */
+    footer { background-color: var(--plum); border-top: 1px solid rgba(255,255,255,0.08); padding: 64px 0 32px; }
+    .footer-logo img { height: 44px; }
+    .footer-tagline { font-size: 14px; color: var(--muted-light); margin-top: 12px; }
+    .footer-col-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--pink-light); margin-bottom: 16px; }
+    .footer-link { display: block; font-size: 14px; color: var(--body-light); text-decoration: none; margin-bottom: 10px; }
+    .footer-link:hover { color: var(--pink-light); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; margin-top: 48px; }
+    .footer-copy { font-size: 13px; color: var(--muted-light); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg py-3">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (2).png" alt="The Pinkprint Lawyer" />
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNav" aria-controls="mobileNav" aria-label="Open navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center">
+        <ul class="navbar-nav gap-4">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Membership</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Legal/Admin</a></li>
+        </ul>
+      </div>
+      <div class="d-none d-lg-block">
+        <a href="#" class="btn btn-nav-cta">Start Here</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- OFFCANVAS MOBILE NAV -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileNav" aria-labelledby="mobileNavLabel">
+    <div class="offcanvas-header">
+      <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (2).png" alt="The Pinkprint Lawyer" style="height:40px" />
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column gap-3 pt-4">
+      <a href="#" class="nav-link fs-5">Home</a>
+      <a href="#" class="nav-link fs-5">About</a>
+      <a href="#" class="nav-link fs-5">Shop</a>
+      <a href="#" class="nav-link fs-5">Contact</a>
+      <a href="#" class="nav-link fs-5">Membership</a>
+      <a href="#" class="nav-link fs-5">Legal/Admin</a>
+      <a href="#" class="btn btn-nav-cta mt-3">Start Here</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-gradient"></div>
+    <div class="container position-relative">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <p class="hero-eyebrow mb-4">First-Generation. Practicing. Prepared.</p>
+          <h1 class="mb-4">Your <em>Pinkprint</em> for Law School, the Bar, and Beyond.</h1>
+          <p class="hero-lead mb-5">Resources that are practical, evidence-informed, and designed to help you move through each stage of this journey with clarity, confidence, and intention. This is not about perfection. It is about preparation.</p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#" class="btn btn-hero-primary">Start Here</a>
+            <a href="#" class="btn btn-hero-ghost">Explore the Pinkprints</a>
+          </div>
+        </div>
+        <div class="col-lg-5 text-center d-none d-lg-block">
+          <div class="hero-photo">
+            <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=880&q=80" alt="Law library" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="band-divider">
+    <div class="container">
+      <div class="row align-items-center text-center text-md-start">
+        <div class="col-md-8">
+          <p>First-generation law graduate &nbsp;·&nbsp; Practicing attorney &nbsp;·&nbsp; Published researcher &nbsp;·&nbsp; Dedicated mentor</p>
+        </div>
+        <div class="col-md-4 text-md-end mt-2 mt-md-0">
+          <a href="#" class="text-white fw-semibold" style="font-size:14px; text-decoration:underline; text-underline-offset:4px;">Meet Shakierah →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="section-about">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-5">
+          <div class="about-photo">
+            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80" alt="Professional attorney at work" />
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <p class="section-label mb-3">About Shakierah</p>
+          <h2 class="mb-4">A roadmap built from<br class="d-none d-md-block" /> lived experience.</h2>
+          <p class="about-lead mb-4">Shakierah Smith is a first-generation law graduate, practicing attorney, and published researcher who has navigated every stage of the legal journey without a roadmap. She built The Pinkprint Lawyer to be the resource she wished she had — evidence-informed, honest, and grounded in the realities of what it takes to succeed.</p>
+          <p class="about-lead mb-5">Her work sits at the intersection of academic strategy and professional development, with a commitment to mentoring those who are building a legal career without the benefit of family connections or institutional insiders.</p>
+          <div class="mb-2">
+            <div class="credential-item">
+              <i class="bi bi-award"></i>
+              <span>J.D. — First-generation law graduate</span>
+            </div>
+            <div class="credential-item">
+              <i class="bi bi-briefcase"></i>
+              <span>Practicing attorney with active bar admission</span>
+            </div>
+            <div class="credential-item">
+              <i class="bi bi-journal-text"></i>
+              <span>Published legal researcher and academic contributor</span>
+            </div>
+            <div class="credential-item">
+              <i class="bi bi-people"></i>
+              <span>Mentor to hundreds of aspiring and current law students</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIENCE -->
+  <section class="section-audience">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="section-label mb-2">Who This Platform Serves</p>
+        <h2>Built for every stage of<br class="d-none d-md-block" /> the legal journey.</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="audience-card">
+            <div class="audience-icon"><i class="bi bi-mortarboard"></i></div>
+            <p class="audience-card-num">Aspiring</p>
+            <h3>Pre-Law Students</h3>
+            <p>Preparing for law school and want to make well-informed decisions before day one.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="audience-card">
+            <div class="audience-icon"><i class="bi bi-journal-bookmark"></i></div>
+            <p class="audience-card-num">Current</p>
+            <h3>Law Students</h3>
+            <p>Managing coursework, examinations, and professional opportunities — you want structure, not overwhelm.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="audience-card">
+            <div class="audience-icon"><i class="bi bi-bank"></i></div>
+            <p class="audience-card-num">Graduates</p>
+            <h3>Bar Candidates</h3>
+            <p>Transitioning into the profession and approaching what comes next with confidence and clarity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="section-products">
+    <div class="container">
+      <div class="row align-items-end mb-5">
+        <div class="col-md-8">
+          <p class="section-label mb-2">Featured Digital Products</p>
+          <h2>Clear takeaways.<br class="d-none d-md-block" /> Realistic strategies. Immediate results.</h2>
+        </div>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+          <a href="#" class="btn-product">View All Pinkprints</a>
+        </div>
+      </div>
+      <div class="product-row">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-1"><p class="product-num mb-0">01</p></div>
+          <div class="col-lg-7">
+            <h4>Pre-Law Preparation & Planning</h4>
+            <p>Tools and frameworks to help prospective students make evidence-informed decisions before day one.</p>
+          </div>
+          <div class="col-lg-2"><span class="product-tag">Aspiring</span></div>
+          <div class="col-lg-2 text-lg-end"><a href="#" class="btn-product">Get It</a></div>
+        </div>
+      </div>
+      <div class="product-row">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-1"><p class="product-num mb-0">02</p></div>
+          <div class="col-lg-7">
+            <h4>Law School Study Systems & Academic Strategy</h4>
+            <p>Structured frameworks designed to help you manage coursework and perform with intention.</p>
+          </div>
+          <div class="col-lg-2"><span class="product-tag">Current</span></div>
+          <div class="col-lg-2 text-lg-end"><a href="#" class="btn-product">Get It</a></div>
+        </div>
+      </div>
+      <div class="product-row">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-1"><p class="product-num mb-0">03</p></div>
+          <div class="col-lg-7">
+            <h4>Bar Exam Prep & Career Development</h4>
+            <p>Examination preparation, internship positioning, and career development guides.</p>
+          </div>
+          <div class="col-lg-2"><span class="product-tag">Graduates</span></div>
+          <div class="col-lg-2 text-lg-end"><a href="#" class="btn-product">Get It</a></div>
+        </div>
+      </div>
+      <div class="product-row">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-1"><p class="product-num mb-0">04</p></div>
+          <div class="col-lg-7">
+            <h4>Post-Graduate & Early Career Guidance</h4>
+            <p>Transition resources for attorneys entering the profession after bar passage.</p>
+          </div>
+          <div class="col-lg-2"><span class="product-tag">Attorneys</span></div>
+          <div class="col-lg-2 text-lg-end"><a href="#" class="btn-product">Get It</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK SPOTLIGHT -->
+  <section class="section-book">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-5 text-center">
+          <div class="book-cover">
+            <img src="assets/book_covers/Book (2)/The Pinkprint Lawyer_Book (2) - Front Cover.png" alt="The Law School Pinkprint" />
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <p class="section-label mb-3">Now Available</p>
+          <h2 class="mb-4">The Law School Pinkprint</h2>
+          <p style="font-size:17px; color:var(--body-light); line-height:1.75; margin-bottom:32px;">A comprehensive guide written for the student who is doing this without a roadmap. Covering everything from choosing a school and preparing for 1L to managing exams, building your resume, and finding your footing in the profession — this is the book that tells you what most people learn only after it's too late.</p>
+          <div class="mb-4">
+            <div class="book-feature">
+              <i class="bi bi-check-circle-fill"></i>
+              <p>Evidence-informed strategies for every stage of law school</p>
+            </div>
+            <div class="book-feature">
+              <i class="bi bi-check-circle-fill"></i>
+              <p>Written from the perspective of a first-generation attorney who lived it</p>
+            </div>
+            <div class="book-feature">
+              <i class="bi bi-check-circle-fill"></i>
+              <p>Practical frameworks you can apply from orientation week through bar passage</p>
+            </div>
+            <div class="book-feature">
+              <i class="bi bi-check-circle-fill"></i>
+              <p>Available in digital and print formats</p>
+            </div>
+          </div>
+          <a href="#" class="btn-book">Get the Book <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section-testimonials">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="section-label mb-2">From the Community</p>
+        <h2>What readers and students<br class="d-none d-md-block" /> are saying.</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="testimonial-stars mb-3">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+            </div>
+            <p class="testimonial-quote">"I went into 1L thinking I just needed to work hard. The Pinkprint Lawyer showed me I needed to work smart. The study systems guide alone changed my entire approach to outlining and exam preparation."</p>
+            <p class="testimonial-name mb-1">Danielle R.</p>
+            <p class="testimonial-role">2L at a Top-25 Law School</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="testimonial-stars mb-3">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+            </div>
+            <p class="testimonial-quote">"As a first-gen student I had no one to ask. Shakierah's resources filled that gap in a way I can't overstate. The bar prep guide helped me stay organized through the most stressful months of my life."</p>
+            <p class="testimonial-name mb-1">Marcus T.</p>
+            <p class="testimonial-role">Newly Admitted Attorney</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="testimonial-stars mb-3">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+            </div>
+            <p class="testimonial-quote">"The pre-law planning guide helped me realize I was applying to the wrong schools for the wrong reasons. I redirected, got in somewhere that fit, and I'm thriving. Worth every penny and more."</p>
+            <p class="testimonial-name mb-1">Imani L.</p>
+            <p class="testimonial-role">Pre-Law Student, University of Florida</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- START HERE -->
+  <section class="section-start">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="section-label mb-2">Find Your Path</p>
+        <h2 style="color: var(--plum)">Start Here — choose what fits<br class="d-none d-md-block" /> your current season.</h2>
+      </div>
+      <div class="row g-4 mb-5">
+        <div class="col-md-4">
+          <div class="start-path">
+            <div class="start-path-icon"><i class="bi bi-mortarboard-fill"></i></div>
+            <h4>New to Law School</h4>
+            <p>Explore pre-law preparation guides and foundation resources built for day one.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="start-path">
+            <div class="start-path-icon"><i class="bi bi-journal-bookmark-fill"></i></div>
+            <h4>Currently Enrolled</h4>
+            <p>Find study systems, exam strategy, and academic frameworks for active students.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="start-path">
+            <div class="start-path-icon"><i class="bi bi-briefcase-fill"></i></div>
+            <h4>Preparing for the Bar</h4>
+            <p>Access bar prep resources and early-career transition tools for graduates.</p>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <a href="#" class="btn btn-start-dark">Start Here <i class="bi bi-arrow-right ms-1"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMAIL OPT-IN -->
+  <section class="section-optin">
+    <div class="container">
+      <div class="optin-card">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6">
+            <p class="section-label mb-3">Free Resource</p>
+            <h2 class="mb-3">Get the Free Checklist</h2>
+            <p>A practical checklist covering what is often left unsaid — so you can prepare with intention and confidence before law school begins.</p>
+          </div>
+          <div class="col-lg-6">
+            <div class="d-flex mb-2">
+              <input type="email" class="optin-input" placeholder="Enter your email address" aria-label="Email address" />
+              <button class="btn-optin">Get It Free</button>
+            </div>
+            <p class="optin-note">No spam. Unsubscribe anytime.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-4">
+          <div class="footer-logo">
+            <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (2).png" alt="The Pinkprint Lawyer" />
+          </div>
+          <p class="footer-tagline mt-3">Your roadmap through law school<br />and into the profession.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="footer-col-title">About</p>
+          <a href="#" class="footer-link">Shakierah Smith</a>
+          <a href="#" class="footer-link">Our Mission</a>
+          <a href="#" class="footer-link">Press</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="footer-col-title">Shop</p>
+          <a href="#" class="footer-link">Browse the Shop</a>
+          <a href="#" class="footer-link">Book a Session</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="footer-col-title">Membership</p>
+          <a href="#" class="footer-link">Join</a>
+          <a href="#" class="footer-link">Member Login</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="footer-col-title">Legal/Admin</p>
+          <a href="#" class="footer-link">Contact</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms of Use</a>
+        </div>
+      </div>
+      <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+        <p class="footer-copy mb-0">© 2025 The Pinkprint Lawyer. All rights reserved.</p>
+        <div class="d-flex gap-4">
+          <a href="#" class="footer-link mb-0">Privacy</a>
+          <a href="#" class="footer-link mb-0">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
