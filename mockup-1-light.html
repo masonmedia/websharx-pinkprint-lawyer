@@ -161,6 +161,18 @@
     .footer-section-label { font-size: 11px; }
     .footer-link-sm       { font-size: 14px; }
     .footer-meta          { font-size: 13px; }
+
+    /* scroll animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease calc(var(--stagger, 0) * 80ms),
+                  transform 0.55s ease calc(var(--stagger, 0) * 80ms);
+    }
+    .fade-up.in-view {
+      opacity: 1;
+      transform: none;
+    }
   </style>
 </head>
 <body class="bg-white">
@@ -794,5 +806,58 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (function () {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in-view');
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      const hero = document.querySelector('section.hero-pad');
+      if (hero) {
+        const heroTargets = hero.querySelectorAll(
+          ':scope > .container > .row > [class*="col"]'
+        );
+        heroTargets.forEach((el, i) => {
+          el.classList.add('fade-up');
+          el.style.setProperty('--stagger', i);
+        });
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          heroTargets.forEach(el => el.classList.add('in-view'));
+        }));
+      }
+
+      document.querySelectorAll('section:not(.hero-pad)').forEach(section => {
+        const targets = section.querySelectorAll(
+          ':scope > .container > *,' +
+          ':scope > .container > .row > [class*="col"],' +
+          ':scope > *:not(.container)'
+        );
+        targets.forEach((el, i) => {
+          el.classList.add('fade-up');
+          el.style.setProperty('--stagger', i);
+          observer.observe(el);
+        });
+      });
+
+      const credBar = document.querySelector('.border-top.border-bottom.border-blush');
+      if (credBar) {
+        credBar.classList.add('fade-up');
+        credBar.style.setProperty('--stagger', 0);
+        observer.observe(credBar);
+      }
+
+      const gavel = document.querySelector('[style*="pink-gavel"]');
+      if (gavel) {
+        gavel.classList.add('fade-up');
+        gavel.style.setProperty('--stagger', 0);
+        observer.observe(gavel);
+      }
+    })();
+  </script>
 </body>
 </html>
