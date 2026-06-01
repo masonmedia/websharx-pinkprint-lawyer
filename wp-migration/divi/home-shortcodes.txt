@@ -1,0 +1,345 @@
+<!--
+  HOW TO USE — DIVI NATIVE MODULES (client-editable)
+  ═══════════════════════════════════════════════════
+  BEFORE YOU PASTE:
+  1. Add divi-theme-additions.css to WP Admin → Divi → Theme Options → Custom CSS
+
+  PASTE SHORTCODES:
+  2. WP Admin → Pages → Add New → title "Home (Light Theme)"
+  3. Switch editor to Text/Code tab (NOT Visual)
+  4. Paste everything below this comment block
+  5. Click Save/Publish
+  6. Click "Use Divi Builder" — all sections load and are editable
+
+  WHAT'S EDITABLE (no HTML visible to client):
+  ✓ All text — click any text block in the visual builder to edit inline
+  ✓ Headings & body copy — Divi inline editor (no HTML exposed)
+  ✓ Card titles & descriptions — native blurb module fields in sidebar
+  ✓ Button text & URLs — native button module fields
+  ✓ All images — image picker in module settings
+
+  IMAGES TO UPLOAD FIRST (WP Media Library):
+  → Logo: assets/logos/1_Primary/The Pinkprint Lawyer_Primary (1).png
+  → Pink gavel: assets/pink-gavel.jpg
+  → Book covers: assets/book_covers/Book (1,2,3)/...Front Cover.png
+  → About photo: currently using external CDN URL (replace when available)
+
+  AFTER UPLOAD: update the image src URLs in the image modules below.
+-->
+
+[et_pb_section fb_built="1" _builder_version="4.24.2" background_color="#ffffff" custom_padding="96px||96px||false|false" module_class="ppl-page"][et_pb_row column_structure="1_2,1_2" _builder_version="4.24.2" use_custom_gutter="on" gutter_width="5" column_padding_mobile="on" padding_mobile="on"][et_pb_column type="1_2" _builder_version="4.24.2"]
+
+[et_pb_text _builder_version="4.24.2" module_class="ppl-eyebrow" custom_margin="0||16px||false|false"]Practicing Attorney &amp; Mentor[/et_pb_text]
+
+[et_pb_text _builder_version="4.24.2" module_class="ppl-hero-heading" header_font="Playfair Display|700|||||||" header_text_color="#230d18" header_font_size="clamp(2.2rem,5vw,3.2rem)" header_line_height="1.1em" header_letter_spacing="-0.025em" custom_margin="0||16px||false|false"]<h1>Your <em>Pinkprint</em> for Law School, the Bar, and Beyond.</h1>[/et_pb_text]
+
+[et_pb_text _builder_version="4.24.2" text_font="DM Sans||||||||" text_text_color="#230d18" text_font_size="16px" text_line_height="1.75em" custom_margin="0||12px||false|false"]I am Shakierah Smith — a first-generation law graduate, practicing attorney, published researcher, and dedicated mentor for students navigating law school and the legal profession.[/et_pb_text]
+
+[et_pb_text _builder_version="4.24.2" text_font="DM Sans||||||||" text_text_color="#8a6a7a" text_font_size="15px" text_line_height="1.65em" text_font_style="italic" custom_margin="0||40px||false|false"]This is not about perfection. It is about preparation.[/et_pb_text]
+
+[et_pb_button button_text="Start Here" button_url="#" button_alignment="left" _builder_version="4.24.2" custom_button="on" button_text_color="#ffffff" button_bg_color="#230d18" button_border_width="0" button_border_radius="12px" button_font="DM Sans|600|||||||" button_font_size="15px" button_icon="%%3%%" button_on_hover="off" /]
+
+[et_pb_button button_text="Explore the Pinkprints" button_url="#" button_alignment="left" _builder_version="4.24.2" custom_button="on" button_text_color="#230d18" button_bg_color="rgba(0,0,0,0)" button_border_width="2px" button_border_color="#230d18" button_border_radius="12px" button_font="DM Sans|600|||||||" button_font_size="15px" /]
+
+[/et_pb_column][et_pb_column type="1_2" _builder_version="4.24.2" background_color="#f2e4ec" border_radii="on|24px|24px|24px|24px" overflow="hidden"]
+
+[et_pb_image src="https://images.unsplash.com/vector-1775025870074-892399cbf787?q=80&w=1172&auto=format&fit=crop" alt="Legal scales of justice illustration" _builder_version="4.24.2" module_class="ppl-hero-img" /]
+
+[/et_pb_column][/et_pb_row][/et_pb_section]
+
+
+[et_pb_section fb_built="1" _builder_version="4.24.2" background_color="#ffffff" custom_padding="20px||20px||false|false" border_width_top="1px" border_color_top="#f2e4ec" border_width_bottom="1px" border_color_bottom="#f2e4ec"][et_pb_row column_structure="1_5,1_5,1_5,1_5,1_5" _builder_version="4.24.2" use_custom_gutter="on" gutter_width="1"]
+
+[et_pb_column type="1_5" _builder_version="4.24.2"]
+[et_pb_blurb title="First-Generation Graduate" use_icon="on" font_icon="&#xe03a;" icon_color="#c43670" icon_placement="left" _builder_version="4.24.2" title_font="DM Sans|600|||||||" title_text_color="#c43670" title_font_size="15px" module_class="ppl-cred-item" text_orientation="center" /]
+[/et_pb_column]
+
+[et_pb_column type="1_5" _builder_version="4.24.2"]
+[et_pb_blurb title="Practicing Attorney" use_icon="on" font_icon="&#xe0e9;" icon_color="#c43670" icon_placement="left" _builder_version="4.24.2" title_font="DM Sans|600|||||||" title_text_color="#c43670" title_font_size="15px" module_class="ppl-cred-item" text_orientation="center" /]
+[/et_pb_column]
+
+[et_pb_column type="1_5" _builder_version="4.24.2"]
+[et_pb_blurb title="Published Researcher" use_icon="on" font_icon="&#xe0c8;" icon_color="#c43670" icon_placement="left" _builder_version="4.24.2" title_font="DM Sans|600|||||||" title_text_color="#c43670" title_font_size="15px" module_class="ppl-cred-item" text_orientation="center" /]
+[/et_pb_column]
+
+[et_pb_column type="1_5" _builder_version="4.24.2"]
+[et_pb_blurb title="Dedicated Mentor" use_icon="on" font_icon="&#xe09f;" icon_color="#c43670" icon_placement="left" _builder_version="4.24.2" title_font="DM Sans|600|||||||" title_text_color="#c43670" title_font_size="15px" module_class="ppl-cred-item" text_orientation="center" /]
+[/et_pb_column]
+
+[et_pb_column type="1_5" _builder_version="4.24.2"]
+[et_pb_blurb title="Author" use_icon="on" font_icon="&#xe0cb;" icon_color="#c43670" icon_placement="left" _builder_version="4.24.2" title_font="DM Sans|600|||||||" title_text_color="#c43670" title_font_size="15px" module_class="ppl-cred-item" text_orientation="center" /]
+[/et_pb_column]
+
+[/et_pb_row][/et_pb_section]
+
+
+[et_pb_section fb_built="1" _builder_version="4.24.2" background_color="#ffffff" custom_padding="80px||80px||false|false"][et_pb_row column_structure="1_2,1_2" _builder_version="4.24.2" use_custom_gutter="on" gutter_width="1"]
+
+[et_pb_column type="1_2" _builder_version="4.24.2"]
+[et_pb_image src="https://images.unsplash.com/photo-1591692400544-1ad3f63a911d?q=80&w=1732&auto=format&fit=crop" alt="Legal professional" _builder_version="4.24.2" module_class="ppl-mission-img" /]
+[/et_pb_column]
+
+[et_pb_column type="1_2" _builder_version="4.24.2" custom_padding="60px|60px|60px|60px||true"]
+
+[et_pb_text _builder_version="4.24.2" module_class="ppl-section-label-pink"]My Mission[/et_pb_text]
+
+[et_pb_text _builder_version="4.24.2" header_font="Playfair Display|700|||||||" header_text_color="#230d18" header_font_size="2rem" header_line_height="1.2em" header_letter_spacing="-0.025em" custom_margin="0||16px||false|false"]<h2>Law school does not come with a clear set of instructions.</h2>[/et_pb_text]
+
+[et_pb_text _builder_version="4.24.2" text_font="DM Sans||||||||" text_text_color="#555555" text_font_size="16px" text_line_height="1.75em"]I created The Pinkprint Lawyer to help students navigate complex systems with guidance. Here, you will find resources that are practical, evidence-informed, and designed to help you move through each stage of this journey with clarity, confidence, and intention.[/et_pb_text]
+
+[/et_pb_column][/et_pb_row][/et_pb_section]
+
+
+[et_pb_section fb_built="1" _builder_version="4.24.2" background_color="#faf4f7" custom_padding="96px||96px||false|false"]
+
+[et_pb_row _builder_version="4.24.2" custom_padding="0||40px||false|false"]
+[et_pb_column type="4_4" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-section-label" text_text_align="center" custom_margin="0||8px||false|false"]Who This Platform Serves[/et_pb_text]
+[et_pb_text _builder_version="4.24.2" header_font="Playfair Display|700|||||||" header_text_color="#230d18" header_font_size="2.25rem" header_line_height="1.2em" header_letter_spacing="-0.025em" text_text_align="center" custom_margin="0||12px||false|false"]<h2>Built for every stage of the legal journey.</h2>[/et_pb_text]
+[et_pb_text _builder_version="4.24.2" text_font="DM Sans||||||||" text_text_color="#8a6a7a" text_font_size="16px" text_line_height="1.7em" text_text_align="center" max_width="520px" module_alignment="center"]Built for students who want direction without intimidation. There is already enough of that in law school.[/et_pb_text]
+[/et_pb_column]
+[/et_pb_row]
+
+[et_pb_row column_structure="1_3,1_3,1_3" _builder_version="4.24.2" use_custom_gutter="on" gutter_width="3"]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-stage-tag-rose" custom_margin="0||4px||false|false"]01 — Aspiring[/et_pb_text]
+[et_pb_blurb title="Pre-Law Students" use_icon="on" font_icon="&#xe024;" icon_color="#c43670" _builder_version="4.24.2" background_color="#ffffff" border_radii="on|16px|16px|16px|16px" custom_padding="32px|32px|32px|32px||true" module_class="ppl-blurb-card ppl-card-lift" icon_color_hover="#c43670"]You are preparing for law school and want to make well-informed decisions before day one.[/et_pb_blurb]
+[/et_pb_column]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-stage-tag-rose" custom_margin="0||4px||false|false"]02 — Current[/et_pb_text]
+[et_pb_blurb title="Law Students" use_icon="on" font_icon="&#xe0cb;" icon_color="#c43670" _builder_version="4.24.2" background_color="#ffffff" border_radii="on|16px|16px|16px|16px" custom_padding="32px|32px|32px|32px||true" module_class="ppl-blurb-card ppl-card-lift"]You are managing coursework, examinations, and professional opportunities. You want structure, not overwhelm.[/et_pb_blurb]
+[/et_pb_column]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-stage-tag-rose" custom_margin="0||4px||false|false"]03 — Graduates[/et_pb_text]
+[et_pb_blurb title="Recent Graduates &amp; Bar Candidates" use_icon="on" font_icon="&#xe0e9;" icon_color="#c43670" _builder_version="4.24.2" background_color="#ffffff" border_radii="on|16px|16px|16px|16px" custom_padding="32px|32px|32px|32px||true" module_class="ppl-blurb-card ppl-card-lift"]You are transitioning into the profession and want to approach what comes next with confidence and clarity.[/et_pb_blurb]
+[/et_pb_column]
+
+[/et_pb_row][/et_pb_section]
+
+
+[et_pb_section fb_built="1" _builder_version="4.24.2" background_image="https://pinkprint.wpenginepowered.com/wp-content/uploads/pink-gavel.jpg" background_size="cover" background_position="center_center" custom_padding="250px||250px||false|false" parallax="on" parallax_method="on"][et_pb_row _builder_version="4.24.2"][et_pb_column type="4_4" _builder_version="4.24.2"][/et_pb_column][/et_pb_row][/et_pb_section]
+
+
+[et_pb_section fb_built="1" _builder_version="4.24.2" background_color="#230d18" custom_padding="96px||96px||false|false"][et_pb_row column_structure="5_12,7_12" _builder_version="4.24.2" use_custom_gutter="on" gutter_width="5"]
+
+[et_pb_column type="5_12" _builder_version="4.24.2"]
+[et_pb_image src="https://cdn.rit.edu/images/news/2024-04/WEB-20240210_shakira-smith_nycalumniupdate_0011_jamod.jpg" alt="Shakierah Smith" _builder_version="4.24.2" module_class="ppl-about-img" /]
+[/et_pb_column]
+
+[et_pb_column type="7_12" _builder_version="4.24.2"]
+
+[et_pb_text _builder_version="4.24.2" module_class="ppl-section-label-pink" custom_margin="0||12px||false|false"]About The Pinkprint[/et_pb_text]
+
+[et_pb_text _builder_version="4.24.2" header_font="Playfair Display|700|||||||" header_text_color="#ffffff" header_font_size="2.25rem" header_line_height="1.2em" custom_margin="0||16px||false|false"]<h2>Too many law students are expected to simply "figure it out".</h2>[/et_pb_text]
+
+[et_pb_text _builder_version="4.24.2" text_font="DM Sans||||||||" text_text_color="rgba(255,255,255,0.75)" text_font_size="16px" text_line_height="1.75em" custom_margin="0||16px||false|false"]I did not enter law school with a built-in roadmap or a family of attorneys. I came in as a first-generation student, learning the language, the expectations, and the unspoken rules of the profession in real time — often through trial and error. What I quickly recognized was that intelligence and work ethic were not the issue. Access to clear, honest guidance was.[/et_pb_text]
+
+[et_pb_text _builder_version="4.24.2" text_font="DM Sans||||||||" text_text_color="rgba(255,255,255,0.75)" text_font_size="16px" text_line_height="1.75em" custom_margin="0||40px||false|false"]My path was defined by preparation, discipline, and a deep commitment to excellence. I graduated in the top five percent of my class at the University at Buffalo School of Law. Out of this came The Pinkprint Lawyer — a guide for law students left to just "figure it out".[/et_pb_text]
+
+[et_pb_button button_text="Read the Full Story" button_url="#" button_alignment="left" _builder_version="4.24.2" custom_button="on" button_text_color="#ff89c5" button_bg_color="rgba(0,0,0,0)" button_border_width="2px" button_border_color="rgba(255,137,197,0.4)" button_border_radius="12px" button_font="DM Sans|600|||||||" module_class="ppl-btn-outline-light" /]
+
+[/et_pb_column][/et_pb_row][/et_pb_section]
+
+
+[et_pb_section fb_built="1" _builder_version="4.24.2" background_color="#ffffff" custom_padding="96px||96px||false|false"]
+
+[et_pb_row _builder_version="4.24.2" custom_padding="0||32px||false|false"]
+[et_pb_column type="4_4" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-section-label" custom_margin="0||8px||false|false"]Featured Digital Products[/et_pb_text]
+[et_pb_text _builder_version="4.24.2" header_font="Playfair Display|700|||||||" header_text_color="#230d18" header_font_size="2rem" header_line_height="1.2em" header_letter_spacing="-0.025em" custom_margin="0||12px||false|false"]<h2>Each pinkprint addresses a specific stage of your journey.</h2>[/et_pb_text]
+[et_pb_text _builder_version="4.24.2" text_font="DM Sans||||||||" text_text_color="#8a6a7a" text_font_size="16px" text_line_height="1.7em"]Each pinkprint is designed with clear takeaways and realistic strategies you can apply immediately. Choose what fits your current season.[/et_pb_text]
+[/et_pb_column]
+[/et_pb_row]
+
+[et_pb_row column_structure="1_4,1_4,1_4,1_4" _builder_version="4.24.2" use_custom_gutter="on" gutter_width="3"]
+
+[et_pb_column type="1_4" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-stage-tag" custom_margin="0||4px||false|false"]Stage 01 · Aspiring[/et_pb_text]
+[et_pb_blurb title="Pre-Law Preparation" use_icon="on" font_icon="&#xe0c8;" icon_color="#c43670" _builder_version="4.24.2" background_color="#faf4f7" border_radii="on|16px|16px|16px|16px" custom_padding="24px|24px|24px|24px||true" module_class="ppl-blurb-card ppl-card-lift" url="#" url_new_window="off" icon_font_size="22px"]Pre-law preparation and planning tools to help you make well-informed decisions before day one.[/et_pb_blurb]
+[et_pb_button button_text="Get This Pinkprint" button_url="#" button_alignment="left" _builder_version="4.24.2" custom_button="on" button_text_color="#c43670" button_bg_color="rgba(0,0,0,0)" button_border_width="0" button_font="DM Sans|600|||||||" button_font_size="14px" /]
+[/et_pb_column]
+
+[et_pb_column type="1_4" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-stage-tag" custom_margin="0||4px||false|false"]Stage 02 · Current[/et_pb_text]
+[et_pb_blurb title="Law School Study System" use_icon="on" font_icon="&#xe0cb;" icon_color="#c43670" _builder_version="4.24.2" background_color="#faf4f7" border_radii="on|16px|16px|16px|16px" custom_padding="24px|24px|24px|24px||true" module_class="ppl-blurb-card ppl-card-lift" icon_font_size="22px"]Law school study systems and academic strategy to help you manage coursework, examinations, and professional opportunities.[/et_pb_blurb]
+[et_pb_button button_text="Get This Pinkprint" button_url="#" button_alignment="left" _builder_version="4.24.2" custom_button="on" button_text_color="#c43670" button_bg_color="rgba(0,0,0,0)" button_border_width="0" button_font="DM Sans|600|||||||" button_font_size="14px" /]
+[/et_pb_column]
+
+[et_pb_column type="1_4" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-stage-tag" custom_margin="0||4px||false|false"]Stage 03 · Graduates[/et_pb_text]
+[et_pb_blurb title="Bar Exam &amp; Career Prep" use_icon="on" font_icon="&#xe0c8;" icon_color="#c43670" _builder_version="4.24.2" background_color="#faf4f7" border_radii="on|16px|16px|16px|16px" custom_padding="24px|24px|24px|24px||true" module_class="ppl-blurb-card ppl-card-lift" icon_font_size="22px"]Examination preparation, internship positioning, and career development for the transition into the profession.[/et_pb_blurb]
+[et_pb_button button_text="Get This Pinkprint" button_url="#" button_alignment="left" _builder_version="4.24.2" custom_button="on" button_text_color="#c43670" button_bg_color="rgba(0,0,0,0)" button_border_width="0" button_font="DM Sans|600|||||||" button_font_size="14px" /]
+[/et_pb_column]
+
+[et_pb_column type="1_4" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-stage-tag" custom_margin="0||4px||false|false"]Stage 04 · Attorneys[/et_pb_text]
+[et_pb_blurb title="Early Career Guidance" use_icon="on" font_icon="&#xe0e9;" icon_color="#c43670" _builder_version="4.24.2" background_color="#faf4f7" border_radii="on|16px|16px|16px|16px" custom_padding="24px|24px|24px|24px||true" module_class="ppl-blurb-card ppl-card-lift" icon_font_size="22px"]Post-graduate and early-career resources for attorneys entering the profession with confidence.[/et_pb_blurb]
+[et_pb_button button_text="Get This Pinkprint" button_url="#" button_alignment="left" _builder_version="4.24.2" custom_button="on" button_text_color="#c43670" button_bg_color="rgba(0,0,0,0)" button_border_width="0" button_font="DM Sans|600|||||||" button_font_size="14px" /]
+[/et_pb_column]
+
+[/et_pb_row]
+
+[et_pb_row _builder_version="4.24.2"]
+[et_pb_column type="4_4" _builder_version="4.24.2"]
+[et_pb_blurb title="Pre-Law, Law School &amp; Post-Law Strategy Meeting" use_icon="on" font_icon="&#xe09a;" icon_color="#c43670" icon_placement="left" _builder_version="4.24.2" background_color="#f2e4ec" border_radii="on|16px|16px|16px|16px" custom_padding="32px|40px|32px|40px||true" module_class="ppl-session-card" icon_font_size="36px"]A focused, one-hour session tailored to where you are in your journey — from choosing a law school to navigating the bar and early career.[/et_pb_blurb]
+[et_pb_button button_text="Book a Session" button_url="#" button_alignment="right" _builder_version="4.24.2" custom_button="on" button_text_color="#ffffff" button_bg_color="#c43670" button_border_width="0" button_border_radius="12px" button_font="DM Sans|600|||||||" button_icon="%%3%%" button_on_hover="off" /]
+[/et_pb_column]
+[/et_pb_row][/et_pb_section]
+
+
+[et_pb_section fb_built="1" _builder_version="4.24.2" background_color="#ffeaf4" custom_padding="96px||96px||false|false"]
+
+[et_pb_row _builder_version="4.24.2" custom_padding="0||40px||false|false"]
+[et_pb_column type="4_4" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-section-label" text_text_align="center" custom_margin="0||8px||false|false"]How It Works[/et_pb_text]
+[et_pb_text _builder_version="4.24.2" header_font="Playfair Display|700|||||||" header_text_color="#230d18" header_font_size="2.25rem" header_line_height="1.2em" text_text_align="center" custom_margin="0||12px||false|false"]<h2>Three steps to moving forward with clarity.</h2>[/et_pb_text]
+[et_pb_text _builder_version="4.24.2" text_font="DM Sans||||||||" text_text_color="#8a6a7a" text_font_size="16px" text_line_height="1.7em" text_text_align="center" max_width="480px" module_alignment="center"]One intentional step at a time.[/et_pb_text]
+[/et_pb_column]
+[/et_pb_row]
+
+[et_pb_row column_structure="1_3,1_3,1_3" _builder_version="4.24.2" use_custom_gutter="on" gutter_width="3"]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_blurb title="Find Your Stage" use_icon="on" font_icon="&#xe04e;" icon_color="#c43670" _builder_version="4.24.2" background_color="#ffffff" border_radii="on|16px|16px|16px|16px" custom_padding="32px|32px|32px|32px||true" module_class="ppl-blurb-card"]Identify where you are in your legal journey — pre-law, enrolled, or post-graduate. This determines everything that follows.[/et_pb_blurb]
+[/et_pb_column]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_blurb title="Choose Your Pinkprint" use_icon="on" font_icon="&#xe02b;" icon_color="#c43670" _builder_version="4.24.2" background_color="#ffffff" border_radii="on|16px|16px|16px|16px" custom_padding="32px|32px|32px|32px||true" module_class="ppl-blurb-card"]Select the resource that fits your current season. Each pinkprint is purpose-built with clear takeaways you can apply immediately.[/et_pb_blurb]
+[/et_pb_column]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_blurb title="Move with Clarity" use_icon="on" font_icon="&#xe0e2;" icon_color="#c43670" _builder_version="4.24.2" background_color="#ffffff" border_radii="on|16px|16px|16px|16px" custom_padding="32px|32px|32px|32px||true" module_class="ppl-blurb-card"]Apply the strategies, follow the frameworks, and advance through your legal education with intention — not guesswork.[/et_pb_blurb]
+[/et_pb_column]
+
+[/et_pb_row][/et_pb_section]
+
+
+[et_pb_section fb_built="1" _builder_version="4.24.2" background_color="#faf4f7" custom_padding="96px||96px||false|false"]
+
+[et_pb_row _builder_version="4.24.2" custom_padding="0||40px||false|false"]
+[et_pb_column type="4_4" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-section-label" text_text_align="center" custom_margin="0||8px||false|false"]Student Stories[/et_pb_text]
+[et_pb_text _builder_version="4.24.2" header_font="Playfair Display|700|||||||" header_text_color="#230d18" header_font_size="2.25rem" text_text_align="center"]<h2>Real students. Real results.</h2>[/et_pb_text]
+[/et_pb_column]
+[/et_pb_row]
+
+[et_pb_row column_structure="1_3,1_3,1_3" _builder_version="4.24.2" use_custom_gutter="on" gutter_width="3"]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_testimonial author="Alicia M." job_title="1L · Howard University School of Law" quote_icon="on" quote_icon_color="#ff89c5" _builder_version="4.24.2" background_color="#ffffff" border_radii="on|16px|16px|16px|16px" custom_padding="32px|32px|32px|32px||true" body_font="Playfair Display||||||||italic" body_text_color="#230d18" body_font_size="1.05rem" body_line_height="1.65em" author_font="DM Sans|600|||||||" author_text_color="#230d18" position_font="DM Sans||||||||" position_text_color="#8a6a7a" use_icon="off" portrait_width="44px" portrait_height="44px"]"The Pinkprint gave me a framework I could actually use. I went into my 1L year knowing exactly what to expect and how to handle it."[/et_pb_testimonial]
+[/et_pb_column]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_testimonial author="Jordan T." job_title="2L · Temple University Beasley School of Law" quote_icon="on" quote_icon_color="#ff89c5" _builder_version="4.24.2" background_color="#ffffff" border_radii="on|16px|16px|16px|16px" custom_padding="32px|32px|32px|32px||true" body_font="Playfair Display||||||||italic" body_text_color="#230d18" body_font_size="1.05rem" body_line_height="1.65em" author_font="DM Sans|600|||||||" author_text_color="#230d18" position_font="DM Sans||||||||" position_text_color="#8a6a7a" use_icon="off"]"As a first-generation student, I had no idea what I didn't know. This platform filled every gap — from study strategy to understanding the bar process."[/et_pb_testimonial]
+[/et_pb_column]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_testimonial author="Danielle R." job_title="Recent Graduate · Bar Candidate" quote_icon="on" quote_icon_color="#ff89c5" _builder_version="4.24.2" background_color="#ffffff" border_radii="on|16px|16px|16px|16px" custom_padding="32px|32px|32px|32px||true" body_font="Playfair Display||||||||italic" body_text_color="#230d18" body_font_size="1.05rem" body_line_height="1.65em" author_font="DM Sans|600|||||||" author_text_color="#230d18" position_font="DM Sans||||||||" position_text_color="#8a6a7a" use_icon="off"]"The bar prep pinkprint helped me structure my schedule and approach the exam with confidence instead of panic. Genuinely life-changing."[/et_pb_testimonial]
+[/et_pb_column]
+
+[/et_pb_row][/et_pb_section]
+
+
+[et_pb_section fb_built="1" _builder_version="4.24.2" background_color="#f0eff0" custom_padding="96px||96px||false|false"]
+
+[et_pb_row _builder_version="4.24.2" custom_padding="0||32px||false|false"]
+[et_pb_column type="4_4" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-section-label" text_text_align="center" custom_margin="0||12px||false|false"]Now Available[/et_pb_text]
+[et_pb_text _builder_version="4.24.2" header_font="Playfair Display|700|||||||" header_text_color="#230d18" header_font_size="2rem" header_line_height="1.2em" text_text_align="center" custom_margin="0||16px||false|false"]<h2>The Pinkprint Guides</h2>[/et_pb_text]
+[et_pb_text _builder_version="4.24.2" text_font="DM Sans||||||||" text_text_color="#230d18" text_font_size="16px" text_line_height="1.75em" text_text_align="center" max_width="620px" module_alignment="center" custom_margin="0||32px||false|false"]Three guides. One through-line. Each Pinkprint meets you at a different stage of the legal journey — from your first steps into law school through the bar exam and into the profession.[/et_pb_text]
+[et_pb_button button_text="Shop the Guides" button_url="#" button_alignment="center" _builder_version="4.24.2" custom_button="on" button_text_color="#ffffff" button_bg_color="#c43670" button_border_width="0" button_border_radius="12px" button_font="DM Sans|600|||||||" button_icon="%%3%%" button_on_hover="off" /]
+[/et_pb_column]
+[/et_pb_row]
+
+[et_pb_row column_structure="1_3,1_3,1_3" _builder_version="4.24.2" use_custom_gutter="on" gutter_width="4" max_width="900px" custom_padding="32px||0||false|false"]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_image src="https://pinkprint.wpenginepowered.com/wp-content/uploads/pinkprint-book-1-cover.png" alt="The Pinkprint Lawyer — Book 1" _builder_version="4.24.2" border_radii="on|16px|16px|16px|16px" module_class="ppl-book-cover" /]
+[/et_pb_column]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_image src="https://pinkprint.wpenginepowered.com/wp-content/uploads/pinkprint-book-2-cover.png" alt="The Pinkprint Lawyer — Book 2" _builder_version="4.24.2" border_radii="on|16px|16px|16px|16px" module_class="ppl-book-cover" /]
+[/et_pb_column]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_image src="https://pinkprint.wpenginepowered.com/wp-content/uploads/pinkprint-book-3-cover.png" alt="The Pinkprint Lawyer — Book 3" _builder_version="4.24.2" border_radii="on|16px|16px|16px|16px" module_class="ppl-book-cover" /]
+[/et_pb_column]
+
+[/et_pb_row][/et_pb_section]
+
+
+[et_pb_section fb_built="1" _builder_version="4.24.2" background_color="#c43670" custom_padding="96px||96px||false|false"]
+
+[et_pb_row _builder_version="4.24.2" custom_padding="0||40px||false|false"]
+[et_pb_column type="4_4" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" text_font="DM Sans|600|||||||" text_text_color="rgba(255,255,255,0.6)" text_font_size="11px" text_letter_spacing="2px" text_text_align="center" text_text_transform="uppercase" custom_margin="0||8px||false|false"]Find Your Path[/et_pb_text]
+[et_pb_text _builder_version="4.24.2" header_font="Playfair Display|700|||||||" header_text_color="#ffffff" header_font_size="2.25rem" header_line_height="1.2em" text_text_align="center" custom_margin="0||12px||false|false"]<h2>Not sure where to start?</h2>[/et_pb_text]
+[et_pb_text _builder_version="4.24.2" text_font="DM Sans||||||||" text_text_color="rgba(255,255,255,0.75)" text_font_size="16px" text_line_height="1.7em" text_text_align="center" max_width="560px" module_alignment="center"]If you are unsure which resource is right for you, start here. Choose your current stage and we will point you to exactly what you need.[/et_pb_text]
+[/et_pb_column]
+[/et_pb_row]
+
+[et_pb_row column_structure="1_3,1_3,1_3" _builder_version="4.24.2" use_custom_gutter="on" gutter_width="3"]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-eyebrow-light" custom_margin="0||12px||false|false"]New to Law School[/et_pb_text]
+[et_pb_blurb title="Just Getting Started" use_icon="on" font_icon="&#xe024;" icon_color="#ffffff" _builder_version="4.24.2" border_radii="on|16px|16px|16px|16px" custom_padding="32px|32px|32px|32px||true" module_class="ppl-glass-card ppl-blurb-card" url="#" url_new_window="off"]Explore the Pre-Law Pinkprint and foundation resources designed to set you up before day one.[/et_pb_blurb]
+[/et_pb_column]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-eyebrow-light" custom_margin="0||12px||false|false"]Currently Enrolled[/et_pb_text]
+[et_pb_blurb title="In the Middle of It" use_icon="on" font_icon="&#xe0cb;" icon_color="#ffffff" _builder_version="4.24.2" border_radii="on|16px|16px|16px|16px" custom_padding="32px|32px|32px|32px||true" module_class="ppl-glass-card ppl-blurb-card" url="#"]Find study systems, academic strategy guides, and exam prep frameworks built for active students.[/et_pb_blurb]
+[/et_pb_column]
+
+[et_pb_column type="1_3" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-eyebrow-light" custom_margin="0||12px||false|false"]Post-Graduate[/et_pb_text]
+[et_pb_blurb title="Preparing for the Bar" use_icon="on" font_icon="&#xe0e9;" icon_color="#ffffff" _builder_version="4.24.2" border_radii="on|16px|16px|16px|16px" custom_padding="32px|32px|32px|32px||true" module_class="ppl-glass-card ppl-blurb-card" url="#"]Access bar prep frameworks and early-career transition tools for graduates entering the profession.[/et_pb_blurb]
+[/et_pb_column]
+
+[/et_pb_row]
+
+[et_pb_row _builder_version="4.24.2"]
+[et_pb_column type="4_4" _builder_version="4.24.2"]
+[et_pb_button button_text="Start Here" button_url="#" button_alignment="center" _builder_version="4.24.2" custom_button="on" button_text_color="#c43670" button_bg_color="#ffffff" button_border_width="0" button_border_radius="12px" button_font="DM Sans|600|||||||" module_class="ppl-btn-white" /]
+[/et_pb_column]
+[/et_pb_row][/et_pb_section]
+
+
+[et_pb_section fb_built="1" _builder_version="4.24.2" background_color="#230d18" custom_padding="96px||96px||false|false"][et_pb_row column_structure="5_12,7_12" _builder_version="4.24.2" use_custom_gutter="on" gutter_width="5"]
+
+[et_pb_column type="5_12" _builder_version="4.24.2"]
+[et_pb_text _builder_version="4.24.2" module_class="ppl-section-label-pink" custom_margin="0||12px||false|false"]Contact[/et_pb_text]
+[et_pb_text _builder_version="4.24.2" header_font="Playfair Display|700|||||||" header_text_color="#ffffff" header_font_size="2rem" header_line_height="1.2em" custom_margin="0||16px||false|false"]<h2>Get in Touch</h2>[/et_pb_text]
+[et_pb_text _builder_version="4.24.2" text_font="DM Sans||||||||" text_text_color="rgba(255,255,255,0.75)" text_font_size="16px" text_line_height="1.75em" custom_margin="0||16px||false|false"]I am always open to thoughtful conversation and meaningful opportunities. This page is the best way to get in touch for professional inquiries, collaborations, or invitations.[/et_pb_text]
+[et_pb_text _builder_version="4.24.2" text_font="DM Sans||||||||" text_text_color="rgba(255,255,255,0.6)" text_font_size="15px" text_line_height="1.65em" custom_margin="0||40px||false|false"]Whether you are reaching out with a question or exploring a potential partnership, I appreciate clarity and intention, and I do my best to respond with the same.[/et_pb_text]
+[et_pb_blurb title="General Inquiries" use_icon="on" font_icon="&#xe076;" icon_color="#ff89c5" icon_placement="left" _builder_version="4.24.2" title_font="DM Sans|600|||||||" title_text_color="#ffffff" title_font_size="15px" body_font="DM Sans||||||||" body_text_color="rgba(255,255,255,0.6)" body_font_size="14px" custom_margin="0||16px||false|false"]Questions about The Pinkprint Lawyer, resources, or educational content.[/et_pb_blurb]
+[et_pb_blurb title="Collaborations &amp; Partnerships" use_icon="on" font_icon="&#xe09f;" icon_color="#ff89c5" icon_placement="left" _builder_version="4.24.2" title_font="DM Sans|600|||||||" title_text_color="#ffffff" title_font_size="15px" body_font="DM Sans||||||||" body_text_color="rgba(255,255,255,0.6)" body_font_size="14px" custom_margin="0||16px||false|false"]Brands, organizations, and institutions aligned with access, education, and professional development.[/et_pb_blurb]
+[et_pb_blurb title="Speaking Engagements" use_icon="on" font_icon="&#xe045;" icon_color="#ff89c5" icon_placement="left" _builder_version="4.24.2" title_font="DM Sans|600|||||||" title_text_color="#ffffff" title_font_size="15px" body_font="DM Sans||||||||" body_text_color="rgba(255,255,255,0.6)" body_font_size="14px" custom_margin="0||16px||false|false"]Panels, workshops, guest lectures, or speaking opportunities.[/et_pb_blurb]
+[et_pb_blurb title="Media &amp; Press" use_icon="on" font_icon="&#xe0d8;" icon_color="#ff89c5" icon_placement="left" _builder_version="4.24.2" title_font="DM Sans|600|||||||" title_text_color="#ffffff" title_font_size="15px" body_font="DM Sans||||||||" body_text_color="rgba(255,255,255,0.6)" body_font_size="14px"]Interviews, features, or press-related inquiries.[/et_pb_blurb]
+[/et_pb_column]
+
+[et_pb_column type="7_12" _builder_version="4.24.2"]
+[et_pb_code _builder_version="4.24.2"]
+<div class="ppl-contact-form-wrap">
+  <p style="font-size:15px;color:rgba(255,255,255,0.6);margin-bottom:32px;font-family:'DM Sans',sans-serif;">If you are unsure which category your message falls under, that is okay — just share the details, and we will take it from there.</p>
+  <form method="post" action="/wp-admin/admin-post.php" style="display:flex;flex-direction:column;gap:20px;">
+    <input type="hidden" name="action" value="ppl_contact" />
+    <div><label class="ppl-cf-label">Name *</label><input type="text" name="ppl_name" class="ppl-cf-input" placeholder="Your full name" required /></div>
+    <div><label class="ppl-cf-label">Email *</label><input type="email" name="ppl_email" class="ppl-cf-input" placeholder="Your email address" required /></div>
+    <div><label class="ppl-cf-label">Inquiry Type</label>
+      <select name="ppl_type" class="ppl-cf-input" style="appearance:auto;">
+        <option value="" disabled selected>Select a category</option>
+        <option value="General Inquiry">General Inquiry</option>
+        <option value="Collaboration &amp; Partnership">Collaboration &amp; Partnership</option>
+        <option value="Speaking Engagement">Speaking Engagement</option>
+        <option value="Media &amp; Press">Media &amp; Press</option>
+      </select>
+    </div>
+    <div><label class="ppl-cf-label">Message *</label><textarea name="ppl_message" class="ppl-cf-input" rows="4" style="resize:none;" placeholder="Share the details of your inquiry" required></textarea></div>
+    <button type="submit" class="ppl-cf-submit">Send Message</button>
+  </form>
+</div>
+[/et_pb_code]
+[/et_pb_column][/et_pb_row][/et_pb_section]

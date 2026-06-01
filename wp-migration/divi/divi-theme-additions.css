@@ -1,0 +1,258 @@
+/*
+ * PPL Divi Theme Additions
+ * Add this to: WP Admin → Divi → Theme Options → Custom CSS
+ * OR append to your child theme's style.css
+ *
+ * These classes are applied via module_class on each Divi module.
+ * They handle styling that Divi's module settings don't cover natively.
+ */
+
+/* ── Fonts ──────────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+/* ── Colour tokens ──────────────────────────────────────────────────────── */
+:root {
+  --pink-light:    #ff89c5;
+  --pink-tint:     #ffeaf4;
+  --pink-tint-mid: #fbd6e9;
+  --pink-deep:     #c43670;
+  --blush:         #faf4f7;
+  --blush-mid:     #f2e4ec;
+  --plum:          #230d18;
+  --plum-mid:      #3d1a2e;
+  --muted-pp:      #8a6a7a;
+}
+
+/* ── Global resets for PPL Divi pages ──────────────────────────────────── */
+.ppl-page h1, .ppl-page h2, .ppl-page h3, .ppl-page h4 {
+  font-family: 'Playfair Display', serif !important;
+}
+.ppl-page p, .ppl-page a, .ppl-page span, .ppl-page li {
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── Eyebrow pill badge ─────────────────────────────────────────────────── */
+.ppl-eyebrow .et_pb_text_inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--pink-tint);
+  color: var(--pink-deep);
+  border-radius: 9999px;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+}
+.ppl-eyebrow-light .et_pb_text_inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border-radius: 9999px;
+  padding: 6px 14px;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+}
+.ppl-section-label .et_pb_text_inner {
+  color: var(--pink-deep);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+}
+.ppl-section-label-pink .et_pb_text_inner {
+  color: var(--pink-light);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── Hero heading: italicise "Pinkprint" in em tag ─────────────────────── */
+.ppl-hero-heading h1 em {
+  color: var(--pink-deep);
+  font-style: italic;
+}
+.ppl-hero-heading-dark h1 em {
+  color: var(--pink-light);
+  font-style: italic;
+}
+
+/* ── Credential bar item ────────────────────────────────────────────────── */
+.ppl-cred-item .et_pb_blurb_content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+.ppl-cred-item .et_pb_main_blurb_title {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: var(--pink-deep) !important;
+  font-family: 'DM Sans', sans-serif !important;
+  margin: 0 !important;
+}
+.ppl-cred-item .et_pb_blurb_container { text-align: center; }
+.ppl-cred-divider { border-left: 1px solid var(--pink-tint-mid); align-self: stretch; margin: 8px 0; }
+
+/* ── Card lift hover ────────────────────────────────────────────────────── */
+.ppl-card-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.ppl-card-lift:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(35,13,24,0.1); }
+
+/* ── Audience / Step / Product cards (et_pb_blurb) ─────────────────────── */
+.ppl-blurb-card .et_pb_blurb_content { padding: 8px 0 0; }
+.ppl-blurb-card .et_pb_main_blurb_title {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 1.25rem !important;
+  color: var(--plum) !important;
+  margin-bottom: 10px !important;
+}
+.ppl-blurb-card .et_pb_blurb_description {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--plum);
+}
+.ppl-blurb-card .et_pb_blurb_container { padding-top: 16px; }
+
+/* Stage tag above blurb title */
+.ppl-stage-tag .et_pb_text_inner {
+  color: var(--muted-pp);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+}
+.ppl-stage-tag-rose .et_pb_text_inner {
+  color: var(--pink-deep);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── Testimonial card ───────────────────────────────────────────────────── */
+.ppl-testimonial blockquote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--plum);
+  border: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+.ppl-testimonial .et_pb_text_inner { font-family: 'DM Sans', sans-serif; }
+
+/* ── Start Here glass cards ─────────────────────────────────────────────── */
+.ppl-glass-card {
+  background: rgba(255,255,255,0.12) !important;
+  backdrop-filter: blur(8px);
+}
+.ppl-glass-card .et_pb_blurb_container { padding-top: 12px; }
+.ppl-glass-card .et_pb_main_blurb_title {
+  font-family: 'Playfair Display', serif !important;
+  color: #fff !important;
+  font-size: 1.2rem !important;
+}
+.ppl-glass-card .et_pb_blurb_description { color: rgba(255,255,255,0.75); font-size: 14px; }
+
+/* ── About section button (outline light) ───────────────────────────────── */
+.ppl-btn-outline-light.et_pb_button_module_wrapper .et_pb_button {
+  color: var(--pink-light) !important;
+  border: 1.5px solid rgba(255,137,197,0.4) !important;
+  background: transparent !important;
+  border-radius: 12px !important;
+}
+.ppl-btn-outline-light.et_pb_button_module_wrapper .et_pb_button:hover {
+  background: var(--pink-deep) !important;
+  color: #fff !important;
+  border-color: var(--pink-deep) !important;
+}
+
+/* ── Book covers shadow ─────────────────────────────────────────────────── */
+.ppl-book-cover img { box-shadow: 0 24px 56px rgba(35,13,24,0.14) !important; }
+
+/* ── Start Here bottom CTA ──────────────────────────────────────────────── */
+.ppl-btn-white.et_pb_button_module_wrapper .et_pb_button {
+  background: #fff !important;
+  color: var(--pink-deep) !important;
+  border: none !important;
+  border-radius: 12px !important;
+}
+.ppl-btn-white.et_pb_button_module_wrapper .et_pb_button:hover {
+  background: var(--blush) !important;
+  color: var(--plum) !important;
+}
+
+/* ── Session wide card ──────────────────────────────────────────────────── */
+.ppl-session-card { background: var(--blush-mid) !important; }
+.ppl-session-card .et_pb_blurb_content { display: flex; flex-direction: row; align-items: center; gap: 24px; }
+.ppl-session-card .et_pb_main_blurb_title { font-size: 1.25rem !important; color: var(--plum) !important; }
+
+/* ── Footer ─────────────────────────────────────────────────────────────── */
+.ppl-footer-heading {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--plum); margin-bottom: 12px;
+}
+.ppl-footer-link {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; color: var(--muted-pp);
+  text-decoration: none; margin-bottom: 8px;
+}
+.ppl-footer-link:hover { color: var(--pink-deep); }
+.ppl-footer-meta { font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--muted-pp); }
+.ppl-social-icon {
+  width: 36px; height: 36px;
+  background: var(--blush); border-radius: 8px;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--plum) !important; text-decoration: none; font-size: 16px;
+}
+.ppl-social-icon:hover { background: var(--pink-tint-mid); }
+
+/* ── Mission section image ──────────────────────────────────────────────── */
+.ppl-mission-img img { border-radius: 16px; height: 480px; object-fit: cover; width: 100%; }
+
+/* ── About photo ────────────────────────────────────────────────────────── */
+.ppl-about-img img { border-radius: 16px; height: 520px; object-fit: cover; object-position: top center; width: 100%; }
+
+/* ── Hero image ─────────────────────────────────────────────────────────── */
+.ppl-hero-img img {
+  width: 100%; height: 540px; object-fit: cover; object-position: top;
+  filter: sepia(0.8) saturate(3) hue-rotate(280deg) brightness(1.05);
+  mix-blend-mode: multiply;
+}
+
+/* ── Header nav overrides (Divi resets break Bootstrap navbar) ──────────── */
+.ppl-header .navbar { display: flex !important; align-items: center !important; flex-wrap: nowrap !important; }
+.ppl-header .navbar .container { display: flex !important; align-items: center !important; flex-wrap: nowrap !important; }
+.ppl-header ul.navbar-nav { list-style: none !important; padding-left: 0 !important; margin-bottom: 0 !important; }
+.ppl-header ul.navbar-nav li { list-style: none !important; }
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+.btn-rose { background-color: var(--pink-deep); color: #fff !important; border: none; }
+.btn-rose:hover { background-color: var(--plum); color: #fff !important; }
+
+/* ── Contact form (Code module) ─────────────────────────────────────────── */
+.ppl-contact-form-wrap { background: var(--plum-mid); border-radius: 24px; padding: 48px; }
+.ppl-cf-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.6); display: block; margin-bottom: 8px; font-family: 'DM Sans', sans-serif; }
+.ppl-cf-input { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 14px 20px; font-size: 15px; color: #fff; width: 100%; box-sizing: border-box; font-family: 'DM Sans', sans-serif; }
+.ppl-cf-input::placeholder { color: rgba(255,255,255,0.35); }
+.ppl-cf-input:focus { outline: none; border-color: var(--pink-light); }
+.ppl-cf-submit { background: var(--pink-deep); color: #fff; font-size: 15px; font-weight: 600; border-radius: 10px; padding: 14px 24px; border: none; width: 100%; cursor: pointer; font-family: 'DM Sans', sans-serif; margin-top: 8px; }
+.ppl-cf-submit:hover { background: var(--pink-light); color: var(--plum); }

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Pinkprint Lawyer — Blog</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink-light:    #ff89c5;
+      --pink-tint:     #ffeaf4;
+      --pink-tint-mid: #fbd6e9;
+      --pink-deep:     #c43670;
+      --blush:         #faf4f7;
+      --blush-mid:     #f2e4ec;
+      --plum:          #230d18;
+      --plum-mid:      #3d1a2e;
+      --plum-soft:     #4f2240;
+      --muted-pp:      #8a6a7a;
+    }
+    .bg-plum       { background-color: var(--plum) !important; }
+    .bg-plum-mid   { background-color: var(--plum-mid) !important; }
+    .bg-rose       { background-color: var(--pink-deep) !important; }
+    .bg-pink-tint  { background-color: var(--pink-tint) !important; }
+    .bg-blush      { background-color: var(--blush) !important; }
+    .bg-blush-mid  { background-color: var(--blush-mid) !important; }
+    .text-plum     { color: var(--plum) !important; }
+    .text-rose     { color: var(--pink-deep) !important; }
+    .text-pink     { color: var(--pink-light) !important; }
+    .text-muted-pp { color: var(--muted-pp) !important; }
+    .text-light-75 { color: rgba(255,255,255,0.75) !important; }
+    .text-light-60 { color: rgba(255,255,255,0.6) !important; }
+    .border-blush  { border-color: var(--blush-mid) !important; }
+    body { font-family: 'DM Sans', sans-serif; }
+    h1,h2,h3,h4,h5,h6,blockquote { font-family: 'Playfair Display', serif; }
+    .ls-wide  { letter-spacing: 2px; }
+    .ls-tight { letter-spacing: -0.025em; }
+    .section-pad { padding: 96px 0; }
+    .eyebrow  { font-size: 11px; font-family: 'DM Sans', sans-serif; }
+    .body-lead { font-size: 16px; line-height: 1.75; }
+    .body-md   { font-size: 16px; line-height: 1.7; }
+    .body-sm   { font-size: 15px; line-height: 1.65; }
+    .body-xs   { font-size: 14px; line-height: 1.65; }
+    .btn-plum        { background-color: var(--plum); color: #fff; border: none; }
+    .btn-plum:hover  { background-color: var(--pink-deep); color: #fff; }
+    .btn-rose        { background-color: var(--pink-deep); color: #fff; border: none; }
+    .btn-rose:hover  { background-color: var(--plum); color: #fff; }
+    .btn-ghost-light       { background: transparent; color: var(--plum); border: 1.5px solid var(--blush-mid); }
+    .btn-ghost-light:hover { border-color: var(--pink-deep); color: var(--pink-deep); }
+    .btn-outline-plum       { background: transparent; color: var(--plum); border: 2px solid var(--plum); }
+    .btn-outline-plum:hover { background-color: var(--plum); color: #fff; }
+    .card-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-lift:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(35,13,24,0.1); }
+    .card-link       { font-size: 14px; font-weight: 600; color: var(--pink-deep); text-decoration: none; }
+    .card-link:hover { color: var(--plum); }
+    .card-h-sm { font-size: 1.15rem; }
+    .stage-tag { font-size: 11px; font-family: 'DM Sans', sans-serif; }
+    .footer-pad           { padding: 64px 0 32px; }
+    .footer-tagline       { font-size: 14px; line-height: 1.6; }
+    .footer-section-label { font-size: 11px; }
+    .footer-link-sm       { font-size: 14px; }
+    .footer-meta          { font-size: 13px; }
+    .icon-36 { width: 36px; height: 36px; }
+
+    /* Blog-specific */
+    .post-img-wrap { border-radius: 12px; overflow: hidden; margin-bottom: 20px; background: var(--blush-mid); }
+    .post-img      { width: 100%; height: 180px; object-fit: cover; display: block; }
+    .post-img-placeholder { width: 100%; height: 180px; display: flex; align-items: center; justify-content: center; background: var(--blush-mid); }
+    .post-meta     { font-size: 12px; font-family: 'DM Sans', sans-serif; color: var(--muted-pp); }
+    .post-title    { font-size: 1.1rem; line-height: 1.35; }
+
+    /* Filter pills */
+    .filter-bar { padding: 24px 0; background: #fff; position: sticky; top: 73px; z-index: 100; border-bottom: 1px solid var(--blush-mid); }
+    .filter-pill {
+      font-size: 12px; font-family: 'DM Sans', sans-serif; font-weight: 600;
+      padding: 8px 18px; border-radius: 50px;
+      border: 1.5px solid var(--blush-mid);
+      background: transparent; color: var(--muted-pp);
+      cursor: pointer; transition: all 0.15s ease;
+      text-transform: uppercase; letter-spacing: 1.5px;
+    }
+    .filter-pill:hover  { border-color: var(--pink-deep); color: var(--pink-deep); }
+    .filter-pill.active { background: var(--pink-deep); border-color: var(--pink-deep); color: #fff; }
+
+    /* Pagination */
+    .page-link-pp {
+      font-size: 14px; font-weight: 600; font-family: 'DM Sans', sans-serif;
+      color: var(--muted-pp); border: 1.5px solid var(--blush-mid);
+      border-radius: 8px !important; padding: 10px 16px;
+      background: transparent; margin: 0 3px;
+      transition: all 0.15s ease;
+    }
+    .page-link-pp:hover, .page-link-pp.active { background: var(--pink-deep); border-color: var(--pink-deep); color: #fff; }
+
+    /* Scroll animations */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease calc(var(--stagger,0)*80ms), transform 0.55s ease calc(var(--stagger,0)*80ms); }
+    .fade-up.in-view { opacity: 1; transform: none; }
+  </style>
+</head>
+<body class="bg-white">
+
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg sticky-top py-3 bg-white border-bottom border-blush">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (1).png" alt="The Pinkprint Lawyer" height="46" />
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNav" aria-label="Open navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center">
+        <ul class="navbar-nav gap-4">
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px;" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px;" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px;" href="#">Shop</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px;" href="#">Membership</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px;" href="#">Legal/Admin</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px;" href="blog-archive.html" style="color:var(--pink-deep) !important;">Blog</a></li>
+        </ul>
+      </div>
+      <div class="d-none d-lg-flex align-items-center gap-2">
+        <a href="#" class="btn btn-ghost-light rounded-3 px-4 py-2 fw-semibold" style="font-size:14px;">Log In</a>
+        <a href="#" class="btn btn-rose rounded-3 px-4 py-2 fw-semibold" style="font-size:14px;">Start Here</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- OFFCANVAS -->
+  <div class="offcanvas offcanvas-end bg-blush" tabindex="-1" id="mobileNav">
+    <div class="offcanvas-header" style="border-bottom:1px solid var(--pink-tint-mid);">
+      <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (1).png" alt="The Pinkprint Lawyer" height="40" />
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column gap-3 pt-4">
+      <a href="index.html" class="nav-link fs-5 text-plum fw-medium">Home</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">About</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">Shop</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">Membership</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">Legal/Admin</a>
+      <a href="blog-archive.html" class="nav-link fs-5 fw-medium" style="color:var(--pink-deep);">Blog</a>
+      <a href="#" class="btn btn-rose rounded-3 py-2 fw-semibold mt-3">Log In</a>
+    </div>
+  </div>
+
+
+  <!-- HERO -->
+  <section class="bg-blush" style="padding: 96px 0 80px;">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-7">
+          <span class="d-inline-flex align-items-center gap-2 bg-pink-tint text-rose rounded-pill px-3 py-2 fw-semibold mb-4 eyebrow">
+            <i class="bi bi-journals"></i> Resources &amp; Insights
+          </span>
+          <h1 class="display-4 fw-bold text-plum ls-tight mb-4">The Pinkprint Blog</h1>
+          <p class="text-muted-pp body-lead mb-5">Practical guidance, honest perspective, and evidence-informed strategy — for every stage of the legal journey.</p>
+          <div class="d-flex justify-content-center">
+            <div class="input-group" style="max-width:440px;">
+              <input type="search" class="form-control border-blush rounded-start-3 py-3 px-4 body-sm" placeholder="Search articles…" style="border-color:var(--blush-mid); font-family:'DM Sans',sans-serif;" />
+              <button class="btn btn-rose rounded-end-3 px-4 fw-semibold" style="font-size:14px;">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="container">
+      <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center">
+        <button class="filter-pill active" data-filter="all">All Posts</button>
+        <button class="filter-pill" data-filter="pre-law">Pre-Law</button>
+        <button class="filter-pill" data-filter="law-school">Law School</button>
+        <button class="filter-pill" data-filter="bar-prep">Bar Prep</button>
+        <button class="filter-pill" data-filter="career">Career &amp; Beyond</button>
+        <button class="filter-pill" data-filter="first-gen">First-Gen</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- POST GRID -->
+  <section class="bg-white section-pad">
+    <div class="container">
+
+      <!-- Featured post (full-width) -->
+      <div class="row g-5 align-items-center mb-5 pb-5" style="border-bottom:1px solid var(--blush-mid);" data-post-cat="law-school">
+        <div class="col-lg-6">
+          <div class="rounded-4 overflow-hidden bg-blush-mid" style="height:400px;">
+            <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1200&auto=format&fit=crop" alt="Law books" style="width:100%;height:100%;object-fit:cover;display:block;filter:sepia(0.4) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <span class="d-inline-flex align-items-center gap-2 bg-pink-tint text-rose rounded-pill px-3 py-2 fw-semibold mb-4 eyebrow">
+            <i class="bi bi-bookmark-fill"></i> Featured · Law School
+          </span>
+          <h2 class="text-plum ls-tight fw-bold mb-3" style="font-size:2rem;">How I Structured My Entire 1L Year Before It Started</h2>
+          <p class="text-muted-pp body-md mb-4">Most students walk into 1L reactive. I walked in with a system. Here is the exact framework I used to plan my semester before classes began — and why it made all the difference.</p>
+          <div class="d-flex align-items-center gap-3 mb-4">
+            <div class="rounded-circle bg-blush-mid d-flex align-items-center justify-content-center flex-shrink-0" style="width:36px;height:36px;"><i class="bi bi-person-fill text-muted-pp"></i></div>
+            <div>
+              <span class="text-plum fw-semibold" style="font-size:13px;">Shakierah Smith</span>
+              <span class="text-muted-pp mx-2" style="font-size:13px;">·</span>
+              <span class="text-muted-pp" style="font-size:13px;">May 12, 2025 · 8 min read</span>
+            </div>
+          </div>
+          <a href="blog-single.html" class="btn btn-plum rounded-3 px-4 py-3 fw-semibold" style="font-size:14px;">Read the Article <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+
+      <!-- Grid header -->
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <p class="text-muted-pp mb-0 body-sm"><span id="post-count">8</span> articles</p>
+        <select class="form-select border-blush text-muted-pp" style="width:auto;font-size:14px;font-family:'DM Sans',sans-serif;border-color:var(--blush-mid);">
+          <option>Most Recent</option>
+          <option>Most Popular</option>
+          <option>A – Z</option>
+        </select>
+      </div>
+
+      <!-- 4-column grid -->
+      <div class="row g-4" id="post-grid">
+
+        <div class="col-sm-6 col-lg-3" data-post-cat="pre-law">
+          <div class="bg-blush rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div class="post-img-wrap">
+              <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=600&auto=format&fit=crop" alt="" class="post-img" style="filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 stage-tag">Pre-Law</p>
+            <h4 class="text-plum mb-3 fw-bold post-title">Choosing a Law School That Actually Fits You</h4>
+            <p class="text-muted-pp mb-4 body-xs flex-grow-1">Rankings matter less than fit. Here is what to look for when evaluating programs — beyond the US News list.</p>
+            <div class="d-flex align-items-center justify-content-between mt-auto pt-2" style="border-top:1px solid var(--blush-mid);">
+              <span class="post-meta">Apr 3, 2025 · 5 min</span>
+              <a href="blog-single.html" class="card-link d-inline-flex align-items-center gap-1">Read <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3" data-post-cat="law-school">
+          <div class="bg-blush rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div class="post-img-wrap">
+              <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=600&auto=format&fit=crop" alt="" class="post-img" style="filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 stage-tag">Law School</p>
+            <h4 class="text-plum mb-3 fw-bold post-title">The Brief-Writing System That Changed My Grades</h4>
+            <p class="text-muted-pp mb-4 body-xs flex-grow-1">Not all case briefs are created equal. The format I developed cut my prep time in half and doubled my in-class clarity.</p>
+            <div class="d-flex align-items-center justify-content-between mt-auto pt-2" style="border-top:1px solid var(--blush-mid);">
+              <span class="post-meta">Mar 28, 2025 · 6 min</span>
+              <a href="blog-single.html" class="card-link d-inline-flex align-items-center gap-1">Read <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3" data-post-cat="bar-prep">
+          <div class="bg-blush rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div class="post-img-wrap">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" alt="" class="post-img" style="filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 stage-tag">Bar Prep</p>
+            <h4 class="text-plum mb-3 fw-bold post-title">What Nobody Tells You About the MBE in Week One</h4>
+            <p class="text-muted-pp mb-4 body-xs flex-grow-1">The Multistate Bar Exam rewards pattern recognition above everything else. Here is how to build that skill from day one of prep.</p>
+            <div class="d-flex align-items-center justify-content-between mt-auto pt-2" style="border-top:1px solid var(--blush-mid);">
+              <span class="post-meta">Mar 14, 2025 · 7 min</span>
+              <a href="blog-single.html" class="card-link d-inline-flex align-items-center gap-1">Read <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3" data-post-cat="first-gen">
+          <div class="bg-blush rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div class="post-img-wrap">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop" alt="" class="post-img" style="filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 stage-tag">First-Gen</p>
+            <h4 class="text-plum mb-3 fw-bold post-title">The Hidden Curriculum of Law School No One Mentions</h4>
+            <p class="text-muted-pp mb-4 body-xs flex-grow-1">Networking, office hours, law review — the unwritten rules that shape who advances and who doesn't. A first-generation guide.</p>
+            <div class="d-flex align-items-center justify-content-between mt-auto pt-2" style="border-top:1px solid var(--blush-mid);">
+              <span class="post-meta">Feb 22, 2025 · 9 min</span>
+              <a href="blog-single.html" class="card-link d-inline-flex align-items-center gap-1">Read <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3" data-post-cat="career">
+          <div class="bg-blush rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div class="post-img-wrap">
+              <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=600&auto=format&fit=crop" alt="" class="post-img" style="filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 stage-tag">Career &amp; Beyond</p>
+            <h4 class="text-plum mb-3 fw-bold post-title">Your First 90 Days as a Practicing Attorney</h4>
+            <p class="text-muted-pp mb-4 body-xs flex-grow-1">Passing the bar is the beginning, not the finish line. What to prioritize — and what to let go of — in your first three months.</p>
+            <div class="d-flex align-items-center justify-content-between mt-auto pt-2" style="border-top:1px solid var(--blush-mid);">
+              <span class="post-meta">Feb 8, 2025 · 6 min</span>
+              <a href="blog-single.html" class="card-link d-inline-flex align-items-center gap-1">Read <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3" data-post-cat="law-school">
+          <div class="bg-blush rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div class="post-img-wrap">
+              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=600&auto=format&fit=crop" alt="" class="post-img" style="filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 stage-tag">Law School</p>
+            <h4 class="text-plum mb-3 fw-bold post-title">How to Survive Finals Week Without Burning Out</h4>
+            <p class="text-muted-pp mb-4 body-xs flex-grow-1">Rest is not the enemy of performance. A sustainable finals strategy that protects your output and your health.</p>
+            <div class="d-flex align-items-center justify-content-between mt-auto pt-2" style="border-top:1px solid var(--blush-mid);">
+              <span class="post-meta">Jan 30, 2025 · 5 min</span>
+              <a href="blog-single.html" class="card-link d-inline-flex align-items-center gap-1">Read <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3" data-post-cat="pre-law">
+          <div class="bg-blush rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div class="post-img-wrap">
+              <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop" alt="" class="post-img" style="filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 stage-tag">Pre-Law</p>
+            <h4 class="text-plum mb-3 fw-bold post-title">LSAT Prep: What Worked and What I Wish I'd Skipped</h4>
+            <p class="text-muted-pp mb-4 body-xs flex-grow-1">After working through dozens of prep strategies, here is an honest breakdown of the resources worth your time — and the ones that aren't.</p>
+            <div class="d-flex align-items-center justify-content-between mt-auto pt-2" style="border-top:1px solid var(--blush-mid);">
+              <span class="post-meta">Jan 15, 2025 · 8 min</span>
+              <a href="blog-single.html" class="card-link d-inline-flex align-items-center gap-1">Read <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3" data-post-cat="first-gen">
+          <div class="bg-blush rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div class="post-img-wrap">
+              <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=600&auto=format&fit=crop" alt="" class="post-img" style="filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 stage-tag">First-Gen</p>
+            <h4 class="text-plum mb-3 fw-bold post-title">On Belonging: When You Do Not See Yourself in the Room</h4>
+            <p class="text-muted-pp mb-4 body-xs flex-grow-1">Imposter syndrome in law school is real. But it is also a signal — one that tells you more about the institution than it does about you.</p>
+            <div class="d-flex align-items-center justify-content-between mt-auto pt-2" style="border-top:1px solid var(--blush-mid);">
+              <span class="post-meta">Jan 4, 2025 · 10 min</span>
+              <a href="blog-single.html" class="card-link d-inline-flex align-items-center gap-1">Read <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /row -->
+
+      <!-- Pagination -->
+      <div class="d-flex justify-content-center align-items-center gap-1 mt-5 pt-3">
+        <button class="page-link-pp"><i class="bi bi-chevron-left"></i></button>
+        <button class="page-link-pp active">1</button>
+        <button class="page-link-pp">2</button>
+        <button class="page-link-pp">3</button>
+        <button class="page-link-pp"><i class="bi bi-chevron-right"></i></button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- NEWSLETTER CTA -->
+  <section class="bg-plum section-pad">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-6">
+          <p class="text-pink fw-semibold text-uppercase ls-wide mb-3 eyebrow">Stay in the Loop</p>
+          <h2 class="text-white ls-tight fw-bold display-6 mb-4">New articles, every week.</h2>
+          <p class="text-light-75 body-md mb-5">No noise. Just practical guidance for every stage of your legal journey — delivered to your inbox.</p>
+          <div class="d-flex">
+            <input type="email" class="flex-grow-1" placeholder="Your email address"
+              style="background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.15);border-right:none;border-radius:10px 0 0 10px;padding:14px 20px;font-size:15px;color:#fff;font-family:'DM Sans',sans-serif;" />
+            <button style="background:var(--pink-deep);color:#fff;font-size:15px;font-weight:600;border-radius:0 10px 10px 0;padding:14px 24px;border:none;white-space:nowrap;font-family:'DM Sans',sans-serif;">Subscribe</button>
+          </div>
+          <p class="text-light-60 mt-3" style="font-size:12px;">No spam. Unsubscribe at any time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-top border-blush footer-pad">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-4">
+          <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (1).png" alt="The Pinkprint Lawyer" height="42" />
+          <p class="text-muted-pp mt-3 mb-3 footer-tagline">Your roadmap through law school<br />and into the profession.</p>
+          <div class="d-flex gap-2">
+            <a href="#" aria-label="Instagram" class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none icon-36"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"  class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none icon-36"><i class="bi bi-linkedin"></i></a>
+            <a href="#" aria-label="TikTok"    class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none icon-36"><i class="bi bi-tiktok"></i></a>
+            <a href="#" aria-label="YouTube"   class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none icon-36"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label">About</p>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Shakierah Smith</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Our Mission</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">The Book</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Press</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label">Shop</p>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Browse the Shop</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Book a Session</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label">Blog</p>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Pre-Law</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Law School</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Bar Prep</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Career &amp; Beyond</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label">Legal</p>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Contact</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Privacy Policy</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Terms of Use</a>
+        </div>
+      </div>
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 border-top border-blush pt-4 mt-5">
+        <p class="text-muted-pp mb-0 footer-meta">© 2025 The Pinkprint Lawyer. All rights reserved.</p>
+        <div class="d-flex gap-4">
+          <a href="#" class="text-muted-pp text-decoration-none footer-meta">Privacy Policy</a>
+          <a href="#" class="text-muted-pp text-decoration-none footer-meta">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Category filter
+    const pills = document.querySelectorAll('.filter-pill');
+    const cards = document.querySelectorAll('#post-grid [data-post-cat]');
+    const countEl = document.getElementById('post-count');
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const cat = pill.dataset.filter;
+        let count = 0;
+        cards.forEach(card => {
+          const show = cat === 'all' || card.dataset.postCat === cat;
+          card.style.display = show ? '' : 'none';
+          if (show) count++;
+        });
+        countEl.textContent = count;
+      });
+    });
+
+    // Scroll animations
+    (function () {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); observer.unobserve(e.target); }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('section, footer').forEach(section => {
+        section.querySelectorAll(':scope > .container > *, :scope > .container > .row > [class*="col"]').forEach((el, i) => {
+          el.classList.add('fade-up');
+          el.style.setProperty('--stagger', i);
+          observer.observe(el);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

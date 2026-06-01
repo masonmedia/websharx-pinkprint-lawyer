@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How I Structured My Entire 1L Year Before It Started — The Pinkprint Lawyer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink-light:    #ff89c5;
+      --pink-tint:     #ffeaf4;
+      --pink-tint-mid: #fbd6e9;
+      --pink-deep:     #c43670;
+      --blush:         #faf4f7;
+      --blush-mid:     #f2e4ec;
+      --plum:          #230d18;
+      --plum-mid:      #3d1a2e;
+      --plum-soft:     #4f2240;
+      --muted-pp:      #8a6a7a;
+    }
+    .bg-plum       { background-color: var(--plum) !important; }
+    .bg-plum-mid   { background-color: var(--plum-mid) !important; }
+    .bg-rose       { background-color: var(--pink-deep) !important; }
+    .bg-pink-tint  { background-color: var(--pink-tint) !important; }
+    .bg-blush      { background-color: var(--blush) !important; }
+    .bg-blush-mid  { background-color: var(--blush-mid) !important; }
+    .text-plum     { color: var(--plum) !important; }
+    .text-rose     { color: var(--pink-deep) !important; }
+    .text-pink     { color: var(--pink-light) !important; }
+    .text-muted-pp { color: var(--muted-pp) !important; }
+    .text-light-75 { color: rgba(255,255,255,0.75) !important; }
+    .text-light-60 { color: rgba(255,255,255,0.6) !important; }
+    .border-blush  { border-color: var(--blush-mid) !important; }
+    body { font-family: 'DM Sans', sans-serif; }
+    h1,h2,h3,h4,h5,h6,blockquote { font-family: 'Playfair Display', serif; }
+    .ls-wide  { letter-spacing: 2px; }
+    .ls-tight { letter-spacing: -0.025em; }
+    .section-pad { padding: 96px 0; }
+    .eyebrow  { font-size: 11px; font-family: 'DM Sans', sans-serif; }
+    .body-lead { font-size: 16px; line-height: 1.75; }
+    .body-md   { font-size: 16px; line-height: 1.7; }
+    .body-sm   { font-size: 15px; line-height: 1.65; }
+    .body-xs   { font-size: 14px; line-height: 1.65; }
+    .btn-plum        { background-color: var(--plum); color: #fff; border: none; }
+    .btn-plum:hover  { background-color: var(--pink-deep); color: #fff; }
+    .btn-rose        { background-color: var(--pink-deep); color: #fff; border: none; }
+    .btn-rose:hover  { background-color: var(--plum); color: #fff; }
+    .btn-ghost-light       { background: transparent; color: var(--plum); border: 1.5px solid var(--blush-mid); }
+    .btn-ghost-light:hover { border-color: var(--pink-deep); color: var(--pink-deep); }
+    .btn-outline-plum       { background: transparent; color: var(--plum); border: 2px solid var(--plum); }
+    .btn-outline-plum:hover { background-color: var(--plum); color: #fff; }
+    .card-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-lift:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(35,13,24,0.1); }
+    .card-link       { font-size: 14px; font-weight: 600; color: var(--pink-deep); text-decoration: none; }
+    .card-link:hover { color: var(--plum); }
+    .footer-pad           { padding: 64px 0 32px; }
+    .footer-tagline       { font-size: 14px; line-height: 1.6; }
+    .footer-section-label { font-size: 11px; }
+    .footer-link-sm       { font-size: 14px; }
+    .footer-meta          { font-size: 13px; }
+    .icon-36 { width: 36px; height: 36px; }
+    .stage-tag { font-size: 11px; font-family: 'DM Sans', sans-serif; }
+
+    /* Post hero */
+    .post-hero { padding: 80px 0 64px; }
+    .post-hero-meta { font-size: 13px; font-family: 'DM Sans', sans-serif; }
+    .post-hero-img  { width: 100%; max-height: 520px; object-fit: cover; object-position: center top; display: block; border-radius: 16px; }
+
+    /* Post content */
+    .post-content { font-size: 17px; line-height: 1.85; color: var(--plum); }
+    .post-content p  { margin-bottom: 1.5rem; }
+    .post-content h2 { font-size: 1.6rem; margin-top: 2.5rem; margin-bottom: 1rem; color: var(--plum); }
+    .post-content h3 { font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; color: var(--plum); }
+    .post-content ul, .post-content ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+    .post-content li { margin-bottom: 0.5rem; }
+    .post-content a  { color: var(--pink-deep); text-decoration: underline; text-underline-offset: 3px; }
+    .post-content blockquote {
+      margin: 2rem 0; padding: 1.5rem 2rem;
+      background: var(--blush); border-radius: 12px;
+      font-style: italic; font-size: 1.1rem; line-height: 1.7;
+      color: var(--plum-soft); font-family: 'Playfair Display', serif;
+    }
+    .post-content blockquote p { margin-bottom: 0; }
+
+    /* Drop cap */
+    .post-content .drop-cap::first-letter {
+      font-family: 'Playfair Display', serif; font-size: 4.5rem; font-weight: 700;
+      float: left; line-height: 0.75; margin-right: 8px; margin-top: 6px;
+      color: var(--pink-deep);
+    }
+
+    /* Sidebar */
+    .sidebar-widget { background: var(--blush); border-radius: 16px; padding: 24px; margin-bottom: 24px; }
+    .sidebar-widget-title { font-size: 11px; font-family: 'DM Sans', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--muted-pp); margin-bottom: 16px; }
+    .sidebar-category-link { display: flex; align-items: center; justify-content: space-between; text-decoration: none; color: var(--plum); font-size: 14px; font-weight: 500; padding: 8px 0; border-bottom: 1px solid var(--blush-mid); }
+    .sidebar-category-link:hover { color: var(--pink-deep); }
+    .sidebar-category-link:last-child { border-bottom: none; padding-bottom: 0; }
+    .sidebar-related-img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+    .sidebar-related-title { font-size: 13px; font-weight: 600; line-height: 1.35; color: var(--plum); text-decoration: none; }
+    .sidebar-related-title:hover { color: var(--pink-deep); }
+
+    /* Post tags */
+    .post-tag { font-size: 12px; font-family: 'DM Sans', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; background: var(--blush); color: var(--muted-pp); border-radius: 50px; padding: 6px 14px; text-decoration: none; }
+    .post-tag:hover { background: var(--pink-tint); color: var(--pink-deep); }
+
+    /* Author bio card */
+    .author-card { background: var(--plum); border-radius: 16px; padding: 32px; }
+    .author-avatar { width: 72px; height: 72px; object-fit: cover; object-position: top center; border-radius: 50%; border: 3px solid rgba(255,137,197,0.3); }
+
+    /* Scroll animations */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease calc(var(--stagger,0)*80ms), transform 0.55s ease calc(var(--stagger,0)*80ms); }
+    .fade-up.in-view { opacity: 1; transform: none; }
+  </style>
+</head>
+<body class="bg-white">
+
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg sticky-top py-3 bg-white border-bottom border-blush">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (1).png" alt="The Pinkprint Lawyer" height="46" />
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNav" aria-label="Open navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center">
+        <ul class="navbar-nav gap-4">
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px;" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px;" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px;" href="#">Shop</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px;" href="#">Membership</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum" style="font-size:14px;" href="#">Legal/Admin</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium" style="font-size:14px;color:var(--pink-deep);" href="blog-archive.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="d-none d-lg-flex align-items-center gap-2">
+        <a href="#" class="btn btn-ghost-light rounded-3 px-4 py-2 fw-semibold" style="font-size:14px;">Log In</a>
+        <a href="#" class="btn btn-rose rounded-3 px-4 py-2 fw-semibold" style="font-size:14px;">Start Here</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- OFFCANVAS -->
+  <div class="offcanvas offcanvas-end bg-blush" tabindex="-1" id="mobileNav">
+    <div class="offcanvas-header" style="border-bottom:1px solid var(--pink-tint-mid);">
+      <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (1).png" alt="The Pinkprint Lawyer" height="40" />
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column gap-3 pt-4">
+      <a href="index.html" class="nav-link fs-5 text-plum fw-medium">Home</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">About</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">Shop</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">Membership</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">Legal/Admin</a>
+      <a href="blog-archive.html" class="nav-link fs-5 fw-medium" style="color:var(--pink-deep);">Blog</a>
+      <a href="#" class="btn btn-rose rounded-3 py-2 fw-semibold mt-3">Log In</a>
+    </div>
+  </div>
+
+
+  <!-- POST HERO -->
+  <section class="bg-blush post-hero">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <!-- Breadcrumb -->
+          <div class="d-flex align-items-center justify-content-center gap-2 mb-4 post-hero-meta text-muted-pp">
+            <a href="blog-archive.html" class="text-muted-pp text-decoration-none" style="font-size:13px;">Blog</a>
+            <i class="bi bi-chevron-right" style="font-size:10px;"></i>
+            <a href="#" class="text-rose text-decoration-none fw-semibold" style="font-size:13px;">Law School</a>
+          </div>
+          <h1 class="display-5 fw-bold text-plum ls-tight mb-4">How I Structured My Entire 1L Year Before It Started</h1>
+          <p class="text-muted-pp body-lead mb-5">Most students walk into 1L reactive. I walked in with a system. Here is the exact framework I used to plan my semester before classes began — and why it made all the difference.</p>
+          <!-- Post meta -->
+          <div class="d-flex align-items-center justify-content-center gap-3 flex-wrap">
+            <div class="d-flex align-items-center gap-2">
+              <img src="https://cdn.rit.edu/images/news/2024-04/WEB-20240210_shakira-smith_nycalumniupdate_0011_jamod.jpg" alt="Shakierah Smith" style="width:40px;height:40px;object-fit:cover;object-position:top;border-radius:50%;border:2px solid var(--pink-tint-mid);" />
+              <span class="text-plum fw-semibold" style="font-size:14px;">Shakierah Smith</span>
+            </div>
+            <span class="text-muted-pp" style="font-size:13px;">·</span>
+            <span class="text-muted-pp" style="font-size:13px;"><i class="bi bi-calendar3 me-1"></i>May 12, 2025</span>
+            <span class="text-muted-pp" style="font-size:13px;">·</span>
+            <span class="text-muted-pp" style="font-size:13px;"><i class="bi bi-clock me-1"></i>8 min read</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED IMAGE -->
+  <div class="container" style="padding-top:40px;">
+    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1400&auto=format&fit=crop" alt="Law books and study materials" class="post-hero-img" style="filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+  </div>
+
+
+  <!-- CONTENT + SIDEBAR -->
+  <section class="bg-white" style="padding: 64px 0 96px;">
+    <div class="container">
+      <div class="row g-5">
+
+        <!-- MAIN CONTENT -->
+        <div class="col-lg-8">
+          <article class="post-content">
+
+            <p class="drop-cap">Law school does not reward the unprepared — but it does not have to catch you off guard, either. In the summer before my 1L year at the University at Buffalo School of Law, I made a decision that changed everything about how my first semester unfolded. I built a system before I ever set foot in a classroom.</p>
+
+            <p>This is not about over-preparing in a way that creates anxiety. It is about arriving with clarity on how you learn, how you will manage your time, and what you will do when things inevitably get hard. Here is exactly what I did — and what I recommend to every student I work with.</p>
+
+            <h2>Step 1: Map the semester before it begins</h2>
+
+            <p>The first thing I did was get every syllabus I could find for each of my 1L courses. Many professors post them publicly, or you can reach out to incoming students from the prior year. I built a simple calendar with every assignment, reading, and exam date in one place before orientation week.</p>
+
+            <p>This sounds basic, but most students do this reactively — week by week as assignments come due. Seeing the full semester in one view changed my relationship to stress. I could see what was coming. I could plan around it.</p>
+
+            <blockquote>
+              <p>"Preparation is not about eliminating uncertainty. It is about reducing the surface area of surprise so that when something unexpected happens, you have the capacity to respond."</p>
+            </blockquote>
+
+            <h2>Step 2: Build your brief-writing workflow before 1L reading begins</h2>
+
+            <p>Case briefs are the core unit of law school study. Most students develop their briefing system through trial and error — wasting weeks on formats that do not serve them in the Socratic classroom. I spent two weeks before school started writing practice briefs on cases I found online, experimenting with format, and arriving on day one with a system already dialed in.</p>
+
+            <p>My format was structured around five elements:</p>
+            <ul>
+              <li><strong>Facts</strong> — one to three sentences, only what matters for the legal question</li>
+              <li><strong>Issue</strong> — the precise legal question the court is answering</li>
+              <li><strong>Rule</strong> — the controlling legal principle</li>
+              <li><strong>Analysis</strong> — how the court applied the rule to the facts</li>
+              <li><strong>Holding</strong> — the decision, written in one sentence</li>
+            </ul>
+
+            <p>That is it. Nothing more. I found that brevity served me better than comprehensiveness — because I was writing briefs I could actually use in class, not briefs that looked impressive on paper.</p>
+
+            <h2>Step 3: Identify your support structure before you need it</h2>
+
+            <p>Before classes started, I identified three things: where academic support resources lived, which professors held office hours and on what days, and whether any upper-level students were willing to answer questions. I did not wait until I was drowning to find a life raft.</p>
+
+            <p>Most students reach out for help after they have already fallen behind. By then, the semester has a momentum of its own. Finding your support structure in August means you arrive knowing how to use it in October.</p>
+
+            <h2>The result</h2>
+
+            <p>I graduated in the top five percent of my class. I am not sharing that to impress — I am sharing it because I want to be clear about what preparation produces. Not perfection. Not a stress-free experience. But a foundation solid enough to build on when things get hard, and they will get hard.</p>
+
+            <p>The Pinkprint Lawyer exists because this kind of guidance should not be a privilege. It should be available to every student willing to do the work — regardless of whether anyone in their family has walked this road before.</p>
+
+          </article>
+
+          <!-- Post tags -->
+          <div class="d-flex flex-wrap gap-2 mt-5 pt-4" style="border-top:1px solid var(--blush-mid);">
+            <span class="text-muted-pp me-1 body-xs fw-semibold" style="align-self:center;">Tagged:</span>
+            <a href="#" class="post-tag">Law School</a>
+            <a href="#" class="post-tag">Study Strategy</a>
+            <a href="#" class="post-tag">1L</a>
+            <a href="#" class="post-tag">Preparation</a>
+            <a href="#" class="post-tag">First-Gen</a>
+          </div>
+
+          <!-- Share -->
+          <div class="d-flex align-items-center gap-3 mt-4 pt-4" style="border-top:1px solid var(--blush-mid);">
+            <span class="text-muted-pp body-xs fw-semibold text-uppercase ls-wide" style="font-size:11px;">Share</span>
+            <a href="#" class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none" style="width:36px;height:36px;" aria-label="Share on Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none" style="width:36px;height:36px;" aria-label="Share on LinkedIn"><i class="bi bi-linkedin"></i></a>
+            <a href="#" class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none" style="width:36px;height:36px;" aria-label="Share on X"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none" style="width:36px;height:36px;" aria-label="Copy link"><i class="bi bi-link-45deg"></i></a>
+          </div>
+
+          <!-- Author bio -->
+          <div class="author-card mt-5">
+            <div class="d-flex align-items-start gap-4">
+              <img src="https://cdn.rit.edu/images/news/2024-04/WEB-20240210_shakira-smith_nycalumniupdate_0011_jamod.jpg" alt="Shakierah Smith" class="author-avatar" />
+              <div>
+                <p class="text-pink fw-semibold text-uppercase ls-wide mb-1 eyebrow">Written by</p>
+                <h4 class="text-white fw-bold mb-2" style="font-size:1.1rem;">Shakierah Smith</h4>
+                <p class="text-light-75 mb-3" style="font-size:14px;line-height:1.6;">First-generation law graduate, practicing attorney, published researcher, and dedicated mentor for students navigating law school and the legal profession.</p>
+                <a href="#" class="text-decoration-none fw-semibold" style="font-size:13px;color:var(--pink-light);">Read full bio <i class="bi bi-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prev / Next navigation -->
+          <div class="row g-3 mt-5">
+            <div class="col-6">
+              <a href="blog-archive.html" class="d-block bg-blush rounded-4 p-4 text-decoration-none h-100">
+                <p class="text-muted-pp mb-2 eyebrow fw-semibold text-uppercase ls-wide"><i class="bi bi-arrow-left me-1"></i> Previous</p>
+                <p class="text-plum fw-semibold mb-0" style="font-size:14px;line-height:1.4;">Choosing a Law School That Actually Fits You</p>
+              </a>
+            </div>
+            <div class="col-6">
+              <a href="blog-archive.html" class="d-block bg-blush rounded-4 p-4 text-decoration-none h-100 text-end">
+                <p class="text-muted-pp mb-2 eyebrow fw-semibold text-uppercase ls-wide">Next <i class="bi bi-arrow-right ms-1"></i></p>
+                <p class="text-plum fw-semibold mb-0" style="font-size:14px;line-height:1.4;">The Brief-Writing System That Changed My Grades</p>
+              </a>
+            </div>
+          </div>
+
+        </div><!-- /col-lg-8 -->
+
+
+        <!-- SIDEBAR -->
+        <div class="col-lg-4">
+          <div style="position:sticky;top:100px;">
+
+            <!-- About / CTA -->
+            <div class="sidebar-widget">
+              <p class="sidebar-widget-title">About the Author</p>
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <img src="https://cdn.rit.edu/images/news/2024-04/WEB-20240210_shakira-smith_nycalumniupdate_0011_jamod.jpg" alt="Shakierah Smith" style="width:52px;height:52px;object-fit:cover;object-position:top;border-radius:50%;" />
+                <div>
+                  <p class="text-plum fw-semibold mb-0" style="font-size:14px;">Shakierah Smith</p>
+                  <p class="text-muted-pp mb-0" style="font-size:12px;">Practicing Attorney &amp; Mentor</p>
+                </div>
+              </div>
+              <p class="text-muted-pp mb-3" style="font-size:13px;line-height:1.6;">First-generation graduate, top 5% of her class at UB Law. Building the roadmap she wished she had.</p>
+              <a href="#" class="btn btn-rose rounded-3 fw-semibold w-100 py-2" style="font-size:13px;">Book a 1-on-1 Session</a>
+            </div>
+
+            <!-- Categories -->
+            <div class="sidebar-widget">
+              <p class="sidebar-widget-title">Browse by Category</p>
+              <a href="blog-archive.html" class="sidebar-category-link">
+                Pre-Law <span class="bg-pink-tint text-rose rounded-pill px-2 py-1 fw-semibold" style="font-size:11px;">12</span>
+              </a>
+              <a href="blog-archive.html" class="sidebar-category-link">
+                Law School <span class="bg-pink-tint text-rose rounded-pill px-2 py-1 fw-semibold" style="font-size:11px;">24</span>
+              </a>
+              <a href="blog-archive.html" class="sidebar-category-link">
+                Bar Prep <span class="bg-pink-tint text-rose rounded-pill px-2 py-1 fw-semibold" style="font-size:11px;">9</span>
+              </a>
+              <a href="blog-archive.html" class="sidebar-category-link">
+                Career &amp; Beyond <span class="bg-pink-tint text-rose rounded-pill px-2 py-1 fw-semibold" style="font-size:11px;">15</span>
+              </a>
+              <a href="blog-archive.html" class="sidebar-category-link" style="border-bottom:none;padding-bottom:0;">
+                First-Gen <span class="bg-pink-tint text-rose rounded-pill px-2 py-1 fw-semibold" style="font-size:11px;">11</span>
+              </a>
+            </div>
+
+            <!-- Related posts -->
+            <div class="sidebar-widget">
+              <p class="sidebar-widget-title">Related Articles</p>
+              <div class="d-flex flex-column gap-3">
+                <a href="blog-single.html" class="d-flex align-items-start gap-3 text-decoration-none">
+                  <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=120&auto=format&fit=crop" alt="" class="sidebar-related-img" style="filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+                  <span class="sidebar-related-title">The Brief-Writing System That Changed My Grades</span>
+                </a>
+                <a href="blog-single.html" class="d-flex align-items-start gap-3 text-decoration-none">
+                  <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=120&auto=format&fit=crop" alt="" class="sidebar-related-img" style="filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+                  <span class="sidebar-related-title">How to Survive Finals Week Without Burning Out</span>
+                </a>
+                <a href="blog-single.html" class="d-flex align-items-start gap-3 text-decoration-none">
+                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=120&auto=format&fit=crop" alt="" class="sidebar-related-img" style="filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+                  <span class="sidebar-related-title">The Hidden Curriculum of Law School No One Mentions</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="sidebar-widget" style="background:var(--plum);">
+              <p class="text-pink fw-semibold text-uppercase ls-wide mb-2 eyebrow">Stay in the Loop</p>
+              <h4 class="text-white fw-bold mb-2" style="font-size:1.05rem;">New articles, weekly.</h4>
+              <p class="text-light-75 mb-3" style="font-size:13px;line-height:1.55;">Practical guidance for every stage of the legal journey.</p>
+              <input type="email" placeholder="Your email address" style="background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.15);border-radius:8px;padding:12px 16px;font-size:14px;color:#fff;width:100%;font-family:'DM Sans',sans-serif;box-sizing:border-box;" />
+              <button style="background:var(--pink-deep);color:#fff;font-size:14px;font-weight:600;border-radius:8px;padding:12px 16px;border:none;width:100%;margin-top:8px;font-family:'DM Sans',sans-serif;cursor:pointer;">Subscribe</button>
+            </div>
+
+          </div>
+        </div><!-- /sidebar -->
+
+      </div><!-- /row -->
+    </div>
+  </section>
+
+
+  <!-- MORE FROM THE BLOG -->
+  <section class="bg-blush section-pad">
+    <div class="container">
+      <div class="d-flex align-items-end justify-content-between mb-5">
+        <div>
+          <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 eyebrow">Keep Reading</p>
+          <h2 class="text-plum ls-tight fw-bold display-6 mb-0">More from the Blog</h2>
+        </div>
+        <a href="blog-archive.html" class="btn btn-outline-plum rounded-3 px-4 py-3 fw-semibold d-none d-md-inline-flex" style="font-size:14px;">View All Posts</a>
+      </div>
+      <div class="row g-4">
+        <div class="col-sm-6 col-lg-3">
+          <div class="bg-white rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div style="border-radius:12px;overflow:hidden;margin-bottom:20px;">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" alt="" style="width:100%;height:160px;object-fit:cover;display:block;filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 stage-tag">Bar Prep</p>
+            <h4 class="text-plum mb-3 fw-bold" style="font-size:1.05rem;line-height:1.35;">What Nobody Tells You About the MBE in Week One</h4>
+            <a href="blog-single.html" class="card-link d-inline-flex align-items-center gap-1 mt-auto" style="font-size:14px;">Read <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="bg-white rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div style="border-radius:12px;overflow:hidden;margin-bottom:20px;">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop" alt="" style="width:100%;height:160px;object-fit:cover;display:block;filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 stage-tag">First-Gen</p>
+            <h4 class="text-plum mb-3 fw-bold" style="font-size:1.05rem;line-height:1.35;">The Hidden Curriculum of Law School No One Mentions</h4>
+            <a href="blog-single.html" class="card-link d-inline-flex align-items-center gap-1 mt-auto" style="font-size:14px;">Read <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="bg-white rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div style="border-radius:12px;overflow:hidden;margin-bottom:20px;">
+              <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=600&auto=format&fit=crop" alt="" style="width:100%;height:160px;object-fit:cover;display:block;filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 stage-tag">Career &amp; Beyond</p>
+            <h4 class="text-plum mb-3 fw-bold" style="font-size:1.05rem;line-height:1.35;">Your First 90 Days as a Practicing Attorney</h4>
+            <a href="blog-single.html" class="card-link d-inline-flex align-items-center gap-1 mt-auto" style="font-size:14px;">Read <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="bg-white rounded-4 p-4 h-100 d-flex flex-column card-lift">
+            <div style="border-radius:12px;overflow:hidden;margin-bottom:20px;">
+              <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=600&auto=format&fit=crop" alt="" style="width:100%;height:160px;object-fit:cover;display:block;filter:sepia(0.3) saturate(2) hue-rotate(280deg) brightness(1.1);" />
+            </div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 stage-tag">Pre-Law</p>
+            <h4 class="text-plum mb-3 fw-bold" style="font-size:1.05rem;line-height:1.35;">Choosing a Law School That Actually Fits You</h4>
+            <a href="blog-single.html" class="card-link d-inline-flex align-items-center gap-1 mt-auto" style="font-size:14px;">Read <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4 d-md-none">
+        <a href="blog-archive.html" class="btn btn-outline-plum rounded-3 px-4 py-3 fw-semibold" style="font-size:14px;">View All Posts</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-top border-blush footer-pad">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-4">
+          <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (1).png" alt="The Pinkprint Lawyer" height="42" />
+          <p class="text-muted-pp mt-3 mb-3 footer-tagline">Your roadmap through law school<br />and into the profession.</p>
+          <div class="d-flex gap-2">
+            <a href="#" aria-label="Instagram" class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none icon-36"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"  class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none icon-36"><i class="bi bi-linkedin"></i></a>
+            <a href="#" aria-label="TikTok"    class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none icon-36"><i class="bi bi-tiktok"></i></a>
+            <a href="#" aria-label="YouTube"   class="bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none icon-36"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label">About</p>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Shakierah Smith</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Our Mission</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">The Book</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Press</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label">Shop</p>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Browse the Shop</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Book a Session</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label">Blog</p>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Pre-Law</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Law School</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Bar Prep</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Career &amp; Beyond</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label">Legal</p>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Contact</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Privacy Policy</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Terms of Use</a>
+        </div>
+      </div>
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 border-top border-blush pt-4 mt-5">
+        <p class="text-muted-pp mb-0 footer-meta">© 2025 The Pinkprint Lawyer. All rights reserved.</p>
+        <div class="d-flex gap-4">
+          <a href="#" class="text-muted-pp text-decoration-none footer-meta">Privacy Policy</a>
+          <a href="#" class="text-muted-pp text-decoration-none footer-meta">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (function () {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); observer.unobserve(e.target); }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('section').forEach(section => {
+        section.querySelectorAll(':scope > .container > *, :scope > .container > .row > [class*="col"]').forEach((el, i) => {
+          el.classList.add('fade-up');
+          el.style.setProperty('--stagger', i);
+          observer.observe(el);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!--
+  HOW TO USE — DIVI THEME BUILDER: HEADER
+  ════════════════════════════════════════
+  1. WP Admin → Divi → Theme Builder
+  2. Click "Add Global Header"
+  3. Click "Build Global Header"
+  4. Switch to Code view and paste the shortcode below
+  5. Save & publish
+
+  LOGO: Update the img src to your Media Library URL after uploading.
+  NAV LINKS: Update href values once pages are published in WordPress.
+  Bootstrap JS must be enqueued — add to Divi → Theme Options → Integration
+  if not already loading site-wide.
+-->
+
+[et_pb_section fb_built="1" _builder_version="4.24.2" background_color="#ffffff" custom_padding="0||0||false|false" border_width_bottom="1px" border_color_bottom="#f2e4ec" module_class="ppl-header"][et_pb_row _builder_version="4.24.2" custom_padding="0||0||false|false" max_width="100%"][et_pb_column type="4_4" _builder_version="4.24.2"]
+
+[et_pb_code _builder_version="4.24.2"]
+<nav class="navbar navbar-expand-lg sticky-top py-3 bg-white border-bottom border-blush d-flex align-items-center">
+  <div class="container d-flex align-items-center">
+    <a class="navbar-brand" href="/" style="align-self:center;display:flex;align-items:center;">
+      <img src="https://pinkprint.wpenginepowered.com/wp-content/uploads/pinkprint-logo-primary.png" alt="The Pinkprint Lawyer" height="46" style="display:block;" />
+    </a>
+    <button class="navbar-toggler border-0 ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNav" aria-label="Open navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse mx-auto" id="desktopNav">
+      <ul class="navbar-nav mx-auto gap-4 mb-0" style="list-style:none;padding-left:0;">
+        <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="/about">About</a></li>
+        <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="/shop">Shop</a></li>
+        <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="/membership">Membership</a></li>
+        <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="/legal">Legal/Admin</a></li>
+        <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="d-none d-lg-flex align-items-center gap-2">
+      <a href="/my-account" class="btn btn-rose rounded-3 px-4 py-2 fw-semibold nav-link-sm">Log In</a>
+    </div>
+  </div>
+</nav>
+
+<div class="offcanvas offcanvas-end bg-blush" tabindex="-1" id="mobileNav">
+  <div class="offcanvas-header bg-blush" style="border-bottom: 1px solid var(--pink-tint-mid);">
+    <img src="https://pinkprint.wpenginepowered.com/wp-content/uploads/pinkprint-logo-primary.png" alt="The Pinkprint Lawyer" height="40" />
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column gap-3 pt-4">
+    <a href="/" class="nav-link fs-5 text-plum fw-medium">Home</a>
+    <a href="/about" class="nav-link fs-5 text-plum fw-medium">About</a>
+    <a href="/shop" class="nav-link fs-5 text-plum fw-medium">Shop</a>
+    <a href="/membership" class="nav-link fs-5 text-plum fw-medium">Membership</a>
+    <a href="/legal" class="nav-link fs-5 text-plum fw-medium">Legal/Admin</a>
+    <a href="/contact" class="nav-link fs-5 text-plum fw-medium">Contact</a>
+    <div class="d-flex flex-column gap-2 mt-3">
+      <a href="/my-account" class="btn btn-rose rounded-3 py-2 fw-semibold">Log In</a>
+    </div>
+  </div>
+</div>
+[/et_pb_code]
+
+[/et_pb_column][/et_pb_row][/et_pb_section]
