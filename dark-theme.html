@@ -135,10 +135,12 @@
     .footer-logo img { height: 44px; }
     .footer-tagline { font-size: 14px; color: var(--muted-light); margin-top: 12px; }
     .footer-col-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--pink-light); margin-bottom: 16px; }
-    .footer-link { display: block; font-size: 14px; color: var(--body-light); text-decoration: none; margin-bottom: 10px; }
+    .footer-link { display: block; font-size: 14px; color: var(--body-light); text-decoration: none; margin-bottom: 10px; transition: color 0.15s ease; }
     .footer-link:hover { color: var(--pink-light); }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; margin-top: 48px; }
     .footer-copy { font-size: 13px; color: var(--muted-light); }
+    .footer-social-icon-dark { width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.75); text-decoration: none; transition: background-color 0.15s ease, color 0.15s ease; }
+    .footer-social-icon-dark:hover { background: rgba(255,137,197,0.2); color: var(--pink-light); }
 
     /* scroll animations */
     .fade-up {
@@ -561,10 +563,10 @@
           </div>
           <p class="footer-tagline mt-3">Your roadmap through law school<br />and into the profession.</p>
           <div class="d-flex gap-2 mt-3">
-            <a href="#" aria-label="Instagram" style="width:36px;height:36px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.75);text-decoration:none;"><i class="bi bi-instagram"></i></a>
-            <a href="#" aria-label="LinkedIn"  style="width:36px;height:36px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.75);text-decoration:none;"><i class="bi bi-linkedin"></i></a>
-            <a href="#" aria-label="TikTok"    style="width:36px;height:36px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.75);text-decoration:none;"><i class="bi bi-tiktok"></i></a>
-            <a href="#" aria-label="YouTube"   style="width:36px;height:36px;background:rgba(255,255,255,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.75);text-decoration:none;"><i class="bi bi-youtube"></i></a>
+            <a href="#" aria-label="Instagram" class="footer-social-icon-dark"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"  class="footer-social-icon-dark"><i class="bi bi-linkedin"></i></a>
+            <a href="#" aria-label="TikTok"    class="footer-social-icon-dark"><i class="bi bi-tiktok"></i></a>
+            <a href="#" aria-label="YouTube"   class="footer-social-icon-dark"><i class="bi bi-youtube"></i></a>
           </div>
         </div>
         <div class="col-6 col-lg-2">

@@ -760,6 +760,13 @@
       .footer-legal { text-align: left; }
       .footer-links { grid-template-columns: 1fr 1fr; }
     }
+    .fade-up {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease calc(var(--stagger, 0) * 80ms),
+                  transform 0.55s ease calc(var(--stagger, 0) * 80ms);
+    }
+    .fade-up.in-view { opacity: 1; transform: none; }
   </style>
 </head>
 <body>
@@ -1013,5 +1020,21 @@
     </div>
   </footer>
 
+  <script>
+    // Hero staggered fade-in on page load
+    // Collect: label p, h1 (from top div), body p, CTAs div (from hero-meta), then hero-right
+    const heroTextBlock = document.querySelector('.hero-text-block');
+    const heroRight = document.querySelector('.hero .hero-right');
+    const heroTargets = [];
+    if (heroTextBlock) {
+      heroTextBlock.querySelectorAll(':scope > div > *').forEach(el => heroTargets.push(el));
+    }
+    if (heroRight) heroTargets.push(heroRight);
+    heroTargets.forEach((el, i) => {
+      el.classList.add('fade-up');
+      el.style.setProperty('--stagger', i);
+    });
+    requestAnimationFrame(() => heroTargets.forEach(el => el.classList.add('in-view')));
+  </script>
 </body>
 </html>

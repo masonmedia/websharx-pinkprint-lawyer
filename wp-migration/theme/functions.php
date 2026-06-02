@@ -1,7 +1,10 @@
 <?php
 add_action('wp_enqueue_scripts', 'child_theme_scripts');
 function child_theme_scripts() {
-    wp_enqueue_style('child-style', get_stylesheet_uri()); // Loads style.css
+    $ppl_templates = [ 'page-home.php', 'page-dark.php', 'page-default.php', 'page-blog-archive.php', 'single.php' ];
+    if ( ! is_page_template( $ppl_templates ) ) {
+        wp_enqueue_style('child-style', get_stylesheet_uri());
+    }
     wp_enqueue_script('child-custom-js', get_stylesheet_directory_uri() . '/js/custom.js', ['jquery'], null, true);
 }
 

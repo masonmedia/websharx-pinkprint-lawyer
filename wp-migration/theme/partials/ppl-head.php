@@ -95,11 +95,16 @@
     .badge-glass { background: rgba(255,255,255,0.2); font-size: 11px; font-family: 'DM Sans', sans-serif; }
     .badge-start { font-size: 11px; align-self: flex-start; font-family: 'DM Sans', sans-serif; }
     .card-glass  { background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); }
+    .navbar-collapse .nav-link:hover { color: var(--pink-deep) !important; }
+    .offcanvas-body .nav-link:hover  { color: var(--pink-deep) !important; }
     .footer-pad           { padding: 64px 0 32px; }
     .footer-tagline       { font-size: 14px; line-height: 1.6; }
     .footer-section-label { font-size: 11px; }
     .footer-link-sm       { font-size: 14px; }
+    .footer-link-sm:hover { color: var(--pink-deep) !important; }
     .footer-meta          { font-size: 13px; }
+    .footer-meta:hover    { color: var(--pink-deep) !important; }
+    .ppl-social:hover { background-color: var(--pink-tint-mid) !important; color: var(--pink-deep) !important; }
     /* Contact form */
     .ppl-form-input,
     input[type=text].ppl-form-input,

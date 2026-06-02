@@ -210,6 +210,13 @@
     .footer-link:hover { color: var(--pink); }
     .text-white-40 { color: rgba(255,255,255,.4) !important; }
     .text-white-40:hover { color: var(--pink) !important; }
+    .fade-up {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease calc(var(--stagger, 0) * 80ms),
+                  transform 0.55s ease calc(var(--stagger, 0) * 80ms);
+    }
+    .fade-up.in-view { opacity: 1; transform: none; }
   </style>
 </head>
 <body class="bg-blush">
@@ -577,5 +584,21 @@
 
   </footer>
 
+  <script>
+    // Hero staggered fade-in on page load
+    // Left col has two inner divs; collect their children, then the right col
+    const heroSection = document.querySelector('section.border-bottom');
+    const heroTargets = [];
+    if (heroSection) {
+      heroSection.querySelectorAll('.col-lg-6:first-child > div > *').forEach(el => heroTargets.push(el));
+      const rightCol = heroSection.querySelector('.col-lg-6:last-child');
+      if (rightCol) heroTargets.push(rightCol);
+    }
+    heroTargets.forEach((el, i) => {
+      el.classList.add('fade-up');
+      el.style.setProperty('--stagger', i);
+    });
+    requestAnimationFrame(() => heroTargets.forEach(el => el.classList.add('in-view')));
+  </script>
 </body>
 </html>
