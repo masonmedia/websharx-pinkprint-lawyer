@@ -1,7 +1,7 @@
 <?php
 add_action('wp_enqueue_scripts', 'child_theme_scripts');
 function child_theme_scripts() {
-    $ppl_templates = [ 'page-home.php', 'page-default.php', 'page-blog-archive.php', 'single.php' ];
+    $ppl_templates = [ 'page-home.php', 'page-default.php', 'page-blog-archive.php', 'single.php', 'page-contact.php' ];
     if ( ! is_page_template( $ppl_templates ) ) {
         wp_enqueue_style('child-style', get_stylesheet_uri());
     }
@@ -39,7 +39,7 @@ add_action( 'wp_enqueue_scripts', 'ppl_enqueue_assets' );
 
 function ppl_enqueue_assets() {
     // Only load on PPL page templates
-    if ( ! is_page_template( [ 'page-home.php', 'page-default.php' ] ) ) return;
+    if ( ! is_page_template( [ 'page-home.php', 'page-default.php', 'page-contact.php' ] ) ) return;
 
     wp_enqueue_style(
         'bootstrap',
@@ -69,6 +69,10 @@ function ppl_enqueue_assets() {
         '5.3.3',
         true
     );
+
+    wp_localize_script( 'bootstrap-bundle', 'pplData', [
+        'ajaxurl' => admin_url( 'admin-ajax.php' ),
+    ] );
 }
 
 // ── REST API — expose meta fields ──────────────────────────────────────────
@@ -81,7 +85,7 @@ function ppl_enqueue_assets() {
 add_action( 'wp_head', 'ppl_contact_form_styles', 999 );
 
 function ppl_contact_form_styles() {
-    if ( ! is_page_template( 'page-home.php' ) ) return;
+    if ( ! is_page_template( [ 'page-home.php', 'page-contact.php' ] ) ) return;
     ?>
     <style>
     input[type=text].ppl-form-input,

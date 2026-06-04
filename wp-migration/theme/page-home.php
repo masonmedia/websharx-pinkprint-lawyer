@@ -422,17 +422,13 @@
       <div class="col-lg-7">
         <div class="bg-plum-mid rounded-4 p-4 p-md-5">
 
-          <?php if ( $contact_status === 'success' ) : ?>
-            <div class="ppl-alert ppl-alert-success">Your message has been sent. We will be in touch soon.</div>
-          <?php elseif ( $contact_status === 'error' ) : ?>
-            <div class="ppl-alert ppl-alert-error">Please fill in all required fields and try again.</div>
-          <?php endif; ?>
-
           <p class="text-light-60 mb-4 body-sm">If you are unsure which category your message falls under, that is okay — just share the details, and we will take it from there.</p>
 
-          <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="d-flex flex-column gap-3">
+          <form id="ppl-contact-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="d-flex flex-column gap-3">
             <?php wp_nonce_field( 'ppl_contact_submit', 'ppl_contact_nonce' ); ?>
             <input type="hidden" name="action" value="ppl_contact" />
+            <input type="hidden" name="ppl_ts" value="<?php echo esc_attr( time() ); ?>" />
+            <div style="display:none;" aria-hidden="true"><input type="text" name="ppl_website" tabindex="-1" autocomplete="off" /></div>
 
             <div>
               <label class="ppl-form-label" for="ppl_name">Name <span style="color:var(--pink-light);">*</span></label>
@@ -463,5 +459,67 @@
     </div>
   </div>
 </section>
+
+<!-- Contact success modal -->
+<div class="modal fade" id="pplContactModal" tabindex="-1" aria-labelledby="pplContactModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-plum-mid border-0 rounded-4 p-2">
+      <div class="modal-body text-center py-5 px-4">
+        <div class="icon-wrap-dim rounded-3 d-inline-flex align-items-center justify-content-center icon-56 mb-4">
+          <i class="bi bi-check2 fs-icon-lg text-pink"></i>
+        </div>
+        <p class="text-pink fw-semibold text-uppercase ls-wide eyebrow mb-3">Message Sent</p>
+        <h3 id="pplContactModalLabel" class="text-white fw-bold mb-3" style="font-size:1.5rem;font-family:'Playfair Display',serif;">Thank you for reaching out.</h3>
+        <p class="text-light-60 body-sm mb-5">Your message has been received. I try to respond as quickly as possible, generally within 1&ndash;2 business days.</p>
+        <button type="button" class="ppl-form-submit" style="max-width:200px;margin:0 auto;display:block;" data-bs-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var form = document.getElementById('ppl-contact-form');
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = form.querySelector('button[type="submit"]');
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    var data = new FormData(form);
+    data.set('action', 'ppl_contact_json');
+
+    fetch(pplData.ajaxurl, { method: 'POST', body: data })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res.success) {
+          form.reset();
+          new bootstrap.Modal(document.getElementById('pplContactModal')).show();
+        } else {
+          showError(res.data || 'Something went wrong. Please try again.');
+        }
+      })
+      .catch(function () {
+        showError('Something went wrong. Please try again.');
+      })
+      .finally(function () {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      });
+  });
+
+  function showError(msg) {
+    var existing = form.querySelector('.ppl-alert-error');
+    if (existing) existing.remove();
+    var el = document.createElement('div');
+    el.className = 'ppl-alert ppl-alert-error';
+    el.textContent = msg;
+    form.insertBefore(el, form.firstChild);
+  }
+})();
+</script>
 
 <?php get_template_part( 'partials/ppl-footer' ); ?>

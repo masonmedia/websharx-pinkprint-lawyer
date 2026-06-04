@@ -8,13 +8,13 @@ add_action( 'init', 'ppl_register_inquiry_cpt' );
 
 function ppl_register_inquiry_cpt() {
     register_post_type( 'ppl_inquiry', [
-        'label'               => 'Inquiries',
+        'label'               => 'Contact Submissions',
         'labels'              => [
-            'name'          => 'Inquiries',
-            'singular_name' => 'Inquiry',
-            'menu_name'     => 'Inquiries',
-            'all_items'     => 'All Inquiries',
-            'view_item'     => 'View Inquiry',
+            'name'          => 'Contact Submissions',
+            'singular_name' => 'Submission',
+            'menu_name'     => 'Contact Submissions',
+            'all_items'     => 'All Submissions',
+            'view_item'     => 'View Submission',
         ],
         'public'              => false,
         'show_ui'             => true,
@@ -46,15 +46,27 @@ function ppl_register_inquiry_meta() {
     }
 }
 
-// Handle contact form submission
+// Handle contact form submission — standard POST (noscript fallback)
 add_action( 'admin_post_nopriv_ppl_contact', 'ppl_handle_contact_form' );
 add_action( 'admin_post_ppl_contact',        'ppl_handle_contact_form' );
 
-function ppl_handle_contact_form() {
-    // Verify nonce
+// Handle contact form submission — AJAX/fetch (JS primary path)
+add_action( 'wp_ajax_nopriv_ppl_contact_json', 'ppl_handle_contact_json' );
+add_action( 'wp_ajax_ppl_contact_json',        'ppl_handle_contact_json' );
+
+function ppl_handle_contact_json() {
     if ( ! isset( $_POST['ppl_contact_nonce'] ) ||
          ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ppl_contact_nonce'] ) ), 'ppl_contact_submit' ) ) {
-        wp_die( 'Invalid request.', 'Error', [ 'response' => 403 ] );
+        wp_send_json_error( 'Invalid request.', 403 );
+    }
+
+    if ( ! empty( $_POST['ppl_website'] ) ) {
+        wp_send_json_success(); // silent honeypot drop
+    }
+
+    $loaded_at = isset( $_POST['ppl_ts'] ) ? (int) $_POST['ppl_ts'] : 0;
+    if ( $loaded_at === 0 || ( time() - $loaded_at ) < 3 ) {
+        wp_send_json_success(); // silent time-check drop
     }
 
     $name    = sanitize_text_field( wp_unslash( $_POST['ppl_name']    ?? '' ) );
@@ -62,9 +74,8 @@ function ppl_handle_contact_form() {
     $type    = sanitize_text_field( wp_unslash( $_POST['ppl_type']    ?? '' ) );
     $message = sanitize_textarea_field( wp_unslash( $_POST['ppl_message'] ?? '' ) );
 
-    if ( ! $name || ! $email || ! $message ) {
-        wp_safe_redirect( add_query_arg( 'contact', 'error', wp_get_referer() ) );
-        exit;
+    if ( ! $name || ! is_email( $email ) || ! $message ) {
+        wp_send_json_error( 'Please fill in all required fields.' );
     }
 
     $post_id = wp_insert_post( [
@@ -73,15 +84,84 @@ function ppl_handle_contact_form() {
         'post_status' => 'publish',
     ] );
 
-    if ( $post_id ) {
-        update_post_meta( $post_id, 'ppl_inq_name',    $name );
-        update_post_meta( $post_id, 'ppl_inq_email',   $email );
-        update_post_meta( $post_id, 'ppl_inq_type',    $type );
-        update_post_meta( $post_id, 'ppl_inq_message', $message );
-        update_post_meta( $post_id, 'ppl_inq_status',  'new' );
+    if ( ! $post_id || is_wp_error( $post_id ) ) {
+        wp_send_json_error( 'Could not save your message. Please try again.' );
     }
 
-    wp_safe_redirect( add_query_arg( 'contact', 'success', wp_get_referer() ) );
+    update_post_meta( $post_id, 'ppl_inq_name',    $name );
+    update_post_meta( $post_id, 'ppl_inq_email',   $email );
+    update_post_meta( $post_id, 'ppl_inq_type',    $type );
+    update_post_meta( $post_id, 'ppl_inq_message', $message );
+    update_post_meta( $post_id, 'ppl_inq_status',  'new' );
+
+    $admin_url = admin_url( 'post.php?post=' . $post_id . '&action=edit' );
+    $subject   = "[Pinkprint Lawyer] New submission from {$name}";
+    $body      = "A new contact submission has been saved.\n\nName: {$name}\nEmail: {$email}\nType: {$type}\n\nMessage:\n{$message}\n\nView in admin:\n{$admin_url}";
+    $headers   = [ "Reply-To: {$name} <{$email}>", 'Content-Type: text/plain; charset=UTF-8' ];
+    wp_mail( get_option( 'admin_email' ), $subject, $body, $headers );
+
+    wp_send_json_success();
+}
+
+function ppl_handle_contact_form() {
+    $redirect_back = wp_get_referer() ?: home_url( '/' );
+
+    // Nonce
+    if ( ! isset( $_POST['ppl_contact_nonce'] ) ||
+         ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ppl_contact_nonce'] ) ), 'ppl_contact_submit' ) ) {
+        wp_safe_redirect( add_query_arg( 'contact', 'error', $redirect_back ) );
+        exit;
+    }
+
+    // Honeypot — must be empty
+    if ( ! empty( $_POST['ppl_website'] ) ) {
+        wp_safe_redirect( add_query_arg( 'contact', 'success', $redirect_back ) ); // silent drop
+        exit;
+    }
+
+    // Time check — bots submit in under 3 seconds
+    $loaded_at = isset( $_POST['ppl_ts'] ) ? (int) $_POST['ppl_ts'] : 0;
+    if ( $loaded_at === 0 || ( time() - $loaded_at ) < 3 ) {
+        wp_safe_redirect( add_query_arg( 'contact', 'success', $redirect_back ) ); // silent drop
+        exit;
+    }
+
+    $name    = sanitize_text_field( wp_unslash( $_POST['ppl_name']    ?? '' ) );
+    $email   = sanitize_email(      wp_unslash( $_POST['ppl_email']   ?? '' ) );
+    $type    = sanitize_text_field( wp_unslash( $_POST['ppl_type']    ?? '' ) );
+    $message = sanitize_textarea_field( wp_unslash( $_POST['ppl_message'] ?? '' ) );
+
+    if ( ! $name || ! is_email( $email ) || ! $message ) {
+        wp_safe_redirect( add_query_arg( 'contact', 'error', $redirect_back ) );
+        exit;
+    }
+
+    // Save to DB — primary record
+    $post_id = wp_insert_post( [
+        'post_type'   => 'ppl_inquiry',
+        'post_title'  => $name . ' — ' . gmdate( 'Y-m-d H:i' ),
+        'post_status' => 'publish',
+    ] );
+
+    if ( ! $post_id || is_wp_error( $post_id ) ) {
+        wp_safe_redirect( add_query_arg( 'contact', 'error', $redirect_back ) );
+        exit;
+    }
+
+    update_post_meta( $post_id, 'ppl_inq_name',    $name );
+    update_post_meta( $post_id, 'ppl_inq_email',   $email );
+    update_post_meta( $post_id, 'ppl_inq_type',    $type );
+    update_post_meta( $post_id, 'ppl_inq_message', $message );
+    update_post_meta( $post_id, 'ppl_inq_status',  'new' );
+
+    // Email notification — secondary, non-blocking
+    $admin_url = admin_url( 'post.php?post=' . $post_id . '&action=edit' );
+    $subject   = "[Pinkprint Lawyer] New submission from {$name}";
+    $body      = "A new contact submission has been saved.\n\nName: {$name}\nEmail: {$email}\nType: {$type}\n\nMessage:\n{$message}\n\nView in admin:\n{$admin_url}";
+    $headers   = [ "Reply-To: {$name} <{$email}>", 'Content-Type: text/plain; charset=UTF-8' ];
+    wp_mail( get_option( 'admin_email' ), $subject, $body, $headers );
+
+    wp_safe_redirect( add_query_arg( 'contact', 'success', $redirect_back ) );
     exit;
 }
 
