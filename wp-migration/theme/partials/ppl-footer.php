@@ -7,7 +7,7 @@
         $logo_url = $logo_id
             ? wp_get_attachment_image_url( $logo_id, 'full' )
             : 'https://pinkprint.wpenginepowered.com/wp-content/uploads/2026/05/The-Pinkprint-Lawyer_Primary-1.png';
-        echo '<img src="' . esc_url( $logo_url ) . '" class="custom-logo" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" height="42" style="width:auto;display:block;" />';
+        echo '<img src="' . esc_url( $logo_url ) . '" class="custom-logo w-auto d-block" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '" height="42" style="height: 42px;" />';
         ?>
         <p class="text-muted-pp mt-3 mb-3 footer-tagline">Your roadmap through law school<br />and into the profession.</p>
         <div class="d-flex gap-2">

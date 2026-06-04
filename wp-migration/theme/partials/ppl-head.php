@@ -120,5 +120,59 @@
     /* Scroll animations */
     .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease calc(var(--stagger,0)*80ms), transform 0.55s ease calc(var(--stagger,0)*80ms); }
     .fade-up.in-view { opacity: 1; transform: none; }
+    /* Dark mode toggle button */
+    #themeToggle:hover, #themeToggleMobile:hover { background-color: rgba(35,13,24,0.12) !important; }
+    /* Dark theme overrides */
+    html[data-theme="dark"] body { background-color: var(--plum); color: #fff; }
+    /* Nav */
+    html[data-theme="dark"] .navbar { background-color: rgba(35,13,24,0.92) !important; border-color: rgba(255,255,255,0.08) !important; backdrop-filter: blur(12px); }
+    html[data-theme="dark"] .navbar .nav-link, html[data-theme="dark"] .navbar .nav-link.text-plum { color: rgba(255,255,255,0.75) !important; }
+    html[data-theme="dark"] .navbar .nav-link:hover { color: var(--pink-light) !important; }
+    html[data-theme="dark"] .navbar-toggler-icon { filter: invert(1); }
+    html[data-theme="dark"] #themeToggle, html[data-theme="dark"] #themeToggleMobile { color: rgba(255,255,255,0.85); }
+    html[data-theme="dark"] #themeToggle:hover, html[data-theme="dark"] #themeToggleMobile:hover { background-color: rgba(255,255,255,0.12) !important; }
+    /* Offcanvas */
+    html[data-theme="dark"] .offcanvas { background-color: var(--plum-mid) !important; }
+    html[data-theme="dark"] .offcanvas-header { background-color: var(--plum) !important; border-color: rgba(255,255,255,0.08) !important; }
+    html[data-theme="dark"] .btn-close { filter: invert(1); }
+    html[data-theme="dark"] .offcanvas-body .nav-link { color: rgba(255,255,255,0.85) !important; }
+    html[data-theme="dark"] .offcanvas-body .nav-link:hover { color: var(--pink-light) !important; }
+    /* Section backgrounds — no rounded-4 means it's a section, not a card */
+    html[data-theme="dark"] .bg-white:not(.rounded-4):not(.rounded-5) { background-color: var(--plum-mid) !important; }
+    html[data-theme="dark"] .bg-blush:not(.rounded-4):not(.rounded-5) { background-color: var(--plum-soft) !important; }
+    html[data-theme="dark"] .bg-blush-mid:not(.rounded-4):not(.rounded-5) { background-color: var(--plum-mid) !important; }
+    html[data-theme="dark"] .bg-pink-tint { background-color: var(--plum-soft) !important; }
+    html[data-theme="dark"] .bg-secondary.bg-opacity-10 { background-color: var(--plum-mid) !important; }
+    /* Card backgrounds — rounded-4/5 cards get a subtle border for contrast */
+    html[data-theme="dark"] .bg-white.rounded-4,
+    html[data-theme="dark"] .bg-blush.rounded-4,
+    html[data-theme="dark"] .bg-blush-mid.rounded-4 { background-color: rgba(255,255,255,0.07) !important; border: 1px solid rgba(255,255,255,0.12) !important; }
+    html[data-theme="dark"] .bg-blush-mid.rounded-5 { background-color: var(--plum-soft) !important; }
+    /* Hero image — remove multiply blend so it doesn't go black against dark bg */
+    html[data-theme="dark"] .hero-img { mix-blend-mode: normal; filter: sepia(0.4) saturate(2.5) hue-rotate(280deg) brightness(0.85); }
+    /* Text */
+    html[data-theme="dark"] h1, html[data-theme="dark"] h2, html[data-theme="dark"] h3,
+    html[data-theme="dark"] h4, html[data-theme="dark"] h5, html[data-theme="dark"] h6 { color: #fff; }
+    html[data-theme="dark"] .text-plum { color: #fff !important; }
+    html[data-theme="dark"] .text-muted-pp { color: rgba(255,255,255,0.55) !important; }
+    html[data-theme="dark"] .text-secondary { color: rgba(255,255,255,0.65) !important; }
+    html[data-theme="dark"] .border-blush { border-color: rgba(255,255,255,0.1) !important; }
+    /* Buttons — flip dark buttons to light in dark mode */
+    html[data-theme="dark"] .btn-plum { background-color: #fff !important; color: var(--plum) !important; }
+    html[data-theme="dark"] .btn-plum:hover { background-color: var(--blush) !important; }
+    html[data-theme="dark"] .btn-outline-plum { border-color: rgba(255,255,255,0.5) !important; color: #fff !important; }
+    html[data-theme="dark"] .btn-outline-plum:hover { background-color: rgba(255,255,255,0.1) !important; }
+    /* Credential bar */
+    html[data-theme="dark"] .cred-divider { background: rgba(255,255,255,0.15); }
+    html[data-theme="dark"] .cred-bar-item { color: var(--pink-light); }
+    /* Footer social icons */
+    html[data-theme="dark"] .ppl-social { background-color: rgba(255,255,255,0.08) !important; color: rgba(255,255,255,0.75) !important; }
+    html[data-theme="dark"] .ppl-social:hover { background-color: rgba(255,255,255,0.15) !important; color: var(--pink-light) !important; }
   </style>
+  <script>
+    (function() {
+      var t = localStorage.getItem('ppl-theme');
+      if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+  </script>
 </head>
