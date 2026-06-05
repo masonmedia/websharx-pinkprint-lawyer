@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Hanken+Grotesk:wght@400;500;600&amp;family=Literata:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#ffe8f1",
+                    "on-surface-variant": "#574147",
+                    "on-secondary-fixed": "#3d0026",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#ffafd4",
+                    "on-background": "#2b1421",
+                    "outline-variant": "#debfc6",
+                    "surface-container-highest": "#ffd8ea",
+                    "tertiary": "#6b4d5a",
+                    "primary-fixed": "#ffd9e2",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#422936",
+                    "secondary": "#9d3971",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#ffedf0",
+                    "tertiary-fixed-dim": "#e3bccb",
+                    "secondary-container": "#fd87c3",
+                    "tertiary-container": "#856572",
+                    "surface-container-high": "#ffe0ed",
+                    "surface-container-low": "#fff0f5",
+                    "surface-tint": "#af2460",
+                    "on-tertiary-container": "#ffedf2",
+                    "primary-container": "#c43670",
+                    "on-primary-fixed-variant": "#8e0048",
+                    "on-surface": "#2b1421",
+                    "surface-variant": "#ffd8ea",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#781952",
+                    "background": "#fff8f8",
+                    "on-tertiary-fixed-variant": "#5b3e4b",
+                    "inverse-primary": "#ffb1c7",
+                    "tertiary-fixed": "#ffd8e7",
+                    "on-secondary-fixed-variant": "#7f1f58",
+                    "on-tertiary-fixed": "#2b141f",
+                    "on-primary-fixed": "#3f001c",
+                    "outline": "#8a7077",
+                    "primary": "#a31958",
+                    "surface": "#fff8f8",
+                    "primary-fixed-dim": "#ffb1c7",
+                    "surface-dim": "#f7cfe2",
+                    "inverse-on-surface": "#ffecf3",
+                    "on-error-container": "#93000a",
+                    "surface-bright": "#fff8f8",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#ffd8e7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "section-gap": "120px",
+                    "margin-mobile": "20px",
+                    "gutter": "32px",
+                    "container-max": "1200px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "caption": ["Literata"],
+                    "headline-md": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "label-md": ["Hanken Grotesk"],
+                    "body-md": ["Literata"],
+                    "body-lg": ["Literata"],
+                    "display-lg-mobile": ["Playfair Display"],
+                    "label-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "headline-lg": ["48px", {"lineHeight": "56px", "fontWeight": "600"}],
+                    "caption": ["14px", {"lineHeight": "20px"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "body-md": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-lg": ["20px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "display-lg-mobile": ["40px", {"lineHeight": "48px", "fontWeight": "700"}],
+                    "label-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #faf4f7; /* Custom design system background_alt from guidance */
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body class="text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-background border-b border-outline-variant dark:border-on-surface-variant sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+<div class="flex-1 flex gap-8 hidden md:flex">
+<a class="text-label-md font-label-md text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary pb-1" href="#">Practice Areas</a>
+<a class="text-label-md font-label-md text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Editorial</a>
+</div>
+<a class="text-headline-md font-headline-md text-primary dark:text-inverse-primary tracking-tight whitespace-nowrap px-8" href="/">
+                The Pinkprint Lawyer
+            </a>
+<div class="flex-1 flex justify-end items-center gap-8">
+<div class="hidden md:flex gap-8">
+<a class="text-label-md font-label-md text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Insights</a>
+<a class="text-label-md font-label-md text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">About</a>
+<a class="text-label-md font-label-md text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Contact</a>
+</div>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors active:opacity-80 active:scale-95">
+<span class="material-symbols-outlined text-primary">search</span>
+</button>
+</div>
+</div>
+</header>
+<main>
+<!-- Header Section -->
+<section class="pt-section-gap pb-16 px-margin-desktop max-w-container-max mx-auto text-center">
+<h1 class="font-display-lg text-display-lg text-on-background mb-6">Legal Insights &amp; Editorial</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Navigating the intersection of law, technology, and ethics with deliberate intent and intellectual luxury.</p>
+</section>
+<!-- Hero Section -->
+<section class="px-margin-desktop max-w-container-max mx-auto mb-section-gap">
+<div class="relative w-full aspect-[21/9] overflow-hidden rounded-lg border border-pink-tint-mid border-outline-variant">
+<img alt="Modern Law Office Interior" class="w-full h-full object-cover" data-alt="A grand, high-ceilinged modern architectural space representing a luxury law firm. The interior features floor-to-ceiling glass windows overlooking a soft sunset cityscape, with minimalist pink marble textures and sleek dark wood accents. The lighting is warm and cinematic, emphasizing a professional yet sophisticated atmosphere. The color palette is composed of soft pinks, deep plums, and crisp whites, mirroring a high-end editorial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUjn31MLWsrvvQgJWI-3X7cRW_dASFTt3dTyPUoPyDJmiilSFH4N4n2dVnte6pSGjzT2T_gjKloEA0UBQOad5JC0uAT1MXysT-ZyahoHoGPXU8P0sLuJ9dL5QC1__fIY7CHhHlgqYvhsL8gp8OZt0C2XUiWeTJPghFmc2UXJrkxKxINfqUZFnJ7Hh3fKjEYBFIu8aLh9cppz64IHhCSwiVHgGszMz3lUbndzXqx4u3W7hnAhLuQlgiOg6MZHpU-VD4-rmxqS8baTRA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<div class="absolute bottom-12 left-12 right-12 text-white">
+<span class="inline-block px-3 py-1 bg-primary text-white text-label-md font-label-md mb-4 uppercase tracking-widest">Featured Series</span>
+<h2 class="font-headline-lg text-headline-lg mb-2">The Future of Intellectual Property in Generative AI</h2>
+<p class="font-body-md text-body-md opacity-90 max-w-xl">An in-depth analysis of how emerging technologies are reshaping the legal landscape for creators and corporations alike.</p>
+</div>
+</div>
+</section>
+<!-- Main Content: Blog Grid -->
+<section class="px-margin-desktop max-w-container-max mx-auto pb-20">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Post 1 -->
+<article class="flex flex-col group cursor-pointer">
+<div class="aspect-[4/5] overflow-hidden rounded-lg mb-6 border border-outline-variant hover-lift shadow-sm">
+<img alt="Justice Scales" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A stylized, close-up photograph of bronze justice scales resting on a polished mahogany surface. The background is a soft-focus library of leather-bound books in shades of deep plum and beige. The lighting is soft and directional, creating elegant highlights and a sense of intellectual luxury. The overall tone is professional, sophisticated, and clean, adhering to a modern editorial magazine style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKQdGm8XTHT8C7Il_zrMLdWKhk_TyFiMorW6rfKndMrAE_JQqklo6lCqi_DlMir6f6enjw8E7tnM_8wo9-d1CBGNvJnZF6jt53GMNf1GLKLuQCAuoiFV27uhNi9U-PUlRLGMy2M31DC8UQeRYAeeAMRSo7bfirhcK_5SEU089iKqAdkabzru2SYDZDpBQzMUO6PhE8B6A_QG4z9vsFn_VXSQFbtNcftyyzOn8pqdp1vUYaAcrPHDuLqcZR17R5wP-8O4z2a4OFS9h5"/>
+</div>
+<span class="text-primary font-label-lg text-label-lg mb-2 uppercase tracking-wider">Editorial</span>
+<h3 class="font-headline-md text-headline-md mb-3 leading-tight group-hover:text-primary transition-colors">Privacy in the Age of Constant Connection</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">Understanding the legal frameworks protecting personal data in an increasingly transparent digital world.</p>
+</article>
+<!-- Post 2 -->
+<article class="flex flex-col group cursor-pointer">
+<div class="aspect-[4/5] overflow-hidden rounded-lg mb-6 border border-outline-variant hover-lift shadow-sm">
+<img alt="Business Handshake" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A clean, professional close-up of a professional handshake in a minimalist office setting. The subjects are wearing sharp, tailored business attire in neutral tones. The scene is bathed in bright, natural light from a nearby window, creating a high-key, airy feel. The aesthetic is modern and corporate-chic, featuring a palette of soft whites, pale pinks, and professional greys." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdbWKYIfK0Wj9_YgsPGpzWDRTnLaONxBSY6st_pWO1IUAa23EovdTWA_S4kBSE8OP7awFMOeUFGTIvKeFXaKKr1zAIwd010t8XsGgylKpLkbhzVihDSGk1NRcxbPGW3EEzWlmNG2Jf70Wo7H5TDg74ftHt8jkuhIfDzTDeiBJdX3OYLhntNwtTFFaIAPlWOlPJ5YJEEyUTGrY_qTcBmfkvWNxOgQkTqYr0yBKlryCxt_EOhV4qysXB-qewzfbfHkA0bG1kwvAmDOOc"/>
+</div>
+<span class="text-primary font-label-lg text-label-lg mb-2 uppercase tracking-wider">Insights</span>
+<h3 class="font-headline-md text-headline-md mb-3 leading-tight group-hover:text-primary transition-colors">Navigating M&amp;A for Tech Startups</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">Essential strategies for founders preparing for acquisition or merger in the current economic climate.</p>
+</article>
+<!-- Post 3 -->
+<article class="flex flex-col group cursor-pointer">
+<div class="aspect-[4/5] overflow-hidden rounded-lg mb-6 border border-outline-variant hover-lift shadow-sm">
+<img alt="Legal Document Signing" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A top-down, minimalist shot of a high-end fountain pen resting on a crisp white legal document. The desk surface is a warm-neutral light wood. Beside the document is a small ceramic tray with a single sprig of dried lavender, adding a touch of feminine sophistication. The lighting is diffused and bright, creating a clean, modern, and intellectual aesthetic with soft pink undertones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArJDfvZL7diwg1Cw26YMY6lHX3_M05rddlYMRdqgRUzoZXKiGPm0Uov3Jtk9EIPsbEUS1NHQDu1x4ECFjVJXGswhFzI96LE7-x6FdjjKA6qh22K3EW87PhLMGX8HGzi8SUmq4S3L3AXUsTOTwnCG1odggW3lWTcM2SEdowfKmH7tqhwJvdb5DezNzoub4uD2vDMr7bh8-qxruxb8Fehrcc_mjjlf00UbqCz5El921C6A4yYdb3UBvBUE_dVr37PRszYbBO_BU3IDB_"/>
+</div>
+<span class="text-primary font-label-lg text-label-lg mb-2 uppercase tracking-wider">Editorial</span>
+<h3 class="font-headline-md text-headline-md mb-3 leading-tight group-hover:text-primary transition-colors">The Ethics of Automated Legal Discovery</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">Evaluating the balance between efficiency and accuracy in machine-learning-driven legal research.</p>
+</article>
+<!-- Post 4 -->
+<article class="flex flex-col group cursor-pointer">
+<div class="aspect-[4/5] overflow-hidden rounded-lg mb-6 border border-outline-variant hover-lift shadow-sm">
+<img alt="Office Building" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="An abstract architectural shot of a contemporary glass and steel office building during the golden hour. The reflection on the glass shows a soft pink sky and geometric patterns. The style is sharp, clean, and modern, representing corporate authority. The lighting is warm and glowing, with a sophisticated color palette of plum, rose gold, and deep slate blue." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNBaJ50zams9lvbUHtStoHxU0ufuNreRlDlrYE7QAvVTIlN4UHL6NxzLkzGdNMAqfd4cJIdu9aqwKFhAQOu-z3DX_F2C77s_LHe_G5lhNQrSVLml5BryvOGXWO0WL4IZZo4xswWA4eb7G0a5rhYFJodQ9AT7aGZdrTdySE5AtjpnGCIDdL0-wVyFDfnW90tdnNOxUtguGPDSkDJmEja9r9TyVtz_lCPNy-Mvro4j9eRoLMoB3dGjx13iSKJfnQsifZzXHqTAoAJSfz"/>
+</div>
+<span class="text-primary font-label-lg text-label-lg mb-2 uppercase tracking-wider">Insights</span>
+<h3 class="font-headline-md text-headline-md mb-3 leading-tight group-hover:text-primary transition-colors">Corporate Governance in a Decoupled World</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">How multi-national entities are adapting their compliance structures to shifting global alliances.</p>
+</article>
+<!-- Post 5 -->
+<article class="flex flex-col group cursor-pointer">
+<div class="aspect-[4/5] overflow-hidden rounded-lg mb-6 border border-outline-variant hover-lift shadow-sm">
+<img alt="Professional Workspace" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A tidy, high-end professional workspace featuring a sleek laptop, a leather journal, and a modern desk lamp. The scene is set in a home office with soft, warm-neutral walls and minimalist decor. A large window provides soft, indirect sunlight. The color palette is a harmonious blend of muted pinks, creams, and dark plum accents, creating a calm and intellectual mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRpuCz3_gYq11nOQPgeLRqyE95-PJKS3yEKJJ2-keFOJCtPcQSnHi43p8tmscjELqPzTBL09WLUtI6_tiiTiOJizbzflAiygW_PxNmCP8YSrUgZA7lCjaW4jRlZ3GQ-ITVYea0ZbAzW4b_2eHdV80e3R0Phz469yrmRAhxVnss2pHjCXH0kKn8YneZJR4dOfqsdn3hd8FUy0ng6cGFu0SmL7JObZ158YjtV0Kj_08F_YTE0UVh1X4MUakJOIOZAV7ZSBuu7m18EuFo"/>
+</div>
+<span class="text-primary font-label-lg text-label-lg mb-2 uppercase tracking-wider">Insights</span>
+<h3 class="font-headline-md text-headline-md mb-3 leading-tight group-hover:text-primary transition-colors">Remote Work and the Jurisdiction Trap</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">Analyzing the tax and labor implications for companies employing talent across state and national borders.</p>
+</article>
+<!-- Post 6 -->
+<article class="flex flex-col group cursor-pointer">
+<div class="aspect-[4/5] overflow-hidden rounded-lg mb-6 border border-outline-variant hover-lift shadow-sm">
+<img alt="Business Strategy Session" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A focused close-up of hands arranging minimalist white cards on a glass conference table. The table reflects a sophisticated office environment with plum-colored accents. The composition is clean and orderly, suggesting strategy and planning. The lighting is professional and bright, maintaining a high-contrast editorial look with a primary focus on clean white surfaces and pink-toned shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZbGJrN2LNcc9WHSt029MLHR-tOCWGK5WvEUKddclUtsOBUTFg3u1iEV-14-XSSm_aVi2jUopIKclzp8TjmPZw_vt67ajAwdjW4YvA7aUSvNV-xkqYfZfTsyU4NLvVb1Rg4qPJcDVHeM_0PdfgpY6O09CdxOBYmJ2nGPd_2cYuwTDsVwPPhRWAyDn3LOasz4X4MjiYZb57-Lj4PY-spJhqtmpm_4sICC7KTknJusidhubyj694Gs9C6u6YGG6I4Vjyo9lfbIwXRxLx"/>
+</div>
+<span class="text-primary font-label-lg text-label-lg mb-2 uppercase tracking-wider">Editorial</span>
+<h3 class="font-headline-md text-headline-md mb-3 leading-tight group-hover:text-primary transition-colors">Rebranding the Legal Profession</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">Why visual identity and brand narrative are becoming crucial differentiators for boutique law firms.</p>
+</article>
+<!-- Post 7 -->
+<article class="flex flex-col group cursor-pointer">
+<div class="aspect-[4/5] overflow-hidden rounded-lg mb-6 border border-outline-variant hover-lift shadow-sm">
+<img alt="Luxury Pens" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A collection of luxury fountain pens displayed in a leather case. The materials are rich—leather, gold, and polished resin. The scene is shot with a shallow depth of field, emphasizing the quality and craftsmanship. The lighting is warm and sophisticated, with the overall color scheme dominated by deep plums and soft rose-toned highlights, evocative of high-end legal professionalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0PJGMDnZC6CovA1eR_jqoObEEEKMrxQucs4PWPEx55ljHHmG_yYVpXeNJGXCj5w1Oz7LvQSUQxaJHLAzKylxY03T415TrtTVZRRFgRqdlAh9QcF9JE2ovoRk52v9G4MlgKbqRG-TGdrsfwF4OVMUdrJ1graD6IstC_cZfnm9bUe5n9zpXgAfYso_XJ5tOM3laBEzJdPUtb9CAdLtTKynRRBgkM_HfpsYneKJdIxnHvaTHJ3SYhdjYQ_3sUyWpSOf1QPTuiD5LGp38"/>
+</div>
+<span class="text-primary font-label-lg text-label-lg mb-2 uppercase tracking-wider">Insights</span>
+<h3 class="font-headline-md text-headline-md mb-3 leading-tight group-hover:text-primary transition-colors">Luxury Brands and Trademark Dilution</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">A study of how fashion houses are defending their brand equity in the era of digital 'dupes' and social commerce.</p>
+</article>
+<!-- Post 8 -->
+<article class="flex flex-col group cursor-pointer">
+<div class="aspect-[4/5] overflow-hidden rounded-lg mb-6 border border-outline-variant hover-lift shadow-sm">
+<img alt="Modern Architecture" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="An exterior view of a modern glass skyscraper reflecting a vibrant sunset. The building's sharp angles create a striking silhouette against the colorful sky. The lighting is dramatic, highlighting the contrast between the dark building frame and the glowing sky reflections. The aesthetic is clean and powerful, using a palette of deep violet, warm pink, and slate grey." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDoXgzCUFR0Cwgb5DyRvs996zdS5NvLCKZDR5HI1bk4xTGmzf30pnG-TL1pR3uaEv48Ab3uBsXddxhOIKHqe9PeaD5eM6inTHb-oWiQ9jqj_EqSa3sWDrIoZepHQxYgVp9D_5izXaJAijDNWm9q27_dnE80gqKcy8tU8xEXrVRsmXT59ToB4908NKYrdPV71tLs71efh9BPR9ctDRuS9HTbyS8uIUqGJ8wLTbJ4ivPvAklOFWjodD4k4MCFwmOqogUjqV0tQlBGKhg"/>
+</div>
+<span class="text-primary font-label-lg text-label-lg mb-2 uppercase tracking-wider">Editorial</span>
+<h3 class="font-headline-md text-headline-md mb-3 leading-tight group-hover:text-primary transition-colors">Environmental Law in the New Decade</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">Preparing for the next wave of ESG regulations and corporate sustainability accountability standards.</p>
+</article>
+</div>
+<!-- Pagination -->
+<div class="mt-section-gap flex justify-center items-center gap-4">
+<a class="w-10 h-10 flex items-center justify-center rounded-full border border-primary text-primary font-label-lg text-label-lg bg-primary/5" href="#">1</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container transition-colors" href="#">2</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container transition-colors" href="#">3</a>
+<span class="text-on-surface-variant font-label-lg text-label-lg px-2">...</span>
+<a class="flex items-center gap-2 px-6 py-2 rounded-full border border-outline-variant text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container transition-colors" href="#">
+                    Next <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest border-t border-outline-variant dark:border-on-surface-variant">
+<div class="w-full py-section-gap px-margin-desktop max-w-container-max mx-auto flex flex-col items-center gap-8">
+<div class="text-headline-md font-headline-md text-primary dark:text-inverse-primary">The Pinkprint Lawyer</div>
+<nav class="flex flex-wrap justify-center gap-x-12 gap-y-4">
+<a class="text-label-lg font-label-lg text-on-surface-variant hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-lg font-label-lg text-on-surface-variant hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors" href="#">Terms of Service</a>
+<a class="text-label-lg font-label-lg text-on-surface-variant hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors" href="#">Disclaimer</a>
+<a class="text-label-lg font-label-lg text-on-surface-variant hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors" href="#">Contact Us</a>
+<a class="text-label-lg font-label-lg text-on-surface-variant hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors" href="#">LinkedIn</a>
+<a class="text-label-lg font-label-lg text-on-surface-variant hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors" href="#">Twitter</a>
+</nav>
+<div class="text-caption font-caption text-on-surface-variant text-center max-w-2xl">
+                © 2024 The Pinkprint Lawyer. All Rights Reserved. Professional Legal Advertising. Material on this website is for informational purposes only and does not constitute legal advice or an attorney-client relationship.
+            </div>
+</div>
+</footer>
+<script>
+        // Subtle micro-interaction for cards
+        document.querySelectorAll('article').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.querySelector('img').style.transform = 'scale(1.05)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.querySelector('img').style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

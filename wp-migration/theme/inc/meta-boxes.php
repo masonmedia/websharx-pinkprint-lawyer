@@ -2,9 +2,126 @@
 /**
  * Admin metabox for PPL page content fields.
  * Renders on pages using the "Home" or "Home — Dark Theme" template.
+ *
+ * Also registers a Post Options meta box on all posts (blog-single.php fields).
  */
 
 add_action( 'add_meta_boxes', 'ppl_add_page_meta_box' );
+
+// ── Post meta box (blog-single.php) ────────────────────────────────────────
+
+add_action( 'add_meta_boxes', 'ppl_add_post_meta_box' );
+
+function ppl_add_post_meta_box() {
+    add_meta_box(
+        'ppl_post_options',
+        'Pinkprint Post Options',
+        'ppl_render_post_meta_box',
+        'post',
+        'side',
+        'high'
+    );
+}
+
+function ppl_render_post_meta_box( $post ) {
+    wp_nonce_field( 'ppl_save_post_meta', 'ppl_post_meta_nonce' );
+
+    $get = fn( $key ) => get_post_meta( $post->ID, $key, true );
+    $v   = fn( $key, $default = '' ) => esc_attr( $get( $key ) ?: $default );
+
+    $s_inp  = 'style="width:100%;padding:6px 8px;margin-bottom:12px;box-sizing:border-box;border:1px solid #ddd;border-radius:5px;"';
+    $s_ta   = 'style="width:100%;padding:6px 8px;margin-bottom:12px;box-sizing:border-box;border:1px solid #ddd;border-radius:5px;resize:vertical;"';
+    $s_lbl  = 'style="display:block;font-size:12px;font-weight:600;margin-bottom:3px;color:#555;"';
+    $s_head = 'style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#c43670;font-weight:700;margin:16px 0 8px;border-top:1px solid #f0d0e0;padding-top:12px;"';
+
+    $featured = (bool) $get( '_ppl_featured_post' );
+    ?>
+    <!-- Featured toggle -->
+    <label style="display:flex;align-items:center;gap:8px;margin-bottom:16px;cursor:pointer;">
+      <input type="checkbox" name="_ppl_featured_post" value="1" <?php checked( $featured ); ?>
+             style="width:16px;height:16px;accent-color:#c43670;" />
+      <span style="font-size:13px;font-weight:600;color:#c43670;">Feature on Blog Archive Hero</span>
+    </label>
+    <p style="font-size:11px;color:#888;margin-top:-10px;margin-bottom:16px;">Only one post should be featured at a time.</p>
+
+    <p <?php echo $s_head; ?>>Author Override</p>
+    <p style="font-size:11px;color:#888;margin-bottom:10px;">Leave blank to use the post author's profile.</p>
+
+    <label <?php echo $s_lbl; ?>>Display Name</label>
+    <input type="text" name="_ppl_post_author_name" value="<?php echo $v( '_ppl_post_author_name' ); ?>" <?php echo $s_inp; ?> />
+
+    <label <?php echo $s_lbl; ?>>Role / Title</label>
+    <input type="text" name="_ppl_post_author_role" value="<?php echo $v( '_ppl_post_author_role' ); ?>" placeholder="e.g. Practicing Attorney &amp; Mentor" <?php echo $s_inp; ?> />
+
+    <label <?php echo $s_lbl; ?>>Short Bio</label>
+    <textarea name="_ppl_post_author_bio" rows="3" <?php echo $s_ta; ?>><?php echo esc_textarea( $get( '_ppl_post_author_bio' ) ); ?></textarea>
+
+    <label <?php echo $s_lbl; ?>>Photo URL</label>
+    <?php
+    $photo_url = $get( '_ppl_post_author_photo' );
+    $display   = $photo_url ? 'block' : 'none';
+    $btn_rem   = $photo_url ? 'inline-block' : 'none';
+    ?>
+    <div class="ppl-img-picker" style="margin-bottom:12px;">
+      <img src="<?php echo esc_url( $photo_url ); ?>" class="ppl-img-preview"
+           style="max-width:80px;height:80px;object-fit:cover;border-radius:50%;display:<?php echo $display; ?>;margin-bottom:6px;" />
+      <input type="hidden" name="_ppl_post_author_photo" value="<?php echo esc_attr( $photo_url ); ?>" class="ppl-img-url" />
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <button type="button" class="button ppl-choose-img" style="font-size:11px;">Select Photo</button>
+        <button type="button" class="button ppl-remove-img" style="display:<?php echo $btn_rem; ?>;font-size:11px;">Remove</button>
+      </div>
+    </div>
+
+    <p <?php echo $s_head; ?>>In-Article CTA Block</p>
+    <p style="font-size:11px;color:#888;margin-bottom:10px;">Appears mid-article. Leave blank to hide.</p>
+
+    <label <?php echo $s_lbl; ?>>Heading</label>
+    <input type="text" name="_ppl_post_cta_title" value="<?php echo $v( '_ppl_post_cta_title' ); ?>" <?php echo $s_inp; ?> />
+
+    <label <?php echo $s_lbl; ?>>Body Copy</label>
+    <textarea name="_ppl_post_cta_body" rows="2" <?php echo $s_ta; ?>><?php echo esc_textarea( $get( '_ppl_post_cta_body' ) ); ?></textarea>
+
+    <label <?php echo $s_lbl; ?>>Button Label</label>
+    <input type="text" name="_ppl_post_cta_btn_label" value="<?php echo $v( '_ppl_post_cta_btn_label' ); ?>" <?php echo $s_inp; ?> />
+
+    <label <?php echo $s_lbl; ?>>Button URL</label>
+    <input type="text" name="_ppl_post_cta_btn_url" value="<?php echo $v( '_ppl_post_cta_btn_url' ); ?>" <?php echo $s_inp; ?> />
+    <?php
+}
+
+add_action( 'save_post_post', 'ppl_save_post_meta_box' );
+
+function ppl_save_post_meta_box( $post_id ) {
+    if ( ! isset( $_POST['ppl_post_meta_nonce'] ) ) return;
+    if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ppl_post_meta_nonce'] ) ), 'ppl_save_post_meta' ) ) return;
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+    if ( ! current_user_can( 'edit_post', $post_id ) ) return;
+
+    // Checkbox: save '1' or delete key when unchecked
+    if ( ! empty( $_POST['_ppl_featured_post'] ) ) {
+        update_post_meta( $post_id, '_ppl_featured_post', '1' );
+    } else {
+        delete_post_meta( $post_id, '_ppl_featured_post' );
+    }
+
+    $text_fields = [
+        '_ppl_post_author_name',
+        '_ppl_post_author_role',
+        '_ppl_post_author_bio',
+        '_ppl_post_author_photo',
+        '_ppl_post_cta_title',
+        '_ppl_post_cta_body',
+        '_ppl_post_cta_btn_label',
+        '_ppl_post_cta_btn_url',
+    ];
+
+    foreach ( $text_fields as $key ) {
+        if ( isset( $_POST[ $key ] ) ) {
+            update_post_meta( $post_id, $key, sanitize_textarea_field( wp_unslash( $_POST[ $key ] ) ) );
+        }
+    }
+}
+
 
 function ppl_add_page_meta_box() {
     $screen = get_current_screen();

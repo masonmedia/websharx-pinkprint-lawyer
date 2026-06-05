@@ -37,15 +37,22 @@ CTA: Get the Checklist
 
 SECTION 4 | CONTACT
 *To be further finalized once website domain emails are set up
+
 I am always open to thoughtful conversation and meaningful opportunities.
+
 This page is the best way to get in touch for professional inquiries, collaborations, or invitations. Whether you are reaching out with a question or exploring a potential partnership, I appreciate clarity and intention, and I do my best to respond with the same.
-General Inquiries
+
+- General Inquiries
 Questions about The Pinkprint Lawyer, resources, or educational content can be sent here.
-Collaborations & Partnerships
+
+- Collaborations & Partnerships
 I am open to working with brands, organizations, and institutions that align with my values around access, education, and professional development.
-Speaking Engagements
+
+- Speaking Engagements
 Requests for panels, workshops, guest lectures, or speaking opportunities can be submitted here.
-Media & Press
+
+- Media & Press
 For interviews, features, or press-related inquiries, please use this form so your request can be routed appropriately.
 If you are unsure which category your message falls under, that is okay; just share the details, and we will take it from there.
 
+- Form

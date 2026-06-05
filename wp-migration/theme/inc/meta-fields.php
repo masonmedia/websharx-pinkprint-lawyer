@@ -125,4 +125,27 @@ function ppl_register_meta_fields() {
     foreach ( $fields as $key ) {
         register_post_meta( 'page', $key, $str );
     }
+
+    // ── Post fields (blog-single.php) ─────────────────────────────────────────
+    $post_fields = [
+        '_ppl_featured_post',
+        '_ppl_post_author_name',
+        '_ppl_post_author_role',
+        '_ppl_post_author_bio',
+        '_ppl_post_author_photo',
+        '_ppl_post_cta_title',
+        '_ppl_post_cta_body',
+        '_ppl_post_cta_btn_label',
+        '_ppl_post_cta_btn_url',
+    ];
+
+    $post_str = array_merge( $str, [
+        'auth_callback' => function() {
+            return current_user_can( 'edit_posts' );
+        },
+    ] );
+
+    foreach ( $post_fields as $key ) {
+        register_post_meta( 'post', $key, $post_str );
+    }
 }
