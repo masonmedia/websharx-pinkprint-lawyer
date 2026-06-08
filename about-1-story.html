@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — The Pinkprint Lawyer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink-light:    #ff89c5;
+      --pink-tint:     #ffeaf4;
+      --pink-tint-mid: #fbd6e9;
+      --pink-deep:     #c43670;
+      --blush:         #faf4f7;
+      --blush-mid:     #f2e4ec;
+      --plum:          #230d18;
+      --plum-mid:      #3d1a2e;
+      --plum-soft:     #4f2240;
+      --muted-pp:      #8a6a7a;
+    }
+
+    /* Color utilities */
+    .bg-plum       { background-color: var(--plum) !important; }
+    .bg-plum-mid   { background-color: var(--plum-mid) !important; }
+    .bg-rose       { background-color: var(--pink-deep) !important; }
+    .bg-pink-tint  { background-color: var(--pink-tint) !important; }
+    .bg-blush      { background-color: var(--blush) !important; }
+    .bg-blush-mid  { background-color: var(--blush-mid) !important; }
+    .text-plum     { color: var(--plum) !important; }
+    .text-rose     { color: var(--pink-deep) !important; }
+    .text-pink     { color: var(--pink-light) !important; }
+    .text-muted-pp { color: var(--muted-pp) !important; }
+    .text-light-75 { color: rgba(255,255,255,0.75) !important; }
+    .text-light-60 { color: rgba(255,255,255,0.6) !important; }
+    .text-light-50 { color: rgba(255,255,255,0.5) !important; }
+    .border-blush  { border-color: var(--blush-mid) !important; }
+
+    /* Typography */
+    body { font-family: 'DM Sans', sans-serif; }
+    h1,h2,h3,h4,h5,h6,blockquote { font-family: 'Playfair Display', serif; }
+    .ls-wide  { letter-spacing: 2px; }
+    .ls-tight { letter-spacing: -0.025em; }
+
+    /* Layout */
+    .section-pad { padding: 96px 0; }
+    .hero-pad    { padding-top: 96px; padding-bottom: 96px; }
+    .mw-480 { max-width: 480px; }
+    .mw-520 { max-width: 520px; }
+    .mw-560 { max-width: 560px; }
+    .mw-640 { max-width: 640px; }
+
+    /* Eyebrow */
+    .eyebrow { font-size: 11px; font-family: 'DM Sans', sans-serif; }
+
+    /* Body copy */
+    .body-lead { font-size: 16px; line-height: 1.75; font-family: 'DM Sans', sans-serif; }
+    .body-md   { font-size: 16px; line-height: 1.7;  font-family: 'DM Sans', sans-serif; }
+    .body-sm   { font-size: 15px; line-height: 1.65; font-family: 'DM Sans', sans-serif; }
+    .body-xs   { font-size: 14px; line-height: 1.65; font-family: 'DM Sans', sans-serif; }
+
+    /* Nav */
+    .navbar-blur { backdrop-filter: blur(12px); }
+    .nav-link-sm { font-size: 14px; }
+    .navbar-collapse .nav-link:hover { color: var(--pink-deep) !important; }
+    .offcanvas-body .nav-link:hover { color: var(--pink-deep) !important; }
+
+    /* Buttons */
+    .btn-plum          { background-color: var(--plum); color: #fff; border: none; }
+    .btn-plum:hover    { background-color: var(--pink-deep); color: #fff; }
+    .btn-outline-plum  { background: transparent; color: var(--plum); border: 2px solid var(--plum); }
+    .btn-outline-plum:hover { background-color: var(--plum); color: #fff; }
+    .btn-rose          { background-color: var(--pink-deep); color: #fff; border: none; }
+    .btn-rose:hover    { background-color: var(--plum); color: #fff; }
+    .btn-ghost-light   { background: transparent; color: var(--plum); border: 1.5px solid var(--blush-mid); }
+    .btn-ghost-light:hover { border-color: var(--pink-deep); color: var(--pink-deep); }
+    .btn-outline-light { background: transparent; color: var(--pink-light); border: 1.5px solid rgba(255,137,197,0.4); }
+    .btn-outline-light:hover { background-color: var(--pink-deep); color: #fff; border-color: var(--pink-deep); }
+    .btn-white         { background-color: #fff; color: var(--pink-deep); border: none; }
+    .btn-white:hover   { background-color: var(--blush); color: var(--plum); }
+
+    /* Icon containers */
+    .icon-wrap-tint  { background-color: var(--pink-tint); color: var(--pink-deep); }
+    .icon-wrap-white { background-color: #fff; color: var(--pink-deep); }
+    .icon-wrap-dim   { background-color: rgba(255,137,197,0.15); color: var(--pink-light); }
+    .icon-wrap-ghost { background-color: rgba(255,255,255,0.2); color: #fff; }
+
+    /* Icon sizes */
+    .icon-56 { width: 56px; height: 56px; }
+    .icon-52 { width: 52px; height: 52px; }
+    .icon-44 { width: 44px; height: 44px; }
+    .icon-40 { width: 40px; height: 40px; }
+    .icon-36 { width: 36px; height: 36px; }
+    .fs-icon-xl { font-size: 28px; }
+    .fs-icon-lg { font-size: 22px; }
+    .fs-icon-md { font-size: 20px; }
+    .fs-icon-sm { font-size: 18px; }
+
+    /* Hero / About images */
+    .hero-img  { width: 100%; height: 540px; object-fit: cover; object-position: top;
+                 filter: sepia(0.8) saturate(3) hue-rotate(280deg) brightness(1.05);
+                 mix-blend-mode: multiply; display: block; }
+    .about-img { width: 100%; height: 520px; object-fit: cover; object-position: top center; display: block; }
+    .portrait-img { width: 100%; height: 460px; object-fit: cover; object-position: top center; display: block; }
+
+    /* Hero graphic panel */
+    .hero-graphic { background-color: var(--plum); aspect-ratio: 4 / 5; }
+    .hero-shape   { position: absolute; display: block; }
+    .hero-circle-1 { width: 30%; aspect-ratio: 1; border-radius: 50%; background: var(--pink-light); top: 7%; left: 8%; }
+    .hero-circle-2 { width: 30%; aspect-ratio: 1; border-radius: 50%; background: var(--pink-tint-mid); top: 7%; left: 40%; }
+    .hero-bar      { width: 52%; height: 6%; background: var(--pink-deep); border-radius: 4px; top: 40%; left: 8%; }
+    .hero-triangle { width: 30%; height: 26%; background: var(--pink-light); clip-path: polygon(0 0, 0 100%, 100% 100%); left: 8%; bottom: 8%; }
+    .hero-block    { width: 22%; height: 26%; background: var(--pink-tint-mid); border-radius: 14px; right: 10%; bottom: 8%; }
+    .hero-gavel    { font-size: 11rem; line-height: 1; color: var(--pink-deep); right: 10%; top: 32%; transform: rotate(20deg); pointer-events: none; }
+
+    /* Scroll cue */
+    .scroll-cue {
+      width: 52px;
+      height: 52px;
+      animation: scroll-cue-bounce 2s ease-in-out infinite;
+    }
+    @keyframes scroll-cue-bounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(8px); }
+    }
+
+    /* Card hover lift */
+    .card-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-lift:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(35,13,24,0.1); }
+
+    /* Card links */
+    .card-link       { font-size: 14px; font-weight: 600; color: var(--pink-deep); text-decoration: none; }
+    .card-link:hover { color: var(--plum); }
+    .card-link-light       { font-size: 14px; font-weight: 600; color: #fff; text-decoration: none; }
+    .card-link-light:hover { color: var(--pink-light); }
+
+    /* Card title sizes */
+    .card-h    { font-size: 1.3rem; }
+    .card-h-md { font-size: 1.2rem; }
+    .card-h-sm { font-size: 1.15rem; }
+
+    /* Stage labels */
+    .stage-tag { font-size: 11px; font-family: 'DM Sans', sans-serif; }
+
+    /* Badges */
+    .badge-sm    { font-size: 12px; }
+
+    /* Footer */
+    .footer-pad           { padding: 64px 0 32px; }
+    .footer-tagline       { font-size: 14px; line-height: 1.6; }
+    .footer-section-label { font-size: 11px; }
+    .footer-link-sm       { font-size: 14px; transition: color 0.15s ease; }
+    .footer-link-sm:hover { color: var(--pink-deep) !important; }
+    .footer-meta          { font-size: 13px; transition: color 0.15s ease; }
+    .footer-meta:hover    { color: var(--pink-deep) !important; }
+    .footer-social-icon   { transition: background-color 0.15s ease, color 0.15s ease; }
+    .footer-social-icon:hover { background-color: var(--pink-tint-mid) !important; color: var(--pink-deep) !important; }
+
+    /* scroll animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease calc(var(--stagger, 0) * 80ms),
+                  transform 0.55s ease calc(var(--stagger, 0) * 80ms);
+    }
+    .fade-up.in-view {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Story chapter index numerals */
+    .chapter-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--pink-deep);
+      border: 1.5px solid var(--pink-tint-mid);
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+    }
+    .chapter-rule { width: 1px; background: var(--pink-tint-mid); flex-shrink: 0; }
+
+    /* Pull quote */
+    .pull-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.6rem; line-height: 1.55; }
+    .quote-mark { font-family: 'Playfair Display', serif; font-size: 4rem; line-height: 1; }
+
+    /* Stat figures */
+    .stat-num   { font-family: 'Playfair Display', serif; font-size: 2.6rem; line-height: 1; }
+    .stat-label { font-size: 12.5px; }
+
+    /* Practice pill */
+    .practice-pill { font-size: 13px; }
+  </style>
+</head>
+<body class="bg-white">
+
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg sticky-top py-3 bg-white border-bottom border-blush">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (1).png" alt="The Pinkprint Lawyer" height="46" />
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNav" aria-label="Open navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center">
+        <ul class="navbar-nav gap-4">
+          <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link fw-semibold text-rose nav-link-sm" href="about-1-story.html" aria-current="page">About</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="#">Shop</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="#">Membership</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="#">Legal/Admin</a></li>
+          <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="d-none d-lg-flex align-items-center gap-2">
+        <a href="about-2-credentials.html" class="btn btn-ghost-light rounded-3 px-4 py-2 fw-semibold nav-link-sm">Credentials &amp; CV</a>
+        <a href="#" class="btn btn-rose rounded-3 px-4 py-2 fw-semibold nav-link-sm">Log In</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- OFFCANVAS MOBILE NAV -->
+  <div class="offcanvas offcanvas-end bg-blush" tabindex="-1" id="mobileNav">
+    <div class="offcanvas-header bg-blush border-bottom border-blush">
+      <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (1).png" alt="The Pinkprint Lawyer" height="40" />
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column gap-3 pt-4 justify-content-end">
+      <a href="index.html" class="nav-link fs-5 text-plum fw-medium">Home</a>
+      <a href="about-1-story.html" class="nav-link fs-5 text-rose fw-semibold">About</a>
+      <a href="about-2-credentials.html" class="nav-link fs-5 text-plum fw-medium">Credentials &amp; CV</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">Shop</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">Membership</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">Legal/Admin</a>
+      <a href="#" class="nav-link fs-5 text-plum fw-medium">Contact</a>
+      <div class="d-flex flex-column gap-2 mt-3">
+        <a href="#" class="btn btn-rose rounded-3 py-2 fw-semibold">Log In</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="bg-white hero-pad">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <span class="d-inline-flex align-items-center gap-2 bg-pink-tint text-rose rounded-pill px-3 py-2 fw-semibold mb-4 eyebrow">
+            <i class="bi bi-quote"></i> About Shakierah Smith
+          </span>
+          <h1 class="display-4 fw-bold text-plum ls-tight mb-4">No roadmap. No family of attorneys. <em class="text-rose">Just the will to figure it out.</em></h1>
+          <p class="text-muted-pp mb-5 body-lead mw-480">A first-generation law student turned attorney — building the guidance she once had to find on her own.</p>
+          <a href="#chapter-one" class="btn btn-outline-plum rounded-circle d-inline-flex align-items-center justify-content-center scroll-cue" aria-label="Scroll to my story">
+            <i class="bi bi-arrow-down fs-icon-lg"></i>
+          </a>
+        </div>
+        <div class="col-lg-6">
+          <div class="position-relative rounded-5 overflow-hidden hero-graphic">
+            <span class="hero-shape hero-circle-1"></span>
+            <span class="hero-shape hero-circle-2"></span>
+            <span class="hero-shape hero-bar"></span>
+            <span class="hero-shape hero-triangle"></span>
+            <span class="hero-shape hero-block"></span>
+            <i class="bi bi-hammer position-absolute hero-gavel" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 01 — LEARNING WITHOUT A ROADMAP -->
+  <section id="chapter-one" class="bg-blush section-pad">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-4 d-flex">
+          <div class="d-flex align-items-start gap-4">
+            <span class="rounded-circle d-inline-flex align-items-center justify-content-center bg-white chapter-num">01</span>
+            <div class="chapter-rule d-none d-lg-block" style="height:100%;"></div>
+            <div class="d-lg-none"></div>
+          </div>
+          <div>
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 eyebrow">My Story</p>
+            <h2 class="text-plum ls-tight fw-bold display-6">Learning the rules in real time.</h2>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <p class="text-plum mb-3 body-lead">My path through law school was defined by preparation, discipline, and a deep commitment to excellence. I graduated in the <strong>top five percent</strong> of my class at the University at Buffalo School of Law with a cumulative <strong>3.9 GPA</strong>, earning induction into the <strong>Order of the Coif</strong> and receiving multiple academic and service-based honors — including the Max Koren Award, the Monique E. Emdin Award, the Promise Prize Scholar Award from the Change Create Transform Foundation, and the John L. Hargrave Award from the Minority Bar Foundation.</p>
+          <p class="text-plum mb-4 body-lead">None of it came with an instruction manual. I built my own, one semester at a time — and that experience is the foundation this platform is built on.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="bg-white text-plum fw-semibold rounded-pill px-3 py-2 badge-sm border border-blush"><i class="bi bi-mortarboard-fill text-rose me-1"></i> Order of the Coif</span>
+            <span class="bg-white text-plum fw-semibold rounded-pill px-3 py-2 badge-sm border border-blush"><i class="bi bi-award-fill text-rose me-1"></i> Top 5% — UB School of Law</span>
+            <span class="bg-white text-plum fw-semibold rounded-pill px-3 py-2 badge-sm border border-blush"><i class="bi bi-graph-up text-rose me-1"></i> 3.9 Cumulative GPA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 02 — BUILDING WHAT WASN'T THERE -->
+  <section class="bg-white section-pad">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 eyebrow">My Story — Chapter Two</p>
+        <h2 class="text-plum ls-tight fw-bold display-6">Building what didn't exist yet.</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <p class="text-plum mb-3 body-lead">I served as the inaugural <strong>Diversity, Equity, and Inclusion Editor of the Buffalo Law Review</strong> — a role I helped create to promote inclusivity within the journal — and founded the <strong>First-Generation Law Students Association</strong>, providing structure and community for students navigating law school without a traditional roadmap.</p>
+          <p class="text-plum mb-4 body-lead">Alongside my legal training, I spent years immersed in research, writing, and teaching-oriented roles: as a Faculty Research Scholar under Professor Guyora Binder, a Writing Fellow under Professor Kate Rowan, and through faculty assistantships with Professor Matthew Steilen, Professor Rebecca French, and Dean Gargano. My research contributions have been recognized in publications at the <strong>Columbia Law Review</strong>, <strong>Harvard Law &amp; Policy Review</strong>, <strong>Emory Law Journal</strong>, and a leading criminal law casebook, and I co-authored a peer-reviewed article in the <strong>Criminal Justice Review</strong>.</p>
+          <p class="text-plum mb-0 body-lead">I also participated in the Criminal Justice Advocacy Clinic at the University at Buffalo School of Law, which connected me with real clients in a meaningful way and deepened my understanding of the human impact of legal work.</p>
+        </div>
+        <div class="col-lg-5">
+          <div class="bg-blush rounded-4 p-4 h-100">
+            <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 stat-label"><i class="bi bi-stars text-rose me-2"></i>Roles I Helped Create</p>
+            <div class="d-flex align-items-start gap-3 mb-3">
+              <span class="icon-wrap-tint rounded-3 d-flex align-items-center justify-content-center flex-shrink-0 icon-40"><i class="bi bi-journal-richtext fs-icon-sm"></i></span>
+              <p class="text-plum mb-0 body-sm">Inaugural DEI Editor, Buffalo Law Review</p>
+            </div>
+            <div class="d-flex align-items-start gap-3 mb-3">
+              <span class="icon-wrap-tint rounded-3 d-flex align-items-center justify-content-center flex-shrink-0 icon-40"><i class="bi bi-people fs-icon-sm"></i></span>
+              <p class="text-plum mb-0 body-sm">Founder, First-Generation Law Students Association</p>
+            </div>
+            <div class="d-flex align-items-start gap-3 mb-3">
+              <span class="icon-wrap-tint rounded-3 d-flex align-items-center justify-content-center flex-shrink-0 icon-40"><i class="bi bi-mortarboard fs-icon-sm"></i></span>
+              <p class="text-plum mb-0 body-sm">Faculty Research Scholar &amp; Writing Fellow</p>
+            </div>
+            <div class="d-flex align-items-start gap-3">
+              <span class="icon-wrap-tint rounded-3 d-flex align-items-center justify-content-center flex-shrink-0 icon-40"><i class="bi bi-newspaper fs-icon-sm"></i></span>
+              <p class="text-plum mb-0 body-sm">Published in Columbia Law Review, Harvard Law &amp; Policy Review, Emory Law Journal &amp; Criminal Justice Review</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE BAND -->
+  <section class="bg-plum">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-9 text-center py-5">
+          <i class="bi bi-quote text-pink quote-mark"></i>
+          <p class="text-white pull-quote mb-4">What I quickly recognized was that intelligence and work ethic were not the issue. Access to clear, honest guidance was.</p>
+          <p class="text-light-60 fw-semibold text-uppercase ls-wide mb-0 eyebrow">— Shakierah Smith, Founder of The Pinkprint Lawyer</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 03 — BEFORE LAW SCHOOL -->
+  <section class="bg-blush section-pad">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-5">
+          <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 eyebrow">Before Law School</p>
+          <h2 class="text-plum ls-tight fw-bold display-6 mb-4">The groundwork started at RIT.</h2>
+          <p class="text-plum mb-3 body-md">Before law school, I completed a Master of Science in Criminal Justice and a Bachelor of Science in Criminal Justice and Communication at the Rochester Institute of Technology — graduating with a cumulative 4.0 GPA and ranking in the top 1% of the entire university.</p>
+          <p class="text-muted-pp mb-0 body-sm">I was selected as the College of Liberal Arts 2018 Undergraduate Commencement Speaker, participated in the McNair Scholars Program, the RIT Honors Program, and the Higher Education Opportunity Program (HEOP), and contributed to a nationally funded body-worn camera research project through the Bureau of Justice Assistance.</p>
+        </div>
+        <div class="col-lg-7">
+          <div class="row g-4">
+            <div class="col-sm-6">
+              <div class="bg-white rounded-4 p-4 h-100">
+                <p class="stat-num text-rose mb-1">4.0</p>
+                <p class="text-plum fw-semibold mb-1 stat-label text-uppercase ls-wide">Cumulative GPA</p>
+                <p class="text-muted-pp mb-0 body-xs">M.S. &amp; B.S., Criminal Justice — Rochester Institute of Technology</p>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="bg-white rounded-4 p-4 h-100">
+                <p class="stat-num text-rose mb-1">Top 1%</p>
+                <p class="text-plum fw-semibold mb-1 stat-label text-uppercase ls-wide">University Ranking</p>
+                <p class="text-muted-pp mb-0 body-xs">Entire undergraduate class at RIT</p>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="bg-white rounded-4 p-4 h-100">
+                <p class="stat-num text-rose mb-1">2018</p>
+                <p class="text-plum fw-semibold mb-1 stat-label text-uppercase ls-wide">Commencement Speaker</p>
+                <p class="text-muted-pp mb-0 body-xs">College of Liberal Arts, RIT</p>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="bg-white rounded-4 p-4 h-100">
+                <p class="stat-num text-rose mb-1">McNair</p>
+                <p class="text-plum fw-semibold mb-1 stat-label text-uppercase ls-wide">Scholars Program</p>
+                <p class="text-muted-pp mb-0 body-xs">Plus the RIT Honors Program &amp; HEOP</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRACTICING TODAY -->
+  <section class="bg-plum section-pad">
+    <div class="container">
+      <div class="row align-items-stretch g-5">
+        <div class="col-lg-6 d-flex">
+          <div>
+            <p class="text-pink fw-semibold text-uppercase ls-wide mb-3 eyebrow">Practicing With Purpose, Today</p>
+            <h2 class="text-white ls-tight mb-4 display-5 fw-bold">New York City Partner &amp; Co-Owner, Smith &amp; Singleton Law.</h2>
+            <p class="text-light-75 mb-3 body-lead">Today, I practice law in real estate, immigration, business, and family law, and serve as the New York City Partner and Co-Owner of Smith &amp; Singleton Law — a Black-owned law firm grounded in excellence, equity, and intentional advocacy.</p>
+            <p class="text-light-60 mb-4 body-sm">The firm officially launched on May 17, 2026, intentionally marking the 72nd anniversary of the Supreme Court's decision in Brown v. Board of Education — a moment that continues to shape how we think about access, opportunity, and the law's role in social change.</p>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="bg-plum-mid text-pink fw-semibold rounded-pill px-3 py-2 practice-pill"><i class="bi bi-house-door-fill me-1"></i> Real Estate</span>
+              <span class="bg-plum-mid text-pink fw-semibold rounded-pill px-3 py-2 practice-pill"><i class="bi bi-globe-americas me-1"></i> Immigration Law</span>
+              <span class="bg-plum-mid text-pink fw-semibold rounded-pill px-3 py-2 practice-pill"><i class="bi bi-briefcase-fill me-1"></i> Business Law</span>
+              <span class="bg-plum-mid text-pink fw-semibold rounded-pill px-3 py-2 practice-pill"><i class="bi bi-people-fill me-1"></i> Family Law</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 d-flex">
+          <div class="bg-plum-mid rounded-4 p-5 h-100">
+            <p class="text-light-60 fw-semibold text-uppercase ls-wide mb-4 eyebrow">A Career Built in the Field</p>
+            <p class="text-white mb-4 body-lead">My experience across private practice, government, and the federal courts has given me a clear understanding of how legal careers are built — not just on paper, but in real life.</p>
+            <div class="row text-center">
+              <div class="col-4">
+                <p class="stat-num text-pink mb-1">3</p>
+                <p class="text-light-60 mb-0 stat-label text-uppercase ls-wide">Practice Settings</p>
+              </div>
+              <div class="col-4 border-start border-end" style="border-color: rgba(255,255,255,0.12) !important;">
+                <p class="stat-num text-pink mb-1">2</p>
+                <p class="text-light-60 mb-0 stat-label text-uppercase ls-wide">Bar Admissions</p>
+              </div>
+              <div class="col-4">
+                <p class="stat-num text-pink mb-1">2026</p>
+                <p class="text-light-60 mb-0 stat-label text-uppercase ls-wide">Firm Launched</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section id="mission" class="bg-white section-pad">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <div class="text-center mb-5">
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 eyebrow">My Mission</p>
+            <h2 class="text-plum ls-tight fw-bold display-5">Preparation builds confidence.</h2>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="bg-blush rounded-4 p-4 h-100">
+                <div class="icon-wrap-tint rounded-3 d-flex align-items-center justify-content-center mb-3 flex-shrink-0 icon-44"><i class="bi bi-question-circle-fill fs-icon-md"></i></div>
+                <p class="text-plum mb-0 body-sm">Too often, legal education operates on silence and assumption — students are expected to already know the rules, the language, and the strategy.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="bg-blush rounded-4 p-4 h-100">
+                <div class="icon-wrap-tint rounded-3 d-flex align-items-center justify-content-center mb-3 flex-shrink-0 icon-44"><i class="bi bi-lightbulb-fill fs-icon-md"></i></div>
+                <p class="text-plum mb-0 body-sm">When students understand how the system works — academically, professionally, and culturally — they show up differently and ask better questions.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="bg-blush rounded-4 p-4 h-100">
+                <div class="icon-wrap-tint rounded-3 d-flex align-items-center justify-content-center mb-3 flex-shrink-0 icon-44"><i class="bi bi-heart-fill fs-icon-md"></i></div>
+                <p class="text-plum mb-0 body-sm">I am committed to empowerment without gatekeeping — sharing information clearly, explaining the "why," and respecting that every path looks different.</p>
+              </div>
+            </div>
+          </div>
+          <p class="text-muted-pp text-center mt-5 mb-0 body-lead fst-italic">This work isn't just about surviving the process — it's about understanding it, and moving through it with purpose.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA — FULL CV -->
+  <section class="bg-rose section-pad">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <p class="fw-semibold text-uppercase ls-wide mb-2 text-light-60 eyebrow">Want the Full Record?</p>
+          <h2 class="text-white ls-tight fw-bold display-6 mb-2">Explore the complete credentials, education, and career history.</h2>
+          <p class="text-light-75 mb-0 body-md">Awards, bar admissions, professional experience, leadership roles, and published work — organized in one place.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <a href="about-2-credentials.html" class="btn btn-white rounded-3 px-4 py-3 fw-semibold">View Credentials &amp; CV <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section class="bg-blush py-4">
+    <div class="container">
+      <p class="text-muted-pp text-center mb-0 body-xs"><i class="bi bi-info-circle me-1"></i> The Pinkprint Lawyer is an educational platform. Nothing on this site constitutes legal advice, nor does any content create an attorney–client relationship.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-top border-blush footer-pad">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-4">
+          <img src="assets/logos/1_Primary/The Pinkprint Lawyer_Primary (1).png" alt="The Pinkprint Lawyer" height="42" />
+          <p class="text-muted-pp mt-3 mb-3 footer-tagline">Your roadmap through law school<br />and into the profession.</p>
+          <div class="d-flex gap-2">
+            <a href="#" aria-label="Instagram" class="footer-social-icon bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none icon-36"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"  class="footer-social-icon bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none icon-36"><i class="bi bi-linkedin"></i></a>
+            <a href="#" aria-label="TikTok"    class="footer-social-icon bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none icon-36"><i class="bi bi-tiktok"></i></a>
+            <a href="#" aria-label="YouTube"   class="footer-social-icon bg-blush rounded-3 d-flex align-items-center justify-content-center text-plum text-decoration-none icon-36"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label">About</p>
+          <a href="about-1-story.html" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">My Story</a>
+          <a href="about-2-credentials.html" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Credentials &amp; CV</a>
+          <a href="#mission" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Our Mission</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Press</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label">Shop</p>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Browse the Shop</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Book a Session</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label">Membership</p>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Join</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Member Login</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label">Legal/Admin</p>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Contact</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Privacy Policy</a>
+          <a href="#" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">Terms of Use</a>
+        </div>
+      </div>
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 border-top border-blush pt-4 mt-5">
+        <p class="text-muted-pp mb-0 footer-meta">© 2025 The Pinkprint Lawyer. All rights reserved.</p>
+        <div class="d-flex gap-4">
+          <a href="#" class="text-muted-pp text-decoration-none footer-meta">Privacy Policy</a>
+          <a href="#" class="text-muted-pp text-decoration-none footer-meta">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (function () {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in-view');
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      const hero = document.querySelector('section.hero-pad');
+      if (hero) {
+        const heroTargets = hero.querySelectorAll(':scope > .container > .row > [class*="col"]');
+        heroTargets.forEach((el, i) => {
+          el.classList.add('fade-up');
+          el.style.setProperty('--stagger', i);
+        });
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          heroTargets.forEach(el => el.classList.add('in-view'));
+        }));
+      }
+
+      document.querySelectorAll('section:not(.hero-pad)').forEach(section => {
+        const targets = section.querySelectorAll(
+          ':scope > .container > *,' +
+          ':scope > .container > .row > [class*="col"],' +
+          ':scope > .container > .row > .col-lg-9 > *'
+        );
+        targets.forEach((el, i) => {
+          el.classList.add('fade-up');
+          el.style.setProperty('--stagger', i);
+          observer.observe(el);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
