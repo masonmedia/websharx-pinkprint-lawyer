@@ -125,6 +125,7 @@ function ppl_register_meta_fields() {
         'ppl_abt_hero_heading',
         'ppl_abt_hero_body',
         'ppl_abt_hero_image_url',
+        'ppl_abt_hero_bg_image_url',
 
         // ── KPI STRIP (fixed 4) ───────────────────────────────────────────────
         'ppl_abt_kpi_1_num',
@@ -179,6 +180,65 @@ function ppl_register_meta_fields() {
 
         // ── DISCLAIMER ────────────────────────────────────────────────────────
         'ppl_abt_disclaimer',
+
+        // ══════════════════════════════════════════════════════════════════════
+        // CREDENTIALS PAGE FIELDS (ppl_crd_*) — page-about-credentials.php
+        // ══════════════════════════════════════════════════════════════════════
+
+        // ── PAGE HEADER ───────────────────────────────────────────────────────
+        'ppl_crd_header_eyebrow',
+        'ppl_crd_header_heading',
+        'ppl_crd_header_body',
+
+        // ── FULL BLEED IMAGE ──────────────────────────────────────────────────
+        'ppl_crd_fullbleed_image_url',
+
+        // ── STAT STRIP (fixed 4) ──────────────────────────────────────────────
+        'ppl_crd_stat_1_num',
+        'ppl_crd_stat_1_label',
+        'ppl_crd_stat_2_num',
+        'ppl_crd_stat_2_label',
+        'ppl_crd_stat_3_num',
+        'ppl_crd_stat_3_label',
+        'ppl_crd_stat_4_num',
+        'ppl_crd_stat_4_label',
+
+        // ── EDUCATION & HONORS — repeater key ─────────────────────────────────
+        'ppl_crd_education_eyebrow',
+        'ppl_crd_education_heading',
+        'ppl_crd_education_items', // JSON: [{title, body}, ...]
+
+        // ── BAR ADMISSIONS — repeater key ─────────────────────────────────────
+        'ppl_crd_bar_eyebrow',
+        'ppl_crd_bar_heading',
+        'ppl_crd_bar_items', // JSON: [{icon, state, date}, ...]
+
+        // ── PROFESSIONAL EXPERIENCE — repeater key ────────────────────────────
+        'ppl_crd_experience_eyebrow',
+        'ppl_crd_experience_heading',
+        'ppl_crd_experience_items', // JSON: [{icon, period, title, body}, ...]
+
+        // ── LEADERSHIP & SERVICE — repeater key ───────────────────────────────
+        'ppl_crd_leadership_eyebrow',
+        'ppl_crd_leadership_heading',
+        'ppl_crd_leadership_items', // JSON: [{icon, title, period}, ...]
+
+        // ── PUBLICATIONS & RECOGNITION — repeater key ─────────────────────────
+        'ppl_crd_publications_eyebrow',
+        'ppl_crd_publications_heading',
+        'ppl_crd_publications_items', // JSON: [{icon, title, body}, ...]
+
+        // ── DISCLAIMER CTA ────────────────────────────────────────────────────
+        'ppl_crd_disclaimer_eyebrow',
+        'ppl_crd_disclaimer_heading',
+        'ppl_crd_disclaimer_body',
+
+        // ── CONTACT CTA ───────────────────────────────────────────────────────
+        'ppl_crd_contact_eyebrow',
+        'ppl_crd_contact_heading',
+        'ppl_crd_contact_body',
+        'ppl_crd_contact_cta_label',
+        'ppl_crd_contact_cta_url',
 
         // ══════════════════════════════════════════════════════════════════════
         // DARK THEME FIELDS (ppl_dk_*)

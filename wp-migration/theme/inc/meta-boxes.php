@@ -135,6 +135,8 @@ function ppl_add_page_meta_box() {
         add_meta_box( 'ppl_page_content', 'Page Content', 'ppl_render_meta_box', 'page', 'normal', 'high' );
     } elseif ( basename( $template ) === 'page-about.php' ) {
         add_meta_box( 'ppl_about_page_content', 'Page Content', 'ppl_render_about_meta_box', 'page', 'normal', 'high' );
+    } elseif ( basename( $template ) === 'page-about-credentials.php' ) {
+        add_meta_box( 'ppl_credentials_page_content', 'Page Content', 'ppl_render_credentials_meta_box', 'page', 'normal', 'high' );
     }
 }
 
@@ -414,6 +416,7 @@ function ppl_render_about_meta_box( $post ) {
     echo $row( 'H1 heading',    'ppl_abt_hero_heading', 'text',     'I learned the hard way <span class="text-rose d-table"> so you don\'t have to.</span>' );
     echo $row( 'Body copy',     'ppl_abt_hero_body',    'textarea', 'I did not enter law school with a built-in roadmap or a family of attorneys. I came in as a first-generation student, learning the language, the expectations, and the unspoken rules of the profession in real time; often, through trial and error.' );
     echo $img_row( 'Hero image', 'ppl_abt_hero_image_url', get_stylesheet_directory_uri() . '/assets/images/pp-about-hero.png' );
+    echo $img_row( 'Hero background wallpaper', 'ppl_abt_hero_bg_image_url', get_stylesheet_directory_uri() . '/assets/images/pp-wallpaper.webp' );
 
     // ── KPI STRIP ─────────────────────────────────────────────────────────
     echo $section( 'KPI Strip' );
@@ -500,6 +503,193 @@ function ppl_render_about_meta_box( $post ) {
     // ── DISCLAIMER ────────────────────────────────────────────────────────
     echo $section( 'Disclaimer' );
     echo $row( 'Disclaimer text', 'ppl_abt_disclaimer', 'textarea', 'The Pinkprint Lawyer is an educational platform. Nothing on this site constitutes legal advice, nor does any content create an attorney–client relationship.' );
+
+    echo '</table>';
+
+    ppl_repeater_script();
+}
+
+// ── Credentials page meta box ──────────────────────────────────────────────
+
+function ppl_render_credentials_meta_box( $post ) {
+    wp_nonce_field( 'ppl_save_meta', 'ppl_meta_nonce' );
+
+    $get = fn( $key ) => get_post_meta( $post->ID, $key, true );
+    $v   = fn( $key, $default = '' ) => esc_attr( $get( $key ) ?: $default );
+    $t   = fn( $key, $default = '' ) => esc_textarea( $get( $key ) ?: $default );
+    $j   = fn( $key ) => (array) json_decode( $get( $key ) ?: '[]', true );
+
+    $s = 'style="width:100%;padding:6px 8px;margin-bottom:4px;box-sizing:border-box;border:1px solid #ddd;border-radius:5px;"';
+
+    $section = fn( $label ) =>
+        '<tr><td colspan="2" style="padding:0;height:36px;"></td></tr>'
+        . '<tr><td colspan="2" style="padding:0 0 20px;border-top:2px solid #e5e5e5;padding-top:20px;"><strong style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#c43670;">'
+        . esc_html( $label ) . '</strong></td></tr>';
+
+    $row = function( $label, $key, $type = 'text', $default = '' ) use ( $post, $s, $v, $t ) {
+        $val   = ( $type === 'textarea' ) ? $t( $key, $default ) : $v( $key, $default );
+        $input = $type === 'textarea'
+            ? "<textarea name=\"{$key}\" rows=\"3\" {$s} style=\"width:100%;padding:6px 8px;margin-bottom:4px;box-sizing:border-box;border:1px solid #ddd;border-radius:5px;\">{$val}</textarea>"
+            : "<input type=\"text\" name=\"{$key}\" value=\"{$val}\" {$s} />";
+        return '<tr><th style="text-align:left;padding:4px 8px 4px 0;width:200px;vertical-align:top;padding-top:8px;">'
+            . esc_html( $label ) . '</th><td>' . $input . '</td></tr>';
+    };
+
+    $img_row = function( $label, $key, $default = '' ) use ( $post ) {
+        $url     = get_post_meta( $post->ID, $key, true ) ?: $default;
+        $display = $url ? 'block' : 'none';
+        $btn_rem = $url ? 'inline-block' : 'none';
+        $out  = '<tr>';
+        $out .= '<th style="text-align:left;padding:4px 8px 4px 0;width:200px;vertical-align:top;padding-top:8px;">' . esc_html( $label ) . '</th>';
+        $out .= '<td>';
+        $out .= '<div class="ppl-img-picker">';
+        $out .= '<img src="' . esc_url( $url ) . '" class="ppl-img-preview" style="max-width:200px;height:auto;display:' . $display . ';margin-bottom:6px;border-radius:6px;" />';
+        $out .= '<input type="hidden" name="' . esc_attr( $key ) . '" value="' . esc_attr( $url ) . '" class="ppl-img-url" />';
+        $out .= '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;">';
+        $out .= '<button type="button" class="button ppl-choose-img">Select Image</button>';
+        $out .= '<button type="button" class="button ppl-remove-img" style="display:' . $btn_rem . ';">Remove</button>';
+        $out .= '<span class="ppl-img-path" style="font-size:11px;color:#888;word-break:break-all;display:' . ( $url ? 'inline' : 'none' ) . ';">' . esc_html( $url ) . '</span>';
+        $out .= '</div>';
+        $out .= '</div>';
+        $out .= '</td></tr>';
+        return $out;
+    };
+
+    echo '<table style="width:100%;border-collapse:collapse;">';
+
+    // ── PAGE HEADER ───────────────────────────────────────────────────────
+    echo $section( 'Page Header' );
+    echo $row( 'Eyebrow',     'ppl_crd_header_eyebrow', 'text',     'Credentials & Experience' );
+    echo $row( 'H1 heading',  'ppl_crd_header_heading', 'text',     'The record behind the guidance.' );
+    echo $row( 'Body copy',   'ppl_crd_header_body',    'textarea', 'I value approachability, but I also value transparency: the guidance offered through this platform is grounded in rigorous training, professional responsibility, and demonstrated achievement. Browse the categories below for the full picture.' );
+
+    // ── FULL BLEED IMAGE ──────────────────────────────────────────────────
+    echo $section( 'Full Bleed Image' );
+    echo $img_row( 'Background image', 'ppl_crd_fullbleed_image_url', get_stylesheet_directory_uri() . '/assets/images/pp-wallpaper.png' );
+
+    // ── STAT STRIP ────────────────────────────────────────────────────────
+    echo $section( 'At a Glance — Stat Strip' );
+    $stat_defaults = [
+        1 => [ '3.9', 'J.D. GPA · Top 5%' ],
+        2 => [ '2',   'Bar Admissions' ],
+        3 => [ '6+',  'Legal Roles & Internships' ],
+        4 => [ '10+', 'Publications & Features' ],
+    ];
+    for ( $i = 1; $i <= 4; $i++ ) {
+        echo $row( "Stat {$i} number", "ppl_crd_stat_{$i}_num",   'text', $stat_defaults[ $i ][0] );
+        echo $row( "Stat {$i} label",  "ppl_crd_stat_{$i}_label", 'text', $stat_defaults[ $i ][1] );
+    }
+
+    // ── EDUCATION & HONORS ────────────────────────────────────────────────
+    echo $section( 'Education & Honors (Accordion)' );
+    echo $row( 'Section eyebrow', 'ppl_crd_education_eyebrow', 'text', 'Education & Honors' );
+    echo $row( 'Section H2',      'ppl_crd_education_heading', 'text', 'Built on a foundation of academic excellence.' );
+    echo '<tr><td colspan="2">';
+    ppl_render_repeater( 'ppl_crd_education_items', $j( 'ppl_crd_education_items' ), [
+        [ 'key' => 'title', 'label' => 'Accordion title',                        'type' => 'text' ],
+        [ 'key' => 'body',  'label' => 'Body (HTML — paragraphs/lists allowed)', 'type' => 'textarea' ],
+    ], 'Education Entry', [
+        [ 'title' => 'Juris Doctor — University at Buffalo School of Law (May 2022)',
+          'body'  => '<p class="mb-3"><strong>Cumulative GPA:</strong> 3.9 &nbsp;|&nbsp; <strong>Class Rank:</strong> Top 5%</p><ul class="mb-0 ps-3"><li>Order of the Coif (2022)</li><li>Max Koren Award (2022)</li><li>Monique E. Emdin Award (2022) — recognizing commitment to community service</li><li>Promise Prize Scholar Award, Change Create Transform Foundation (2021)</li><li>John L. Hargrave Award, Minority Bar Foundation (2021)</li><li>Jessica Ortiz \'05 Federal Judicial Fellowship recipient</li></ul>' ],
+        [ 'title' => 'M.S., Criminal Justice — Rochester Institute of Technology (May 2019)',
+          'body'  => '<p class="mb-3"><strong>Cumulative GPA:</strong> 4.0</p><ul class="mb-0 ps-3"><li>Shaw &amp; McKay Award</li></ul>' ],
+        [ 'title' => 'B.S., Criminal Justice & Communication (Double Major) — RIT (May 2018)',
+          'body'  => '<p class="mb-3"><strong>Cumulative GPA:</strong> 4.0 &nbsp;|&nbsp; <strong>Class Rank:</strong> Top 1% of the entire university</p><ul class="mb-0 ps-3"><li>Center for Public Safety Initiatives\' Excellence in Research Award (2015)</li><li>RIT Outstanding Undergraduate Scholar Award (top 1%) — academic excellence, civic involvement, and research contributions</li><li>Thomas C. Castellano Award</li><li>Richard B. Lewis Award</li><li>Kearse Undergraduate Writing Award</li><li>College of Liberal Arts 2018 Undergraduate Commencement Speaker</li><li>Communication Honor Society — Lambda Pi Eta</li><li>McNair Scholars Program · RIT Honors Program</li><li>National Society of Leadership &amp; Success</li><li>Higher Education Opportunity Program (HEOP)</li></ul>' ],
+    ] );
+    echo '</td></tr>';
+
+    // ── BAR ADMISSIONS ────────────────────────────────────────────────────
+    echo $section( 'Bar Admissions' );
+    echo $row( 'Section eyebrow', 'ppl_crd_bar_eyebrow', 'text', 'Bar Admissions' );
+    echo $row( 'Section H2',      'ppl_crd_bar_heading', 'text', 'Licensed to practice, ready to advocate.' );
+    echo '<tr><td colspan="2">';
+    ppl_render_repeater( 'ppl_crd_bar_items', $j( 'ppl_crd_bar_items' ), [
+        [ 'key' => 'icon',  'label' => 'Bootstrap icon class (e.g. bi-patch-check-fill)', 'type' => 'text' ],
+        [ 'key' => 'state', 'label' => 'State',                                          'type' => 'text' ],
+        [ 'key' => 'date',  'label' => 'Admission date',                                 'type' => 'text' ],
+    ], 'Bar Admission', [
+        [ 'icon' => 'bi-patch-check-fill', 'state' => 'New York',   'date' => 'Admitted January 2023' ],
+        [ 'icon' => 'bi-patch-check-fill', 'state' => 'New Jersey', 'date' => 'Admitted June 2023' ],
+    ] );
+    echo '</td></tr>';
+
+    // ── PROFESSIONAL EXPERIENCE ───────────────────────────────────────────
+    echo $section( 'Professional Experience (Timeline)' );
+    echo $row( 'Section eyebrow', 'ppl_crd_experience_eyebrow', 'text', 'Professional Experience' );
+    echo $row( 'Section H2',      'ppl_crd_experience_heading', 'text', 'A track record of practice and service.' );
+    echo '<tr><td colspan="2">';
+    ppl_render_repeater( 'ppl_crd_experience_items', $j( 'ppl_crd_experience_items' ), [
+        [ 'key' => 'icon',   'label' => 'Bootstrap icon class (e.g. bi-briefcase-fill)', 'type' => 'text' ],
+        [ 'key' => 'period', 'label' => 'Period',                                        'type' => 'text' ],
+        [ 'key' => 'title',  'label' => 'Title',                                         'type' => 'text' ],
+        [ 'key' => 'body',   'label' => 'Body',                                          'type' => 'textarea' ],
+    ], 'Experience Entry', [
+        [ 'icon' => 'bi-briefcase-fill', 'period' => 'Launched May 17, 2026 — Present', 'title' => 'New York City Partner & Co-Owner — Smith & Singleton Law', 'body' => 'A Black-owned law firm grounded in excellence, equity, and intentional advocacy, practicing real estate, immigration, business, and family law.' ],
+        [ 'icon' => 'bi-building', 'period' => 'Sept. 2022 – Oct. 2025', 'title' => 'Real Estate Associate — Fried, Frank, Harris, Shriver & Jacobson LLP, New York, NY', 'body' => 'Supported complex, multimillion-dollar real estate financing matters. Founded the First-Generation Professionals Employee Resource Group. Provided pro bono assistance through NYLPI, Legal Services of the Hudson Valley, and Volunteers of Legal Services.' ],
+        [ 'icon' => 'bi-bank', 'period' => 'Feb. – Apr. 2021', 'title' => "Extern — United States Attorney's Office, Rochester, NY", 'body' => 'Conducted legal research, drafted memoranda, and represented the United States in a federal court status hearing.' ],
+        [ 'icon' => 'bi-columns-gap', 'period' => 'May – July 2020', 'title' => 'Judicial Intern — Hon. Julio Fuentes, U.S. Court of Appeals for the Third Circuit', 'body' => 'Interned at the second highest court in the United States. Drafted and revised opinions involving § 1983 claims, ERISA, and suppression of inculpatory evidence. Contributed to a precedential opinion concerning the Federal Tort Claims Act.' ],
+        [ 'icon' => 'bi-folder2-open', 'period' => 'Jan. – Apr. 2017', 'title' => "Intern — Monroe County District Attorney's Office, Rochester, NY", 'body' => 'Filed and organized evidence and assisted Assistant District Attorneys with related casework tasks.' ],
+        [ 'icon' => 'bi-search', 'period' => 'May 2018 – May 2019', 'title' => 'Research Assistant — Bureau of Justice Assistance, Rochester, NY', 'body' => 'Supported the National Evidentiary Value of Body-Worn Cameras Research Project, conducting qualitative research with prosecutors and defense attorneys.' ],
+    ] );
+    echo '</td></tr>';
+
+    // ── LEADERSHIP & SERVICE ──────────────────────────────────────────────
+    echo $section( 'Leadership & Service' );
+    echo $row( 'Section eyebrow', 'ppl_crd_leadership_eyebrow', 'text', 'Leadership & Service' );
+    echo $row( 'Section H2',      'ppl_crd_leadership_heading', 'text', "Roles built to create structure and access where it didn't yet exist." );
+    echo '<tr><td colspan="2">';
+    ppl_render_repeater( 'ppl_crd_leadership_items', $j( 'ppl_crd_leadership_items' ), [
+        [ 'key' => 'icon',   'label' => 'Bootstrap icon class (e.g. bi-flag-fill)', 'type' => 'text' ],
+        [ 'key' => 'title',  'label' => 'Title',                                   'type' => 'textarea' ],
+        [ 'key' => 'period', 'label' => 'Period (leave blank to hide)',            'type' => 'text' ],
+    ], 'Leadership Entry', [
+        [ 'icon' => 'bi-flag-fill', 'title' => 'Founder & President, First-Generation Law Students Association', 'period' => '2021–2022' ],
+        [ 'icon' => 'bi-journal-bookmark-fill', 'title' => 'Inaugural DEI Editor & Associate Editor, Buffalo Law Review', 'period' => '2021–2022 · 2020–2021' ],
+        [ 'icon' => 'bi-mortarboard', 'title' => 'Faculty Research Scholar, Professor Guyora Binder', 'period' => '2020–2022' ],
+        [ 'icon' => 'bi-pencil-square', 'title' => 'Writing Fellow, Professor Kate Rowan', 'period' => '2020–2021' ],
+        [ 'icon' => 'bi-person-workspace', 'title' => 'Faculty Assistantships — Professor Matthew Steilen, Professor Rebecca French, Dean Gargano', 'period' => '' ],
+        [ 'icon' => 'bi-mic-fill', 'title' => 'Panelist, Franklin H. Williams Judicial Commission Law Day Program', 'period' => 'May 2021' ],
+        [ 'icon' => 'bi-calendar-event-fill', 'title' => 'Organizer, "Growing Up Marshall" event featuring John W. Marshall', 'period' => '' ],
+        [ 'icon' => 'bi-people-fill', 'title' => 'Founder, First-Generation Professionals ERG at Fried Frank', 'period' => '' ],
+    ] );
+    echo '</td></tr>';
+
+    // ── PUBLICATIONS & RECOGNITION ────────────────────────────────────────
+    echo $section( 'Publications & Recognition (Accordion)' );
+    echo $row( 'Section eyebrow', 'ppl_crd_publications_eyebrow', 'text', 'Publications & Recognition' );
+    echo $row( 'Section H2',      'ppl_crd_publications_heading', 'text', 'My commitment to legal scholarship and research is central to who I am as an attorney and educator.' );
+    echo '<tr><td colspan="2">';
+    ppl_render_repeater( 'ppl_crd_publications_items', $j( 'ppl_crd_publications_items' ), [
+        [ 'key' => 'icon',  'label' => 'Bootstrap icon class (e.g. bi-journal-check)',  'type' => 'text' ],
+        [ 'key' => 'title', 'label' => 'Accordion title',                              'type' => 'text' ],
+        [ 'key' => 'body',  'label' => 'Body (HTML — paragraphs/lists allowed)',       'type' => 'textarea' ],
+    ], 'Publication Group', [
+        [ 'icon' => 'bi-journal-check', 'title' => 'Peer-Reviewed Publication',
+          'body' => 'Robertson, O. N., McCluskey, J. D., Smith, S. S., &amp; Uchida, C. D. (2022). <em>Body Cameras and Adjudication: Views of Prosecutors and Public Defenders.</em> Criminal Justice Review, 49(1), 15–29.' ],
+        [ 'icon' => 'bi-bank2', 'title' => 'Research Contributions Acknowledged in Leading Journals',
+          'body' => '<ul class="mb-0 ps-3"><li>Police Killings as Felony Murder (with Guyora Binder &amp; Ekow Yankah), 17 Harvard Law &amp; Policy Review (2022)</li><li>Defunding Police Agencies (with Guyora Binder, Rick Su &amp; Anthony O\'Rourke), 71 Emory Law Journal (2022)</li><li>Disbanding Police Agencies (with Guyora Binder, Anthony O\'Rourke &amp; Rick Su), 121 Columbia Law Review 1327 (2021)</li><li>Criminal Law: Cases and Materials (with Guyora Binder), Wolters-Kluwer, 8th ed. (2017) / 9th ed. (2021)</li></ul>' ],
+        [ 'icon' => 'bi-camera-video-fill', 'title' => 'Undergraduate Research',
+          'body' => 'Smith, Shakierah &amp; McCluskey, John. (2017). <em>Body-Worn Cameras (BWCs): How Prosecutors, Public Defenders, and Judges Perceive the Implementation and Utilization of BWCs in Monroe County.</em> RIT Department of Criminal Justice/CPSI, Rochester, NY.' ],
+        [ 'icon' => 'bi-star-fill', 'title' => 'University & Alumni Features',
+          'body' => '<ul class="mb-0 ps-3"><li><strong>RIT Spotlights</strong> — Profile detailing my journey from first-generation RIT student to practicing attorney</li><li><strong>"Leaving a Mark at UB Law"</strong> — UB Law profile on community impact and institutional leadership</li><li><strong>"Attorney Finds Her Home in Real Estate Law"</strong> — RIT News feature on my career in commercial real estate</li><li><strong>"From Humble Beginnings to Planning for Law School"</strong> — RIT Diversity Newsletter profile</li><li><strong>"Lawyer, Entrepreneur &amp; More"</strong> — Rochester Woman Online magazine feature (May 2024)</li></ul>' ],
+        [ 'icon' => 'bi-newspaper', 'title' => 'Additional Coverage',
+          'body' => '<ul class="mb-0 ps-3"><li><strong>"Committing to a More Diverse Law Review"</strong> — UB Law feature on my election as inaugural DEI Editor</li><li><strong>Franklin H. Williams Judicial Commission</strong> — Featured as panelist in Law Day Program (May 2021)</li><li><strong>"Third Circuit x COVID-19: What I Learned During My Internship"</strong> — Authored blog post reflecting on lessons from the Third Circuit</li></ul>' ],
+    ] );
+    echo '</td></tr>';
+
+    // ── DISCLAIMER CTA ────────────────────────────────────────────────────
+    echo $section( 'Disclaimer CTA' );
+    echo $row( 'Eyebrow',   'ppl_crd_disclaimer_eyebrow', 'text',     'Quick Disclaimer' );
+    echo $row( 'H2',        'ppl_crd_disclaimer_heading', 'text',     'Education first, always.' );
+    echo $row( 'Body copy', 'ppl_crd_disclaimer_body',    'textarea', 'The Pinkprint Lawyer is an educational platform. Nothing here constitutes legal advice, nor does it create an attorney–client relationship.' );
+
+    // ── CONTACT CTA ───────────────────────────────────────────────────────
+    echo $section( 'Contact CTA' );
+    echo $row( 'Eyebrow',     'ppl_crd_contact_eyebrow',   'text',     'Contact' );
+    echo $row( 'H2',          'ppl_crd_contact_heading',   'text',     'Get in Touch' );
+    echo $row( 'Body copy',   'ppl_crd_contact_body',      'textarea', 'I am always open to thoughtful conversation and meaningful opportunities — questions, collaborations, speaking engagements, or media inquiries. Reach out and I will do my best to respond with clarity and intention.' );
+    echo $row( 'Button text', 'ppl_crd_contact_cta_label', 'text',     'Contact Me' );
+    echo $row( 'Button URL',  'ppl_crd_contact_cta_url',   'text',     '/contact' );
 
     echo '</table>';
 
@@ -707,6 +897,11 @@ function ppl_save_meta_box( $post_id ) {
         'ppl_book_covers',
         'ppl_start_paths',
         'ppl_abt_story_items',
+        'ppl_crd_education_items',
+        'ppl_crd_bar_items',
+        'ppl_crd_experience_items',
+        'ppl_crd_leadership_items',
+        'ppl_crd_publications_items',
     ];
 
     foreach ( $repeater_keys as $key ) {

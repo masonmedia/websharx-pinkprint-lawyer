@@ -11,7 +11,7 @@
   .hero-bg {
     position: absolute;
     inset: 0;
-    background-image: url('<?php echo esc_url( ppl_get( 'ppl_abt_hero_image_url', get_stylesheet_directory_uri() . '/assets/images/pp-about-hero.png' ) ); ?>');
+    background-image: url('<?php echo esc_url( ppl_get( 'ppl_abt_hero_bg_image_url', get_stylesheet_directory_uri() . '/assets/images/pp-wallpaper.webp' ) ); ?>');
     background-size: cover;
     background-position: top center;
     opacity: 0.06;
