@@ -89,7 +89,7 @@
       ?>
       <div class="col-6 col-md-3">
         <div class="kpi-card rounded-4 py-4 px-2 h-100 bg-blush">
-          <p class="kpi-num text-rose mb-3 fw-bold"><?php echo esc_html( $num ); ?></p>
+          <p class="kpi-num text-rose pb-2 fw-bold"><?php echo esc_html( $num ); ?></p>
           <p class="kpi-label text-plum fw-semibold text-uppercase ls-wide mb-0"><?php echo nl2br( esc_html( $label ) ); ?></p>
         </div>
       </div>
