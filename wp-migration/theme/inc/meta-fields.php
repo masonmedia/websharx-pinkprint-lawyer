@@ -117,6 +117,70 @@ function ppl_register_meta_fields() {
         'ppl_contact_body_2',
 
         // ══════════════════════════════════════════════════════════════════════
+        // ABOUT PAGE FIELDS (ppl_abt_*) — page-about.php
+        // ══════════════════════════════════════════════════════════════════════
+
+        // ── HERO ──────────────────────────────────────────────────────────────
+        'ppl_abt_hero_eyebrow',
+        'ppl_abt_hero_heading',
+        'ppl_abt_hero_body',
+        'ppl_abt_hero_image_url',
+
+        // ── KPI STRIP (fixed 4) ───────────────────────────────────────────────
+        'ppl_abt_kpi_1_num',
+        'ppl_abt_kpi_1_label',
+        'ppl_abt_kpi_2_num',
+        'ppl_abt_kpi_2_label',
+        'ppl_abt_kpi_3_num',
+        'ppl_abt_kpi_3_label',
+        'ppl_abt_kpi_4_num',
+        'ppl_abt_kpi_4_label',
+
+        // ── MY STORY — repeater key ───────────────────────────────────────────
+        'ppl_abt_story_eyebrow',
+        'ppl_abt_story_heading',
+        'ppl_abt_story_items', // JSON: [{title, body}, ...] — body paragraphs separated by blank lines
+
+        // ── MY MISSION ────────────────────────────────────────────────────────
+        'ppl_abt_mission_eyebrow',
+        'ppl_abt_mission_heading',
+        'ppl_abt_mission_subtext',
+        'ppl_abt_mission_body_1',
+        'ppl_abt_mission_body_2',
+        'ppl_abt_mission_card_1_badge',
+        'ppl_abt_mission_card_1_body',
+        'ppl_abt_mission_card_2_badge',
+        'ppl_abt_mission_card_2_body',
+        'ppl_abt_mission_card_3_badge',
+        'ppl_abt_mission_card_3_body',
+        'ppl_abt_mission_quote',
+
+        // ── START HERE ────────────────────────────────────────────────────────
+        'ppl_abt_start_eyebrow',
+        'ppl_abt_start_heading',
+        'ppl_abt_start_body',
+        'ppl_abt_start_card_1_badge',
+        'ppl_abt_start_card_1_body',
+        'ppl_abt_start_card_2_badge',
+        'ppl_abt_start_card_2_body',
+        'ppl_abt_start_card_3_badge',
+        'ppl_abt_start_card_3_body',
+        'ppl_abt_start_closing_1',
+        'ppl_abt_start_closing_2',
+        'ppl_abt_start_cta_label',
+        'ppl_abt_start_cta_url',
+
+        // ── CONTACT CTA ───────────────────────────────────────────────────────
+        'ppl_abt_contact_eyebrow',
+        'ppl_abt_contact_heading',
+        'ppl_abt_contact_body',
+        'ppl_abt_contact_cta_label',
+        'ppl_abt_contact_cta_url',
+
+        // ── DISCLAIMER ────────────────────────────────────────────────────────
+        'ppl_abt_disclaimer',
+
+        // ══════════════════════════════════════════════════════════════════════
         // DARK THEME FIELDS (ppl_dk_*)
         // Add here when dark-theme.html is migrated — same file, same function.
         // ══════════════════════════════════════════════════════════════════════
