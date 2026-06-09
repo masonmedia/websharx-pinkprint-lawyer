@@ -1,7 +1,7 @@
 <?php
 add_action('wp_enqueue_scripts', 'child_theme_scripts');
 function child_theme_scripts() {
-    $ppl_templates = [ 'page-home.php', 'page-default.php', 'page-blog-archive.php', 'single.php', 'page-contact.php', 'page-about.php', 'page-about-credentials.php' ];
+    $ppl_templates = [ 'page-home.php', 'page-default.php', 'page-blog-archive.php', 'single.php', 'page-contact.php', 'page-about.php', 'page-about-credentials.php', 'page-shop.php' ];
     if ( ! is_page_template( $ppl_templates ) ) {
         wp_enqueue_style('child-style', get_stylesheet_uri());
     }
@@ -14,6 +14,8 @@ require_once get_stylesheet_directory() . '/inc/ppl-helpers.php';
 require_once get_stylesheet_directory() . '/inc/meta-fields.php';
 require_once get_stylesheet_directory() . '/inc/meta-boxes.php';
 require_once get_stylesheet_directory() . '/inc/post-types.php';
+require_once get_stylesheet_directory() . '/inc/shop/ppl-shop-settings.php';
+require_once get_stylesheet_directory() . '/inc/shop/ppl-stripe.php';
 
 // ── Nav menu locations ─────────────────────────────────────────────────────
 
@@ -39,7 +41,7 @@ add_action( 'wp_enqueue_scripts', 'ppl_enqueue_assets' );
 
 function ppl_enqueue_assets() {
     // Only load on PPL page templates
-    if ( ! is_page_template( [ 'page-home.php', 'page-default.php', 'page-contact.php', 'page-about.php', 'page-about-credentials.php' ] ) ) return;
+    if ( ! is_page_template( [ 'page-home.php', 'page-default.php', 'page-contact.php', 'page-about.php', 'page-about-credentials.php', 'page-shop.php' ] ) ) return;
 
     wp_enqueue_style(
         'bootstrap',

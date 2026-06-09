@@ -137,6 +137,8 @@ function ppl_add_page_meta_box() {
         add_meta_box( 'ppl_about_page_content', 'Page Content', 'ppl_render_about_meta_box', 'page', 'normal', 'high' );
     } elseif ( basename( $template ) === 'page-about-credentials.php' ) {
         add_meta_box( 'ppl_credentials_page_content', 'Page Content', 'ppl_render_credentials_meta_box', 'page', 'normal', 'high' );
+    } elseif ( basename( $template ) === 'page-shop.php' ) {
+        add_meta_box( 'ppl_shop_page_content', 'Shop Page Content', 'ppl_render_shop_meta_box', 'page', 'normal', 'high' );
     }
 }
 
@@ -590,11 +592,11 @@ function ppl_render_credentials_meta_box( $post ) {
         [ 'key' => 'body',  'label' => 'Body (HTML — paragraphs/lists allowed)', 'type' => 'textarea' ],
     ], 'Education Entry', [
         [ 'title' => 'Juris Doctor — University at Buffalo School of Law (May 2022)',
-          'body'  => '<p class="mb-3"><strong>Cumulative GPA:</strong> 3.9 &nbsp;|&nbsp; <strong>Class Rank:</strong> Top 5%</p><ul class="mb-0 ps-3"><li>Order of the Coif (2022)</li><li>Max Koren Award (2022)</li><li>Monique E. Emdin Award (2022) — recognizing commitment to community service</li><li>Promise Prize Scholar Award, Change Create Transform Foundation (2021)</li><li>John L. Hargrave Award, Minority Bar Foundation (2021)</li><li>Jessica Ortiz \'05 Federal Judicial Fellowship recipient</li></ul>' ],
+          'body'  => "Cumulative GPA: 3.9 | Class Rank: Top 5%\n- Order of the Coif (2022)\n- Max Koren Award (2022)\n- Monique E. Emdin Award (2022) — recognizing commitment to community service\n- Promise Prize Scholar Award, Change Create Transform Foundation (2021)\n- John L. Hargrave Award, Minority Bar Foundation (2021)\n- Jessica Ortiz '05 Federal Judicial Fellowship recipient" ],
         [ 'title' => 'M.S., Criminal Justice — Rochester Institute of Technology (May 2019)',
-          'body'  => '<p class="mb-3"><strong>Cumulative GPA:</strong> 4.0</p><ul class="mb-0 ps-3"><li>Shaw &amp; McKay Award</li></ul>' ],
+          'body'  => "Cumulative GPA: 4.0\n- Shaw & McKay Award" ],
         [ 'title' => 'B.S., Criminal Justice & Communication (Double Major) — RIT (May 2018)',
-          'body'  => '<p class="mb-3"><strong>Cumulative GPA:</strong> 4.0 &nbsp;|&nbsp; <strong>Class Rank:</strong> Top 1% of the entire university</p><ul class="mb-0 ps-3"><li>Center for Public Safety Initiatives\' Excellence in Research Award (2015)</li><li>RIT Outstanding Undergraduate Scholar Award (top 1%) — academic excellence, civic involvement, and research contributions</li><li>Thomas C. Castellano Award</li><li>Richard B. Lewis Award</li><li>Kearse Undergraduate Writing Award</li><li>College of Liberal Arts 2018 Undergraduate Commencement Speaker</li><li>Communication Honor Society — Lambda Pi Eta</li><li>McNair Scholars Program · RIT Honors Program</li><li>National Society of Leadership &amp; Success</li><li>Higher Education Opportunity Program (HEOP)</li></ul>' ],
+          'body'  => "Cumulative GPA: 4.0 | Class Rank: Top 1% of the entire university\n- Center for Public Safety Initiatives' Excellence in Research Award (2015)\n- RIT Outstanding Undergraduate Scholar Award (top 1%) — academic excellence, civic involvement, and research contributions\n- Thomas C. Castellano Award\n- Richard B. Lewis Award\n- Kearse Undergraduate Writing Award\n- College of Liberal Arts 2018 Undergraduate Commencement Speaker\n- Communication Honor Society — Lambda Pi Eta\n- McNair Scholars Program · RIT Honors Program\n- National Society of Leadership & Success\n- Higher Education Opportunity Program (HEOP)" ],
     ] );
     echo '</td></tr>';
 
@@ -665,15 +667,15 @@ function ppl_render_credentials_meta_box( $post ) {
         [ 'key' => 'body',  'label' => 'Body (HTML — paragraphs/lists allowed)',       'type' => 'textarea' ],
     ], 'Publication Group', [
         [ 'icon' => 'bi-journal-check', 'title' => 'Peer-Reviewed Publication',
-          'body' => 'Robertson, O. N., McCluskey, J. D., Smith, S. S., &amp; Uchida, C. D. (2022). <em>Body Cameras and Adjudication: Views of Prosecutors and Public Defenders.</em> Criminal Justice Review, 49(1), 15–29.' ],
+          'body' => "Robertson, O. N., McCluskey, J. D., Smith, S. S., & Uchida, C. D. (2022). Body Cameras and Adjudication: Views of Prosecutors and Public Defenders. Criminal Justice Review, 49(1), 15–29." ],
         [ 'icon' => 'bi-bank2', 'title' => 'Research Contributions Acknowledged in Leading Journals',
-          'body' => '<ul class="mb-0 ps-3"><li>Police Killings as Felony Murder (with Guyora Binder &amp; Ekow Yankah), 17 Harvard Law &amp; Policy Review (2022)</li><li>Defunding Police Agencies (with Guyora Binder, Rick Su &amp; Anthony O\'Rourke), 71 Emory Law Journal (2022)</li><li>Disbanding Police Agencies (with Guyora Binder, Anthony O\'Rourke &amp; Rick Su), 121 Columbia Law Review 1327 (2021)</li><li>Criminal Law: Cases and Materials (with Guyora Binder), Wolters-Kluwer, 8th ed. (2017) / 9th ed. (2021)</li></ul>' ],
+          'body' => "- Police Killings as Felony Murder (with Guyora Binder & Ekow Yankah), 17 Harvard Law & Policy Review (2022)\n- Defunding Police Agencies (with Guyora Binder, Rick Su & Anthony O'Rourke), 71 Emory Law Journal (2022)\n- Disbanding Police Agencies (with Guyora Binder, Anthony O'Rourke & Rick Su), 121 Columbia Law Review 1327 (2021)\n- Criminal Law: Cases and Materials (with Guyora Binder), Wolters-Kluwer, 8th ed. (2017) / 9th ed. (2021)" ],
         [ 'icon' => 'bi-camera-video-fill', 'title' => 'Undergraduate Research',
-          'body' => 'Smith, Shakierah &amp; McCluskey, John. (2017). <em>Body-Worn Cameras (BWCs): How Prosecutors, Public Defenders, and Judges Perceive the Implementation and Utilization of BWCs in Monroe County.</em> RIT Department of Criminal Justice/CPSI, Rochester, NY.' ],
+          'body' => "Smith, Shakierah & McCluskey, John. (2017). Body-Worn Cameras (BWCs): How Prosecutors, Public Defenders, and Judges Perceive the Implementation and Utilization of BWCs in Monroe County. RIT Department of Criminal Justice/CPSI, Rochester, NY." ],
         [ 'icon' => 'bi-star-fill', 'title' => 'University & Alumni Features',
-          'body' => '<ul class="mb-0 ps-3"><li><strong>RIT Spotlights</strong> — Profile detailing my journey from first-generation RIT student to practicing attorney</li><li><strong>"Leaving a Mark at UB Law"</strong> — UB Law profile on community impact and institutional leadership</li><li><strong>"Attorney Finds Her Home in Real Estate Law"</strong> — RIT News feature on my career in commercial real estate</li><li><strong>"From Humble Beginnings to Planning for Law School"</strong> — RIT Diversity Newsletter profile</li><li><strong>"Lawyer, Entrepreneur &amp; More"</strong> — Rochester Woman Online magazine feature (May 2024)</li></ul>' ],
+          'body' => "- RIT Spotlights — Profile detailing my journey from first-generation RIT student to practicing attorney\n- \"Leaving a Mark at UB Law\" — UB Law profile on community impact and institutional leadership\n- \"Attorney Finds Her Home in Real Estate Law\" — RIT News feature on my career in commercial real estate\n- \"From Humble Beginnings to Planning for Law School\" — RIT Diversity Newsletter profile\n- \"Lawyer, Entrepreneur & More\" — Rochester Woman Online magazine feature (May 2024)" ],
         [ 'icon' => 'bi-newspaper', 'title' => 'Additional Coverage',
-          'body' => '<ul class="mb-0 ps-3"><li><strong>"Committing to a More Diverse Law Review"</strong> — UB Law feature on my election as inaugural DEI Editor</li><li><strong>Franklin H. Williams Judicial Commission</strong> — Featured as panelist in Law Day Program (May 2021)</li><li><strong>"Third Circuit x COVID-19: What I Learned During My Internship"</strong> — Authored blog post reflecting on lessons from the Third Circuit</li></ul>' ],
+          'body' => "- \"Committing to a More Diverse Law Review\" — UB Law feature on my election as inaugural DEI Editor\n- Franklin H. Williams Judicial Commission — Featured as panelist in Law Day Program (May 2021)\n- \"Third Circuit x COVID-19: What I Learned During My Internship\" — Authored blog post reflecting on lessons from the Third Circuit" ],
     ] );
     echo '</td></tr>';
 
@@ -902,6 +904,9 @@ function ppl_save_meta_box( $post_id ) {
         'ppl_crd_experience_items',
         'ppl_crd_leadership_items',
         'ppl_crd_publications_items',
+        'ppl_shop_items',
+        'ppl_shop_trust_items',
+        'ppl_shop_feature_items',
     ];
 
     foreach ( $repeater_keys as $key ) {
@@ -918,5 +923,172 @@ function ppl_save_meta_box( $post_id ) {
         if ( $key === 'ppl_meta_nonce' ) continue;
         if ( in_array( $key, $repeater_keys, true ) ) continue;
         update_post_meta( $post_id, $key, sanitize_textarea_field( wp_unslash( $val ) ) );
+    }
+}
+
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SHOP PAGE META BOX
+// ══════════════════════════════════════════════════════════════════════════════
+
+function ppl_render_shop_meta_box( $post ) {
+    wp_nonce_field( 'ppl_save_shop_meta', 'ppl_shop_meta_nonce' );
+
+    $get = fn( $key ) => get_post_meta( $post->ID, $key, true );
+    $j   = fn( $key ) => $get( $key ) ? json_decode( $get( $key ), true ) : null;
+
+    $s_inp  = 'style="width:100%;padding:6px 8px;margin-bottom:10px;box-sizing:border-box;border:1px solid #ddd;border-radius:5px;font-size:13px;"';
+    $s_ta   = 'style="width:100%;padding:6px 8px;margin-bottom:10px;box-sizing:border-box;border:1px solid #ddd;border-radius:5px;resize:vertical;font-size:13px;"';
+    $s_head = 'style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#c43670;font-weight:700;margin:36px 0 14px;border-top:2px solid #f0d0e0;padding-top:18px;"';
+    $s_lbl  = 'style="display:block;font-size:12px;font-weight:600;margin-bottom:3px;color:#444;"';
+    $s_note = 'style="font-size:11px;color:#999;margin:-6px 0 10px;"';
+
+    $section = fn( $label ) => '<p ' . $s_head . '>' . esc_html( $label ) . '</p>';
+
+    $field = function( $label, $key, $type = 'text', $placeholder = '', $note = '' ) use ( $get, $s_inp, $s_ta, $s_lbl, $s_note ) {
+        $out = '<label ' . $s_lbl . '>' . esc_html( $label ) . '</label>';
+        if ( $type === 'textarea' ) {
+            $out .= '<textarea name="' . esc_attr( $key ) . '" rows="3" ' . $s_ta . ' placeholder="' . esc_attr( $placeholder ) . '">' . esc_textarea( $get( $key ) ) . '</textarea>';
+        } else {
+            $out .= '<input type="text" name="' . esc_attr( $key ) . '" value="' . esc_attr( $get( $key ) ) . '" ' . $s_inp . ' placeholder="' . esc_attr( $placeholder ) . '" />';
+        }
+        if ( $note ) $out .= '<p ' . $s_note . '>' . esc_html( $note ) . '</p>';
+        return $out;
+    };
+
+    $img_field = function( $label, $key, $note = '' ) use ( $get, $s_lbl, $s_note ) {
+        $url     = $get( $key );
+        $display = $url ? 'block' : 'none';
+        $btn_rem = $url ? 'inline-block' : 'none';
+        $out  = '<label ' . $s_lbl . '>' . esc_html( $label ) . '</label>';
+        $out .= '<div class="ppl-img-picker" style="margin-bottom:10px;">';
+        $out .= '<img src="' . esc_url( $url ) . '" class="ppl-img-preview" style="max-width:240px;height:auto;display:' . $display . ';margin-bottom:6px;border-radius:6px;" />';
+        $out .= '<input type="hidden" name="' . esc_attr( $key ) . '" value="' . esc_attr( $url ) . '" class="ppl-img-url" />';
+        $out .= '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">';
+        $out .= '<button type="button" class="button ppl-choose-img">Select Image</button>';
+        $out .= '<button type="button" class="button ppl-remove-img" style="display:' . $btn_rem . ';">Remove</button>';
+        $out .= '<span class="ppl-img-path" style="font-size:11px;color:#888;display:' . ( $url ? 'inline' : 'none' ) . ';">' . esc_html( $url ) . '</span>';
+        $out .= '</div></div>';
+        if ( $note ) $out .= '<p ' . $s_note . '>' . esc_html( $note ) . '</p>';
+        return $out;
+    };
+
+    /* ── HERO (commented out — hero section hidden on front-end) ────────────
+    echo $section( 'Hero' );
+    echo $img_field( 'Background Image', 'ppl_shop_hero_image_url', 'Overlaid with dark plum tint — works best with a portrait or lifestyle photo.' );
+    echo $field( 'Eyebrow tag',              'ppl_shop_eyebrow',            'text',     'The Pinkprint Collection' );
+    echo $field( 'H1 Heading',               'ppl_shop_heading',            'text',     'Every guide, every stage of your journey.' );
+    echo $field( 'Lead paragraph',           'ppl_shop_lead',               'textarea', 'Each Pinkprint is a purpose-built roadmap...' );
+    echo $field( 'Primary CTA label',        'ppl_shop_cta_primary_label',  'text',     'Browse Guides' );
+    echo $field( 'Secondary CTA label',      'ppl_shop_cta_secondary_label','text',     'Book a Session' );
+    echo $field( 'Secondary CTA URL',        'ppl_shop_cta_secondary_url',  'text',     '#' );
+
+    echo $section( 'Hero — Trust Badges (right column, desktop only)' );
+    ppl_render_repeater( 'ppl_shop_trust_items', $j( 'ppl_shop_trust_items' ), [
+        [ 'key' => 'icon',  'label' => 'Bootstrap icon (e.g. bi-shield-check)', 'type' => 'text' ],
+        [ 'key' => 'title', 'label' => 'Title',                                 'type' => 'text' ],
+        [ 'key' => 'body',  'label' => 'Description',                           'type' => 'text' ],
+    ], 'Badge', [
+        [ 'icon' => 'bi-shield-check',      'title' => 'Instant Access',    'body' => 'Download and start immediately after purchase' ],
+        [ 'icon' => 'bi-arrow-repeat',      'title' => 'Lifetime Updates',  'body' => 'All future editions included at no extra cost' ],
+        [ 'icon' => 'bi-person-check-fill', 'title' => 'Built by a Lawyer', 'body' => 'Written by a practicing attorney and mentor' ],
+    ] );
+    ─────────────────────────────────────────────────────────────── end hero */
+
+    // ── PRODUCT GRID INTRO ────────────────────────────────────────────────────
+    echo $section( 'Product Grid — Section Intro' );
+    echo $field( 'Eyebrow', 'ppl_shop_grid_eyebrow', 'text',     'The Guides' );
+    echo $field( 'Heading', 'ppl_shop_grid_heading', 'text',     'Find the right Pinkprint for your stage.' );
+    echo $field( 'Subtext', 'ppl_shop_grid_subtext', 'textarea', 'Whether you are preparing for law school...' );
+
+    // ── PRODUCTS ──────────────────────────────────────────────────────────────
+    echo $section( 'Products — Cards (add as many as needed)' );
+    ppl_render_repeater( 'ppl_shop_items', $j( 'ppl_shop_items' ), [
+        [ 'key' => 'cover_url',       'label' => 'Cover image',                                           'type' => 'image' ],
+        [ 'key' => 'badge',           'label' => 'Badge (e.g. Bestseller — leave blank to hide)',          'type' => 'text' ],
+        [ 'key' => 'stage',           'label' => 'Stage label (e.g. Stage 01 · Pre-Law)',                  'type' => 'text' ],
+        [ 'key' => 'title',           'label' => 'Product title',                                          'type' => 'text' ],
+        [ 'key' => 'subtitle',        'label' => 'Subtitle / tagline',                                     'type' => 'text' ],
+        [ 'key' => 'body',            'label' => 'Description',                                            'type' => 'textarea' ],
+        [ 'key' => 'price',           'label' => 'Display price (e.g. $27)',                               'type' => 'text' ],
+        [ 'key' => 'icon',            'label' => 'Fallback icon if no cover (e.g. bi-book-fill)',          'type' => 'text' ],
+        [ 'key' => 'stripe_price_id', 'label' => 'Stripe Price ID (price_xxxxxxxx) — from Settings page', 'type' => 'text' ],
+    ], 'Product', [
+        [ 'cover_url' => '', 'badge' => 'Bestseller', 'stage' => 'Stage 01 · Pre-Law',    'title' => 'The Pre-Law Pinkprint',     'subtitle' => 'Your blueprint for getting in — and hitting the ground running.', 'body' => 'Decision-making frameworks, school selection strategy, personal statement guidance, and everything you need to prepare before day one of law school.', 'price' => '$27', 'icon' => 'bi-mortarboard-fill',      'stripe_price_id' => '' ],
+        [ 'cover_url' => '', 'badge' => '',            'stage' => 'Stage 02 · Law School', 'title' => 'The Law School Pinkprint',  'subtitle' => 'A proven study system for surviving — and thriving — in 1L and beyond.',   'body' => 'Briefing methods, exam strategy, outlining systems, and time management frameworks designed around the actual demands of legal education.',              'price' => '$27', 'icon' => 'bi-book-fill',             'stripe_price_id' => '' ],
+        [ 'cover_url' => '', 'badge' => 'New',         'stage' => 'Stage 03 · Bar & Career','title' => 'The Bar & Career Pinkprint','subtitle' => 'Cross the finish line and step into the profession with a plan.',         'body' => 'Bar exam scheduling, MBE and essay strategies, networking frameworks, and career positioning tools for the critical post-graduation period.',            'price' => '$27', 'icon' => 'bi-clipboard2-check-fill', 'stripe_price_id' => '' ],
+    ] );
+
+    // ── BUNDLE BANNER ─────────────────────────────────────────────────────────
+    echo $section( 'Bundle Banner' );
+    echo $field( 'Eyebrow',           'ppl_shop_bundle_eyebrow',          'text',     'Complete Collection' );
+    echo $field( 'Heading',           'ppl_shop_bundle_heading',          'text',     'Get all three guides and save.' );
+    echo $field( 'Body text',         'ppl_shop_bundle_body',             'textarea', 'The full Pinkprint collection gives you a complete roadmap...' );
+    echo $field( 'Bundle price',      'ppl_shop_bundle_price',            'text',     '$67' );
+    echo $field( 'Savings note',      'ppl_shop_bundle_savings',          'text',     'Save $14 vs. buying individually' );
+    echo $field( 'CTA label',         'ppl_shop_bundle_cta',              'text',     'Get the Bundle' );
+    echo $field( 'Stripe Price ID',   'ppl_shop_bundle_stripe_price_id',  'text',     'price_xxxxxxxx', 'Bundle Stripe Price ID — from your Stripe Dashboard or Settings page.' );
+
+    // ── FEATURES ──────────────────────────────────────────────────────────────
+    echo $section( "Features — \"What You Get\" section" );
+    echo $field( 'Eyebrow', 'ppl_shop_inside_eyebrow', 'text', 'What You Get' );
+    echo $field( 'Heading', 'ppl_shop_inside_heading', 'text', 'Every guide is built the same way — intentionally.' );
+    ppl_render_repeater( 'ppl_shop_feature_items', $j( 'ppl_shop_feature_items' ), [
+        [ 'key' => 'icon',  'label' => 'Bootstrap icon (e.g. bi-map-fill)', 'type' => 'text' ],
+        [ 'key' => 'title', 'label' => 'Feature title',                     'type' => 'text' ],
+        [ 'key' => 'body',  'label' => 'Description',                       'type' => 'textarea' ],
+    ], 'Feature', [
+        [ 'icon' => 'bi-map-fill',        'title' => 'Clear Stage Frameworks',    'body' => 'Each guide maps out the exact actions, decisions, and mindset shifts needed at your specific stage.' ],
+        [ 'icon' => 'bi-journal-check',   'title' => 'Actionable Checklists',     'body' => 'No theory without practice. Every section ends with steps you can take immediately.' ],
+        [ 'icon' => 'bi-chat-quote-fill', 'title' => 'Real-World Language',       'body' => "Written the way a mentor explains it — not the way a textbook presents it." ],
+        [ 'icon' => 'bi-arrow-repeat',    'title' => 'Lifetime Access & Updates', 'body' => 'Buy once. Every future edition is yours at no additional cost.' ],
+    ] );
+
+    // ── SESSION CTA ───────────────────────────────────────────────────────────
+    echo $section( 'Session CTA Banner' );
+    echo $field( 'Eyebrow',      'ppl_shop_session_eyebrow', 'text',     'Not sure where to start?' );
+    echo $field( 'Heading',      'ppl_shop_session_heading', 'text',     'Book a 1-on-1 Strategy Session' );
+    echo $field( 'Body text',    'ppl_shop_session_body',    'textarea', 'A focused, one-hour session tailored to exactly where you are...' );
+    echo $field( 'Button label', 'ppl_shop_session_cta',     'text',     'Book a Session' );
+    echo $field( 'Button URL',   'ppl_shop_session_url',     'text',     '#' );
+    echo $img_field( 'Right Column Image', 'ppl_shop_session_image_url', 'Appears in the right column of the session CTA banner.' );
+}
+
+add_action( 'save_post_page', 'ppl_save_shop_meta_box' );
+
+function ppl_save_shop_meta_box( $post_id ) {
+    if ( ! isset( $_POST['ppl_shop_meta_nonce'] ) ) return;
+    if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ppl_shop_meta_nonce'] ) ), 'ppl_save_shop_meta' ) ) return;
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+    if ( ! current_user_can( 'edit_page', $post_id ) ) return;
+
+    $repeater_keys = [ 'ppl_shop_items', 'ppl_shop_trust_items', 'ppl_shop_feature_items' ];
+
+    foreach ( $repeater_keys as $key ) {
+        if ( isset( $_POST[ $key ] ) && is_array( $_POST[ $key ] ) ) {
+            $rows = array_map( function( $row ) {
+                return array_map( 'sanitize_textarea_field', array_map( 'wp_unslash', (array) $row ) );
+            }, $_POST[ $key ] );
+            update_post_meta( $post_id, $key, wp_json_encode( array_values( $rows ) ) );
+        }
+    }
+
+    $scalar_keys = [
+        'ppl_shop_hero_image_url',
+        'ppl_shop_eyebrow', 'ppl_shop_heading', 'ppl_shop_lead',
+        'ppl_shop_cta_primary_label', 'ppl_shop_cta_secondary_label', 'ppl_shop_cta_secondary_url',
+        'ppl_shop_grid_eyebrow', 'ppl_shop_grid_heading', 'ppl_shop_grid_subtext',
+        'ppl_shop_bundle_eyebrow', 'ppl_shop_bundle_heading', 'ppl_shop_bundle_body',
+        'ppl_shop_bundle_price', 'ppl_shop_bundle_savings', 'ppl_shop_bundle_cta',
+        'ppl_shop_bundle_stripe_price_id',
+        'ppl_shop_inside_eyebrow', 'ppl_shop_inside_heading',
+        'ppl_shop_session_eyebrow', 'ppl_shop_session_heading', 'ppl_shop_session_body',
+        'ppl_shop_session_cta', 'ppl_shop_session_url', 'ppl_shop_session_image_url',
+    ];
+
+    foreach ( $scalar_keys as $key ) {
+        if ( isset( $_POST[ $key ] ) ) {
+            update_post_meta( $post_id, $key, sanitize_textarea_field( wp_unslash( $_POST[ $key ] ) ) );
+        }
     }
 }

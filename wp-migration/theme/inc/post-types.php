@@ -1,5 +1,83 @@
 <?php
 /**
+ * Custom post types: ppl_inquiry (contact form), ppl_order (shop orders)
+ */
+
+// ── ppl_order ──────────────────────────────────────────────────────────────────
+
+add_action( 'init', 'ppl_register_order_cpt' );
+
+function ppl_register_order_cpt() {
+    register_post_type( 'ppl_order', [
+        'label'           => 'Orders',
+        'labels'          => [
+            'name'          => 'Shop Orders',
+            'singular_name' => 'Order',
+            'menu_name'     => 'Shop Orders',
+            'all_items'     => 'All Orders',
+            'view_item'     => 'View Order',
+        ],
+        'public'          => false,
+        'show_ui'         => true,
+        'show_in_menu'    => true,
+        'menu_icon'       => 'dashicons-cart',
+        'supports'        => [ 'title' ],
+        'capability_type' => 'post',
+        'show_in_rest'    => false,
+    ] );
+}
+
+add_action( 'add_meta_boxes', 'ppl_order_detail_metabox' );
+
+function ppl_order_detail_metabox() {
+    add_meta_box( 'ppl_order_detail', 'Order Details', 'ppl_render_order_detail', 'ppl_order', 'normal', 'high' );
+}
+
+function ppl_render_order_detail( $post ) {
+    $get = fn( $key ) => get_post_meta( $post->ID, $key, true );
+
+    $fields = [
+        '_ppl_order_email'         => 'Email',
+        '_ppl_order_name'          => 'Name',
+        '_ppl_order_product_label' => 'Product',
+        '_ppl_order_amount'        => 'Amount (cents)',
+        '_ppl_order_status'        => 'Status',
+        '_ppl_order_stripe_session'=> 'Stripe Session ID',
+        '_ppl_order_token'         => 'Download Token',
+        '_ppl_order_token_expires' => 'Token Expires',
+        '_ppl_order_download_count'=> 'Download Count',
+        '_ppl_order_file_url'      => 'File URL',
+    ];
+
+    echo '<table style="width:100%;border-collapse:collapse;">';
+    foreach ( $fields as $key => $label ) {
+        $val = esc_html( $get( $key ) );
+
+        if ( $key === '_ppl_order_token_expires' && $val ) {
+            $ts  = (int) $get( $key );
+            $val = esc_html( gmdate( 'Y-m-d H:i:s', $ts ) . ( time() > $ts ? ' (expired)' : ' (active)' ) );
+        }
+
+        if ( $key === '_ppl_order_amount' && $val ) {
+            $val = '$' . number_format( (int) $get( $key ) / 100, 2 );
+        }
+
+        if ( $key === '_ppl_order_token' && $val ) {
+            $download_url = add_query_arg( 'ppl_download', esc_attr( $get( $key ) ), home_url( '/' ) );
+            $val .= ' — <a href="' . esc_url( $download_url ) . '" target="_blank">Test download link</a>';
+        }
+
+        echo '<tr style="border-bottom:1px solid #eee;">';
+        echo '<th style="text-align:left;padding:9px 8px;width:160px;color:#555;font-weight:600;font-size:13px;">' . esc_html( $label ) . '</th>';
+        echo '<td style="padding:9px 8px;font-size:13px;">' . wp_kses_post( $val ) . '</td>';
+        echo '</tr>';
+    }
+    echo '</table>';
+}
+
+// ── ppl_inquiry ────────────────────────────────────────────────────────────────
+
+/**
  * Custom post type: ppl_inquiry
  * Stores contact form submissions. No plugin required.
  */

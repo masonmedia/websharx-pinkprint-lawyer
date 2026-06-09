@@ -241,6 +241,47 @@ function ppl_register_meta_fields() {
         'ppl_crd_contact_cta_url',
 
         // ══════════════════════════════════════════════════════════════════════
+        // SHOP PAGE FIELDS (ppl_shop_*) — page-shop.php
+        // ══════════════════════════════════════════════════════════════════════
+
+        // ── SHOP: HERO ────────────────────────────────────────────────────────
+        'ppl_shop_hero_image_url',
+        'ppl_shop_eyebrow',
+        'ppl_shop_heading',
+        'ppl_shop_lead',
+        'ppl_shop_cta_primary_label',
+        'ppl_shop_cta_secondary_label',
+        'ppl_shop_cta_secondary_url',
+        'ppl_shop_trust_items', // JSON: [{icon, title, body}, ...]
+
+        // ── SHOP: PRODUCT GRID ────────────────────────────────────────────────
+        'ppl_shop_grid_eyebrow',
+        'ppl_shop_grid_heading',
+        'ppl_shop_grid_subtext',
+        'ppl_shop_items', // JSON: [{stage, title, subtitle, body, price, badge, cover_url, icon, stripe_price_id}, ...]
+
+        // ── SHOP: BUNDLE BANNER ───────────────────────────────────────────────
+        'ppl_shop_bundle_eyebrow',
+        'ppl_shop_bundle_heading',
+        'ppl_shop_bundle_body',
+        'ppl_shop_bundle_price',
+        'ppl_shop_bundle_savings',
+        'ppl_shop_bundle_cta',
+        'ppl_shop_bundle_stripe_price_id',
+
+        // ── SHOP: FEATURES ("WHAT'S INSIDE") ─────────────────────────────────
+        'ppl_shop_inside_eyebrow',
+        'ppl_shop_inside_heading',
+        'ppl_shop_feature_items', // JSON: [{icon, title, body}, ...]
+
+        // ── SHOP: SESSION CTA ─────────────────────────────────────────────────
+        'ppl_shop_session_eyebrow',
+        'ppl_shop_session_heading',
+        'ppl_shop_session_body',
+        'ppl_shop_session_cta',
+        'ppl_shop_session_url',
+
+        // ══════════════════════════════════════════════════════════════════════
         // DARK THEME FIELDS (ppl_dk_*)
         // Add here when dark-theme.html is migrated — same file, same function.
         // ══════════════════════════════════════════════════════════════════════

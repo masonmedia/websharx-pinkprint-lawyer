@@ -14,11 +14,14 @@
   /* Accordion (Education) */
   .accordion-item { border: 1px solid var(--blush-mid); border-radius: 14px !important; overflow: hidden; }
   .accordion-item + .accordion-item { margin-top: 0.75rem; }
+  #educationAccordion .accordion-item,
+  #educationAccordion .accordion-button,
+  #educationAccordion .accordion-body { background-color: transparent; }
 
   /* Publications accordion — stronger contrast against the section background */
-  #pubAccordion .accordion-item { background-color: var(--blush); border-color: var(--pink-tint-mid); box-shadow: 0 4px 16px rgba(196,54,112,0.08); }
-  #pubAccordion .accordion-button { background-color: var(--blush); }
-  #pubAccordion .accordion-body { background-color: #fff; }
+  #pubAccordion .accordion-item { background-color: transparent; border-color: var(--pink-tint-mid); box-shadow: 0 4px 16px rgba(196,54,112,0.08); }
+  #pubAccordion .accordion-button { background-color: transparent; }
+  #pubAccordion .accordion-body { background-color: transparent; }
   .accordion-button { font-family: 'Playfair Display', serif; color: var(--plum); font-weight: 600; font-size: 1.05rem; }
   .accordion-button:not(.collapsed) { background-color: var(--pink-tint); color: var(--pink-deep); box-shadow: none; }
   .accordion-button:focus { box-shadow: none; border-color: var(--blush-mid); }
@@ -77,8 +80,8 @@
         $num   = ppl_get( "ppl_crd_stat_{$i}_num",   $stat_defaults[ $i ][0] );
         $label = ppl_get( "ppl_crd_stat_{$i}_label", $stat_defaults[ $i ][1] );
       ?>
-      <div class="col-6 col-md-3">
-        <p class="stat-num text-rose mb-3 fw-bold"><?php echo esc_html( $num ); ?></p>
+      <div class="col-6 col-md-3 d-flex flex-column justify-content-center align-items-center">
+        <p class="stat-num text-rose mb-0 pb-2 fw-bold"><?php echo esc_html( $num ); ?></p>
         <p class="text-muted-pp mb-0 stat-label text-uppercase ls-wide"><?php echo esc_html( $label ); ?></p>
       </div>
       <?php endfor; ?>
@@ -101,11 +104,11 @@
           <?php
           $education_defaults = [
             [ 'title' => 'Juris Doctor — University at Buffalo School of Law (May 2022)',
-              'body'  => '<p class="mb-3"><strong>Cumulative GPA:</strong> 3.9 &nbsp;|&nbsp; <strong>Class Rank:</strong> Top 5%</p><ul class="mb-0 ps-3"><li>Order of the Coif (2022)</li><li>Max Koren Award (2022)</li><li>Monique E. Emdin Award (2022) — recognizing commitment to community service</li><li>Promise Prize Scholar Award, Change Create Transform Foundation (2021)</li><li>John L. Hargrave Award, Minority Bar Foundation (2021)</li><li>Jessica Ortiz \'05 Federal Judicial Fellowship recipient</li></ul>' ],
+              'body'  => "Cumulative GPA: 3.9 | Class Rank: Top 5%\n- Order of the Coif (2022)\n- Max Koren Award (2022)\n- Monique E. Emdin Award (2022) — recognizing commitment to community service\n- Promise Prize Scholar Award, Change Create Transform Foundation (2021)\n- John L. Hargrave Award, Minority Bar Foundation (2021)\n- Jessica Ortiz '05 Federal Judicial Fellowship recipient" ],
             [ 'title' => 'M.S., Criminal Justice — Rochester Institute of Technology (May 2019)',
-              'body'  => '<p class="mb-3"><strong>Cumulative GPA:</strong> 4.0</p><ul class="mb-0 ps-3"><li>Shaw &amp; McKay Award</li></ul>' ],
+              'body'  => "Cumulative GPA: 4.0\n- Shaw & McKay Award" ],
             [ 'title' => 'B.S., Criminal Justice & Communication (Double Major) — RIT (May 2018)',
-              'body'  => '<p class="mb-3"><strong>Cumulative GPA:</strong> 4.0 &nbsp;|&nbsp; <strong>Class Rank:</strong> Top 1% of the entire university</p><ul class="mb-0 ps-3"><li>Center for Public Safety Initiatives\' Excellence in Research Award (2015)</li><li>RIT Outstanding Undergraduate Scholar Award (top 1%) — academic excellence, civic involvement, and research contributions</li><li>Thomas C. Castellano Award</li><li>Richard B. Lewis Award</li><li>Kearse Undergraduate Writing Award</li><li>College of Liberal Arts 2018 Undergraduate Commencement Speaker</li><li>Communication Honor Society — Lambda Pi Eta</li><li>McNair Scholars Program · RIT Honors Program</li><li>National Society of Leadership &amp; Success</li><li>Higher Education Opportunity Program (HEOP)</li></ul>' ],
+              'body'  => "Cumulative GPA: 4.0 | Class Rank: Top 1% of the entire university\n- Center for Public Safety Initiatives' Excellence in Research Award (2015)\n- RIT Outstanding Undergraduate Scholar Award (top 1%) — academic excellence, civic involvement, and research contributions\n- Thomas C. Castellano Award\n- Richard B. Lewis Award\n- Kearse Undergraduate Writing Award\n- College of Liberal Arts 2018 Undergraduate Commencement Speaker\n- Communication Honor Society — Lambda Pi Eta\n- McNair Scholars Program · RIT Honors Program\n- National Society of Leadership & Success\n- Higher Education Opportunity Program (HEOP)" ],
           ];
           $education_raw     = get_post_meta( get_the_ID(), 'ppl_crd_education_items', true );
           $education_decoded = $education_raw ? json_decode( $education_raw, true ) : null;
@@ -123,7 +126,7 @@
             </h3>
             <div id="<?php echo esc_attr( $target_id ); ?>" class="accordion-collapse collapse<?php echo $is_first ? ' show' : ''; ?>" data-bs-parent="#educationAccordion">
               <div class="accordion-body body-sm text-plum">
-                <?php echo wp_kses_post( $edu['body'] ?? '' ); ?>
+                <?php echo nl2br( esc_html( $edu['body'] ?? '' ) ); ?>
               </div>
             </div>
           </div>
@@ -159,7 +162,7 @@
         <div class="bg-white rounded-4 p-4 h-100 d-flex align-items-center gap-3">
           <div class="icon-wrap-tint rounded-3 d-flex align-items-center justify-content-center flex-shrink-0 icon-44"><i class="bi <?php echo esc_attr( $bar['icon'] ?? 'bi-patch-check-fill' ); ?> fs-icon-md"></i></div>
           <div>
-            <p class="text-plum fw-bold mb-1" style="font-size:1.15rem;"><?php echo esc_html( $bar['state'] ?? '' ); ?></p>
+            <p class="text-plum fw-bold mb-0 pb-0" style="font-size:1.15rem;"><?php echo esc_html( $bar['state'] ?? '' ); ?></p>
             <p class="text-muted-pp mb-0 body-xs"><?php echo esc_html( $bar['date'] ?? '' ); ?></p>
           </div>
         </div>
@@ -265,15 +268,15 @@
           <?php
           $publications_defaults = [
             [ 'icon' => 'bi-journal-check', 'title' => 'Peer-Reviewed Publication',
-              'body' => 'Robertson, O. N., McCluskey, J. D., Smith, S. S., &amp; Uchida, C. D. (2022). <em>Body Cameras and Adjudication: Views of Prosecutors and Public Defenders.</em> Criminal Justice Review, 49(1), 15–29.' ],
+              'body' => "Robertson, O. N., McCluskey, J. D., Smith, S. S., & Uchida, C. D. (2022). Body Cameras and Adjudication: Views of Prosecutors and Public Defenders. Criminal Justice Review, 49(1), 15–29." ],
             [ 'icon' => 'bi-bank2', 'title' => 'Research Contributions Acknowledged in Leading Journals',
-              'body' => '<ul class="mb-0 ps-3"><li>Police Killings as Felony Murder (with Guyora Binder &amp; Ekow Yankah), 17 Harvard Law &amp; Policy Review (2022)</li><li>Defunding Police Agencies (with Guyora Binder, Rick Su &amp; Anthony O\'Rourke), 71 Emory Law Journal (2022)</li><li>Disbanding Police Agencies (with Guyora Binder, Anthony O\'Rourke &amp; Rick Su), 121 Columbia Law Review 1327 (2021)</li><li>Criminal Law: Cases and Materials (with Guyora Binder), Wolters-Kluwer, 8th ed. (2017) / 9th ed. (2021)</li></ul>' ],
+              'body' => "- Police Killings as Felony Murder (with Guyora Binder & Ekow Yankah), 17 Harvard Law & Policy Review (2022)\n- Defunding Police Agencies (with Guyora Binder, Rick Su & Anthony O'Rourke), 71 Emory Law Journal (2022)\n- Disbanding Police Agencies (with Guyora Binder, Anthony O'Rourke & Rick Su), 121 Columbia Law Review 1327 (2021)\n- Criminal Law: Cases and Materials (with Guyora Binder), Wolters-Kluwer, 8th ed. (2017) / 9th ed. (2021)" ],
             [ 'icon' => 'bi-camera-video-fill', 'title' => 'Undergraduate Research',
-              'body' => 'Smith, Shakierah &amp; McCluskey, John. (2017). <em>Body-Worn Cameras (BWCs): How Prosecutors, Public Defenders, and Judges Perceive the Implementation and Utilization of BWCs in Monroe County.</em> RIT Department of Criminal Justice/CPSI, Rochester, NY.' ],
+              'body' => "Smith, Shakierah & McCluskey, John. (2017). Body-Worn Cameras (BWCs): How Prosecutors, Public Defenders, and Judges Perceive the Implementation and Utilization of BWCs in Monroe County. RIT Department of Criminal Justice/CPSI, Rochester, NY." ],
             [ 'icon' => 'bi-star-fill', 'title' => 'University & Alumni Features',
-              'body' => '<ul class="mb-0 ps-3"><li><strong>RIT Spotlights</strong> — Profile detailing my journey from first-generation RIT student to practicing attorney</li><li><strong>"Leaving a Mark at UB Law"</strong> — UB Law profile on community impact and institutional leadership</li><li><strong>"Attorney Finds Her Home in Real Estate Law"</strong> — RIT News feature on my career in commercial real estate</li><li><strong>"From Humble Beginnings to Planning for Law School"</strong> — RIT Diversity Newsletter profile</li><li><strong>"Lawyer, Entrepreneur &amp; More"</strong> — Rochester Woman Online magazine feature (May 2024)</li></ul>' ],
+              'body' => "- RIT Spotlights — Profile detailing my journey from first-generation RIT student to practicing attorney\n- \"Leaving a Mark at UB Law\" — UB Law profile on community impact and institutional leadership\n- \"Attorney Finds Her Home in Real Estate Law\" — RIT News feature on my career in commercial real estate\n- \"From Humble Beginnings to Planning for Law School\" — RIT Diversity Newsletter profile\n- \"Lawyer, Entrepreneur & More\" — Rochester Woman Online magazine feature (May 2024)" ],
             [ 'icon' => 'bi-newspaper', 'title' => 'Additional Coverage',
-              'body' => '<ul class="mb-0 ps-3"><li><strong>"Committing to a More Diverse Law Review"</strong> — UB Law feature on my election as inaugural DEI Editor</li><li><strong>Franklin H. Williams Judicial Commission</strong> — Featured as panelist in Law Day Program (May 2021)</li><li><strong>"Third Circuit x COVID-19: What I Learned During My Internship"</strong> — Authored blog post reflecting on lessons from the Third Circuit</li></ul>' ],
+              'body' => "- \"Committing to a More Diverse Law Review\" — UB Law feature on my election as inaugural DEI Editor\n- Franklin H. Williams Judicial Commission — Featured as panelist in Law Day Program (May 2021)\n- \"Third Circuit x COVID-19: What I Learned During My Internship\" — Authored blog post reflecting on lessons from the Third Circuit" ],
           ];
           $publications_raw     = get_post_meta( get_the_ID(), 'ppl_crd_publications_items', true );
           $publications_decoded = $publications_raw ? json_decode( $publications_raw, true ) : null;
@@ -291,7 +294,7 @@
             </h3>
             <div id="<?php echo esc_attr( $target_id ); ?>" class="accordion-collapse collapse<?php echo $is_first ? ' show' : ''; ?>" data-bs-parent="#pubAccordion">
               <div class="accordion-body body-sm text-plum">
-                <?php echo wp_kses_post( $pub['body'] ?? '' ); ?>
+                <?php echo nl2br( esc_html( $pub['body'] ?? '' ) ); ?>
               </div>
             </div>
           </div>
