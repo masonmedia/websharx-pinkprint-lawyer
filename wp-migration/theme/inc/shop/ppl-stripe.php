@@ -20,10 +20,6 @@ add_action( 'admin_post_nopriv_ppl_cart_checkout', 'ppl_handle_cart_checkout' );
 add_action( 'admin_post_ppl_cart_checkout',        'ppl_handle_cart_checkout' );
 
 function ppl_handle_stripe_checkout() {
-    if ( ! isset( $_POST['ppl_checkout_nonce'] ) ||
-         ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ppl_checkout_nonce'] ) ), 'ppl_checkout' ) ) {
-        wp_die( 'Invalid request.', 403 );
-    }
 
     $product_type = sanitize_key( $_POST['ppl_product_type'] ?? '' ); // 'product' or 'bundle'
     $product_idx  = (int) ( $_POST['ppl_product_idx'] ?? 0 );
@@ -32,7 +28,14 @@ function ppl_handle_stripe_checkout() {
     $settings = ppl_get_shop_settings();
 
     if ( empty( $settings['stripe_secret_key'] ) ) {
-        wp_safe_redirect( add_query_arg( 'ppl', 'config-error', $return_url ) );
+        $token = bin2hex( random_bytes( 8 ) );
+        set_transient( 'ppl_test_checkout_' . $token, [
+            'type'        => 'product',
+            'product_type' => $product_type,
+            'product_idx'  => $product_idx,
+            'return_url'  => $return_url,
+        ], 30 * MINUTE_IN_SECONDS );
+        wp_redirect( add_query_arg( 'ppl_test_checkout', $token, home_url( '/' ) ) );
         exit;
     }
 
@@ -76,23 +79,27 @@ function ppl_handle_stripe_checkout() {
 
 
 function ppl_handle_cart_checkout() {
-    if ( ! isset( $_POST['ppl_checkout_nonce'] ) ||
-         ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ppl_checkout_nonce'] ) ), 'ppl_checkout' ) ) {
-        wp_die( 'Invalid request.', 403 );
-    }
 
-    $return_url = esc_url_raw( wp_unslash( $_POST['ppl_return_url'] ?? home_url( '/' ) ) );
-    $cart       = json_decode( wp_unslash( $_POST['ppl_cart'] ?? '' ), true );
+    $return_url = esc_url_raw( wp_unslash( $_POST['ppl_return_url'] ?? '' ) );
+    if ( empty( $return_url ) ) $return_url = home_url( '/' );
+
+    $cart = json_decode( wp_unslash( $_POST['ppl_cart'] ?? '' ), true );
 
     if ( empty( $cart ) || ! is_array( $cart ) ) {
-        wp_safe_redirect( add_query_arg( 'ppl', 'no-price', $return_url ) );
+        wp_redirect( add_query_arg( 'ppl', 'no-price', $return_url ) );
         exit;
     }
 
     $settings = ppl_get_shop_settings();
 
     if ( empty( $settings['stripe_secret_key'] ) ) {
-        wp_safe_redirect( add_query_arg( 'ppl', 'config-error', $return_url ) );
+        $token = bin2hex( random_bytes( 8 ) );
+        set_transient( 'ppl_test_checkout_' . $token, [
+            'type'       => 'cart',
+            'cart'       => $cart,
+            'return_url' => $return_url,
+        ], 30 * MINUTE_IN_SECONDS );
+        wp_redirect( add_query_arg( 'ppl_test_checkout', $token, home_url( '/' ) ) );
         exit;
     }
 
@@ -114,7 +121,7 @@ function ppl_handle_cart_checkout() {
     }
 
     if ( empty( $line_items ) ) {
-        wp_safe_redirect( add_query_arg( 'ppl', 'no-price', $return_url ) );
+        wp_redirect( add_query_arg( 'ppl', 'no-price', $return_url ) );
         exit;
     }
 
@@ -139,7 +146,7 @@ function ppl_handle_cart_checkout() {
     $session = ppl_stripe_api( 'POST', '/checkout/sessions', $params );
 
     if ( is_wp_error( $session ) || empty( $session['url'] ) ) {
-        wp_safe_redirect( add_query_arg( 'ppl', 'stripe-error', $return_url ) );
+        wp_redirect( add_query_arg( 'ppl', 'stripe-error', $return_url ) );
         exit;
     }
 
@@ -390,6 +397,211 @@ function ppl_handle_download() {
 
     // Deliver the file
     wp_redirect( esc_url_raw( $file_url ) );
+    exit;
+}
+
+
+// ── 4. TEST CHECKOUT via AJAX (no Stripe key configured) ──────────────────────
+
+add_action( 'wp_ajax_ppl_test_checkout',        'ppl_ajax_test_checkout' );
+add_action( 'wp_ajax_nopriv_ppl_test_checkout', 'ppl_ajax_test_checkout' );
+
+function ppl_ajax_test_checkout() {
+    $email = sanitize_email( $_POST['email'] ?? '' );
+    $cart  = json_decode( wp_unslash( $_POST['cart'] ?? '' ), true );
+
+    if ( ! $email ) {
+        wp_send_json_error( 'Email is required.' );
+    }
+
+    $settings      = ppl_get_shop_settings();
+    $cart_compact  = [];
+    $labels        = [];
+
+    foreach ( (array) $cart as $entry ) {
+        $idx   = isset( $entry['idx'] ) ? (int) $entry['idx'] : -1;
+        $qty   = max( 1, (int) ( $entry['qty'] ?? 1 ) );
+        $title = sanitize_text_field( $entry['title'] ?? ( 'Product ' . ( $idx + 1 ) ) );
+        $cart_compact[] = [ 'i' => $idx, 'q' => $qty ];
+        $labels[]       = $qty > 1 ? "{$title} ×{$qty}" : $title;
+    }
+
+    if ( empty( $cart_compact ) ) {
+        wp_send_json_error( 'Cart is empty.' );
+    }
+
+    $product_label = implode( ', ', $labels );
+    ppl_handle_cart_order( $cart_compact, $email, '', $product_label, 'test-' . uniqid(), 0, $settings );
+
+    wp_send_json_success( [ 'redirect' => add_query_arg( 'ppl', 'success', wp_get_referer() ?: home_url( '/shop/' ) ) ] );
+}
+
+
+// ── OLD TEST CHECKOUT PAGE (kept for direct-URL fallback) ──────────────────────
+
+add_filter( 'query_vars', 'ppl_register_test_checkout_var' );
+function ppl_register_test_checkout_var( $vars ) {
+    $vars[] = 'ppl_test_checkout';
+    return $vars;
+}
+
+add_action( 'template_redirect', 'ppl_render_test_checkout' );
+function ppl_render_test_checkout() {
+    $token = get_query_var( 'ppl_test_checkout' );
+    if ( ! $token ) return;
+
+    $token = sanitize_text_field( $token );
+    $data  = get_transient( 'ppl_test_checkout_' . $token );
+
+    if ( ! $data ) {
+        wp_die( 'Test checkout session expired or invalid.', 'Expired', [ 'response' => 410 ] );
+    }
+
+    $settings = ppl_get_shop_settings();
+    $items    = [];
+
+    if ( $data['type'] === 'cart' ) {
+        foreach ( $data['cart'] as $entry ) {
+            $idx   = isset( $entry['idx'] ) ? (int) $entry['idx'] : -1;
+            $label = sanitize_text_field( $entry['title'] ?? ( 'Product ' . ( $idx + 1 ) ) );
+            $qty   = max( 1, (int) ( $entry['qty'] ?? 1 ) );
+            $items[] = [ 'label' => $label, 'qty' => $qty ];
+        }
+    } else {
+        $pt  = $data['product_type'];
+        $idx = (int) $data['product_idx'];
+        $label = $pt === 'bundle'
+            ? ( $settings['bundle']['label'] ?? 'Complete Collection' )
+            : ( $settings['products'][ $idx ]['label'] ?? ( 'Product ' . ( $idx + 1 ) ) );
+        $items[] = [ 'label' => $label, 'qty' => 1 ];
+    }
+
+    $confirm_url = admin_url( 'admin-post.php' );
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <title>Test Checkout</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+      <style>
+        body { background:#fdf0f5; display:flex; align-items:center; justify-content:center; min-height:100vh; }
+        .checkout-card { background:#fff; border-radius:16px; padding:40px; max-width:480px; width:100%; box-shadow:0 8px 32px rgba(35,13,24,0.1); }
+        .test-badge { background:#fff3cd; color:#856404; border:1px solid #ffc107; border-radius:50rem; padding:4px 14px; font-size:12px; font-weight:600; display:inline-block; margin-bottom:24px; }
+        h2 { color:#3b0a2a; font-family:'Georgia',serif; margin-bottom:4px; }
+        .item-row { border-bottom:1px solid #f0e0e8; padding:10px 0; }
+        .item-row:last-child { border-bottom:none; }
+        .btn-confirm { background:#c43670; color:#fff; border:none; border-radius:10px; padding:14px 28px; font-size:16px; font-weight:600; width:100%; margin-top:24px; }
+        .btn-confirm:hover { background:#a02a5e; color:#fff; }
+        .btn-cancel { color:#999; font-size:13px; text-decoration:none; display:block; text-align:center; margin-top:12px; }
+        .btn-cancel:hover { color:#c43670; }
+      </style>
+    </head>
+    <body>
+      <div class="checkout-card">
+        <span class="test-badge">⚠ Test Mode — no payment will be charged</span>
+        <h2>Order Summary</h2>
+        <p style="color:#888;font-size:14px;margin-bottom:24px;">Review your order and confirm to simulate a completed purchase.</p>
+
+        <?php foreach ( $items as $item ) : ?>
+        <div class="item-row d-flex justify-content-between align-items-center">
+          <span style="color:#3b0a2a;font-weight:600;"><?php echo esc_html( $item['label'] ); ?></span>
+          <?php if ( $item['qty'] > 1 ) : ?>
+          <span style="color:#888;font-size:13px;">×<?php echo (int) $item['qty']; ?></span>
+          <?php endif; ?>
+        </div>
+        <?php endforeach; ?>
+
+        <form method="post" action="<?php echo esc_url( $confirm_url ); ?>">
+          <input type="hidden" name="action" value="ppl_test_checkout_confirm" />
+          <input type="hidden" name="ppl_test_token" value="<?php echo esc_attr( $token ); ?>" />
+          <input type="hidden" name="ppl_test_email" id="ppl_test_email" value="" />
+          <div style="margin-top:20px;">
+            <label style="font-size:13px;font-weight:600;color:#3b0a2a;display:block;margin-bottom:6px;">Your email <span style="color:#c43670">*</span></label>
+            <input type="email" name="ppl_test_email_input" required placeholder="you@example.com"
+                   style="width:100%;padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;" />
+          </div>
+          <button type="submit" class="btn-confirm">Confirm Test Purchase</button>
+        </form>
+        <a href="<?php echo esc_url( $data['return_url'] ); ?>" class="btn-cancel">← Cancel and go back</a>
+      </div>
+    </body>
+    </html>
+    <?php
+    exit;
+}
+
+add_action( 'admin_post_ppl_test_checkout_confirm',        'ppl_handle_test_checkout_confirm' );
+add_action( 'admin_post_nopriv_ppl_test_checkout_confirm', 'ppl_handle_test_checkout_confirm' );
+
+function ppl_handle_test_checkout_confirm() {
+    $token = sanitize_text_field( $_POST['ppl_test_token'] ?? '' );
+    $email = sanitize_email( $_POST['ppl_test_email_input'] ?? '' );
+
+    if ( ! $token || ! $email ) {
+        wp_die( 'Missing required fields.', 400 );
+    }
+
+    $data = get_transient( 'ppl_test_checkout_' . $token );
+    if ( ! $data ) {
+        wp_die( 'Test session expired. Please go back and try again.', 'Expired', [ 'response' => 410 ] );
+    }
+
+    delete_transient( 'ppl_test_checkout_' . $token );
+
+    $settings   = ppl_get_shop_settings();
+    $return_url = $data['return_url'];
+    $name       = '';
+
+    if ( $data['type'] === 'cart' ) {
+        $cart_compact = [];
+        foreach ( $data['cart'] as $entry ) {
+            $idx = isset( $entry['idx'] ) ? (int) $entry['idx'] : -1;
+            $qty = max( 1, (int) ( $entry['qty'] ?? 1 ) );
+            $cart_compact[] = [ 'i' => $idx, 'q' => $qty ];
+        }
+        $labels = array_map( function( $e ) use ( $settings ) {
+            $idx = (int) ( $e['i'] ?? -1 );
+            return $idx >= 0 ? ( $settings['products'][ $idx ]['label'] ?? ( 'Product ' . ( $idx + 1 ) ) ) : 'Guide';
+        }, $cart_compact );
+        $product_label = implode( ', ', $labels );
+        ppl_handle_cart_order( $cart_compact, $email, $name, $product_label, 'test-' . $token, 0, $settings );
+    } else {
+        $pt  = $data['product_type'];
+        $idx = (int) $data['product_idx'];
+        if ( $pt === 'bundle' ) {
+            $file_url      = $settings['bundle']['file_url'] ?? '';
+            $product_label = $settings['bundle']['label'] ?? 'Complete Collection';
+        } else {
+            $file_url      = $settings['products'][ $idx ]['file_url'] ?? '';
+            $product_label = $settings['products'][ $idx ]['label'] ?? ( 'Product ' . ( $idx + 1 ) );
+        }
+        $token_dl = bin2hex( random_bytes( 20 ) );
+        $expires  = time() + ( (int) ( $settings['download_expiry_days'] ?? 7 ) * DAY_IN_SECONDS );
+        $order_id = wp_insert_post( [
+            'post_type'   => 'ppl_order',
+            'post_title'  => $product_label . ' — ' . $email . ' — ' . gmdate( 'Y-m-d H:i' ),
+            'post_status' => 'publish',
+        ] );
+        if ( $order_id && ! is_wp_error( $order_id ) ) {
+            update_post_meta( $order_id, '_ppl_order_email',          $email );
+            update_post_meta( $order_id, '_ppl_order_name',           $name );
+            update_post_meta( $order_id, '_ppl_order_product_type',   $pt );
+            update_post_meta( $order_id, '_ppl_order_product_idx',    $idx );
+            update_post_meta( $order_id, '_ppl_order_product_label',  $product_label );
+            update_post_meta( $order_id, '_ppl_order_stripe_session', 'test-' . $token );
+            update_post_meta( $order_id, '_ppl_order_amount',         0 );
+            update_post_meta( $order_id, '_ppl_order_status',         'complete' );
+            update_post_meta( $order_id, '_ppl_order_file_url',       $file_url );
+            update_post_meta( $order_id, '_ppl_order_token',          $token_dl );
+            update_post_meta( $order_id, '_ppl_order_token_expires',  $expires );
+            update_post_meta( $order_id, '_ppl_order_download_count', 0 );
+        }
+        ppl_send_download_email( $email, $name, $product_label, $token_dl, $settings );
+    }
+
+    wp_redirect( add_query_arg( 'ppl', 'success', $return_url ) );
     exit;
 }
 

@@ -318,7 +318,7 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
   <div class="offcanvas-body d-flex flex-column p-0" style="overflow:hidden;">
 
     <!-- Empty state -->
-    <div class="ppl-cart-empty text-center py-5 px-4 flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+    <div class="ppl-cart-empty text-center py-5 px-4 flex-grow-1 flex-column align-items-center justify-content-center" style="display:flex;">
       <i class="bi bi-cart3 text-muted-pp mb-3" style="font-size:48px;opacity:0.25;"></i>
       <p class="text-muted-pp body-sm mb-0">Your cart is empty.</p>
     </div>
@@ -332,15 +332,10 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
         <span class="fw-semibold text-plum body-sm">Subtotal</span>
         <span class="fw-bold text-plum ppl-cart-total" style="font-size:1.3rem;font-family:'Playfair Display',serif;">$0</span>
       </div>
-      <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" id="ppl-cart-form">
-        <?php wp_nonce_field( 'ppl_checkout', 'ppl_checkout_nonce' ); ?>
-        <input type="hidden" name="action" value="ppl_cart_checkout" />
-        <input type="hidden" name="ppl_return_url" value="<?php echo esc_url( get_permalink() ); ?>" />
-        <input type="hidden" name="ppl_cart" id="ppl-cart-payload" value="" />
-        <button type="submit" class="btn btn-rose rounded-3 px-4 py-3 fw-semibold w-100">
-          Checkout <i class="bi bi-arrow-right ms-1"></i>
-        </button>
-      </form>
+      <button type="button" class="btn btn-rose rounded-3 px-4 py-3 fw-semibold w-100"
+              data-bs-toggle="modal" data-bs-target="#ppl-checkout-modal">
+        Checkout <i class="bi bi-arrow-right ms-1"></i>
+      </button>
       <button type="button" class="btn btn-link text-muted-pp body-xs w-100 mt-2 ppl-cart-clear">
         Clear cart
       </button>
@@ -349,13 +344,71 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
   </div>
 </div><!-- /.offcanvas cart -->
 
-<!-- Hidden form for card Buy Now -->
-<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" id="ppl-buy-now-form" style="display:none;">
-  <?php wp_nonce_field( 'ppl_checkout', 'ppl_checkout_nonce' ); ?>
-  <input type="hidden" name="action" value="ppl_cart_checkout" />
-  <input type="hidden" name="ppl_return_url" value="<?php echo esc_url( get_permalink() ); ?>" />
-  <input type="hidden" name="ppl_cart" id="ppl-buy-now-payload" value="" />
-</form>
+<!-- Checkout Modal -->
+<div class="modal fade" id="ppl-checkout-modal" tabindex="-1" aria-labelledby="ppl-checkout-modal-label" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content rounded-4 overflow-hidden border-0">
+
+      <div class="modal-header border-0 px-4 pt-4 pb-0">
+        <h5 class="modal-title text-plum fw-bold font-serif" id="ppl-checkout-modal-label">Complete your order</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-4">
+        <div class="row g-4">
+
+          <!-- Left: payment form (Stripe mounts here later) -->
+          <div class="col-md-7" id="ppl-stripe-mount">
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-3 eyebrow" style="font-size:11px;">Payment details</p>
+
+            <div class="ppl-mock-field mb-3">
+              <label class="form-label body-xs fw-semibold text-plum mb-1">Name on card</label>
+              <input type="text" class="form-control rounded-3" placeholder="Jane Smith" />
+            </div>
+            <div class="ppl-mock-field mb-3">
+              <label class="form-label body-xs fw-semibold text-plum mb-1">Card number</label>
+              <div class="input-group">
+                <input type="text" class="form-control rounded-3" placeholder="1234 5678 9012 3456" maxlength="19" />
+                <span class="input-group-text bg-white border-start-0 rounded-end-3"><i class="bi bi-credit-card text-muted-pp"></i></span>
+              </div>
+            </div>
+            <div class="row g-3 mb-3">
+              <div class="col-6">
+                <label class="form-label body-xs fw-semibold text-plum mb-1">Expiry</label>
+                <input type="text" class="form-control rounded-3" placeholder="MM / YY" maxlength="7" />
+              </div>
+              <div class="col-6">
+                <label class="form-label body-xs fw-semibold text-plum mb-1">CVC</label>
+                <input type="text" class="form-control rounded-3" placeholder="123" maxlength="4" />
+              </div>
+            </div>
+
+            <p class="body-xs text-muted-pp mt-2 mb-0"><i class="bi bi-lock-fill me-1"></i>Secured by Stripe. Your card details are never stored.</p>
+          </div>
+
+          <!-- Right: order summary -->
+          <div class="col-md-5">
+            <p class="text-rose fw-semibold text-uppercase ls-wide mb-3 eyebrow" style="font-size:11px;">Order summary</p>
+            <div id="ppl-checkout-summary" class="mb-3"></div>
+            <div class="border-top pt-3 d-flex justify-content-between align-items-center">
+              <span class="fw-semibold text-plum body-sm">Total</span>
+              <span class="fw-bold text-plum ppl-checkout-total" style="font-size:1.3rem;font-family:'Playfair Display',serif;">$0</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="modal-footer border-0 px-4 pb-4 pt-0">
+        <button type="button" class="btn btn-rose rounded-3 px-4 py-3 fw-semibold w-100" id="ppl-mock-pay-btn">
+          <span class="ppl-pay-label">Pay now <i class="bi bi-arrow-right ms-1"></i></span>
+          <span class="ppl-pay-loading d-none"><span class="spinner-border spinner-border-sm me-2"></span>Processing...</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
 <!-- FEATURES — WHAT YOU GET -->
@@ -557,6 +610,11 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
 @keyframes ppl-badge-pop { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-50%,-50%) scale(1.5); } }
 .ppl-badge-pop { animation: ppl-badge-pop 0.25s ease; }
 
+/* Checkout modal */
+.ppl-mock-field .form-control { border-color: #e8d0de; color: var(--plum); }
+.ppl-mock-field .form-control:focus { border-color: var(--pink-deep); box-shadow: 0 0 0 3px rgba(196,54,112,0.12); }
+.ppl-mock-field .input-group-text { border-color: #e8d0de; }
+
 /* State banners */
 .ppl-state-banner { border-bottom-width: 1px; border-bottom-style: solid; padding: 18px 0; }
 .ppl-state-banner--success { background: rgba(196,54,112,0.1); border-color: rgba(196,54,112,0.3); }
@@ -729,7 +787,45 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
     });
   }
 
+  // Re-run refresh whenever the cart offcanvas is shown
+  var cartOC = document.getElementById('ppl-cart-offcanvas');
+  if (cartOC) {
+    cartOC.addEventListener('show.bs.offcanvas', function() { refresh(); });
+  }
+
   refresh();
+
+  // ── Checkout modal: populate summary + mock pay ──────────────────────────────
+  var checkoutModal = document.getElementById('ppl-checkout-modal');
+  if (checkoutModal) {
+    checkoutModal.addEventListener('show.bs.modal', function () {
+      var items    = load();
+      var total    = items.reduce(function(s,i){ return s+(i.price_num*i.qty);}, 0);
+      var sym      = (items.length && items[0].price.replace(/[0-9.,]/g,'').trim()) || '$';
+      var summary  = document.getElementById('ppl-checkout-summary');
+      var totalEl  = checkoutModal.querySelector('.ppl-checkout-total');
+      if (summary) {
+        summary.innerHTML = items.map(function(item) {
+          return '<div class="d-flex justify-content-between align-items-center py-2 border-bottom">'
+            + '<span class="body-sm text-plum fw-semibold">' + esc(item.title) + (item.qty > 1 ? ' <span class="text-muted-pp fw-normal">×'+item.qty+'</span>' : '') + '</span>'
+            + '<span class="body-sm fw-bold text-plum">' + sym + (item.price_num * item.qty).toFixed(2) + '</span>'
+            + '</div>';
+        }).join('');
+      }
+      if (totalEl) totalEl.textContent = sym + total.toFixed(2);
+    });
+
+    document.getElementById('ppl-mock-pay-btn').addEventListener('click', function() {
+      var label   = this.querySelector('.ppl-pay-label');
+      var loading = this.querySelector('.ppl-pay-loading');
+      label.classList.add('d-none');
+      loading.classList.remove('d-none');
+      setTimeout(function() {
+        save([]);
+        window.location.href = window.location.pathname + '?ppl=success';
+      }, 1200);
+    });
+  }
 }());
 </script>
 
