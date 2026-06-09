@@ -16,6 +16,9 @@
 add_action( 'admin_post_nopriv_ppl_stripe_checkout', 'ppl_handle_stripe_checkout' );
 add_action( 'admin_post_ppl_stripe_checkout',        'ppl_handle_stripe_checkout' );
 
+add_action( 'admin_post_nopriv_ppl_cart_checkout', 'ppl_handle_cart_checkout' );
+add_action( 'admin_post_ppl_cart_checkout',        'ppl_handle_cart_checkout' );
+
 function ppl_handle_stripe_checkout() {
     if ( ! isset( $_POST['ppl_checkout_nonce'] ) ||
          ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ppl_checkout_nonce'] ) ), 'ppl_checkout' ) ) {
@@ -72,6 +75,79 @@ function ppl_handle_stripe_checkout() {
 }
 
 
+function ppl_handle_cart_checkout() {
+    if ( ! isset( $_POST['ppl_checkout_nonce'] ) ||
+         ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ppl_checkout_nonce'] ) ), 'ppl_checkout' ) ) {
+        wp_die( 'Invalid request.', 403 );
+    }
+
+    $return_url = esc_url_raw( wp_unslash( $_POST['ppl_return_url'] ?? home_url( '/' ) ) );
+    $cart       = json_decode( wp_unslash( $_POST['ppl_cart'] ?? '' ), true );
+
+    if ( empty( $cart ) || ! is_array( $cart ) ) {
+        wp_safe_redirect( add_query_arg( 'ppl', 'no-price', $return_url ) );
+        exit;
+    }
+
+    $settings = ppl_get_shop_settings();
+
+    if ( empty( $settings['stripe_secret_key'] ) ) {
+        wp_safe_redirect( add_query_arg( 'ppl', 'config-error', $return_url ) );
+        exit;
+    }
+
+    $line_items   = [];
+    $labels       = [];
+    $cart_compact = [];
+
+    foreach ( $cart as $entry ) {
+        $price_id = sanitize_text_field( $entry['price_id'] ?? '' );
+        $qty      = max( 1, (int) ( $entry['qty'] ?? 1 ) );
+        $title    = sanitize_text_field( $entry['title'] ?? '' );
+        $idx      = isset( $entry['idx'] ) ? (int) $entry['idx'] : -1;
+
+        if ( empty( $price_id ) ) continue;
+
+        $line_items[]   = [ 'price' => $price_id, 'quantity' => $qty ];
+        $labels[]       = $qty > 1 ? "{$title} ×{$qty}" : $title;
+        $cart_compact[] = [ 'i' => $idx, 'q' => $qty ];
+    }
+
+    if ( empty( $line_items ) ) {
+        wp_safe_redirect( add_query_arg( 'ppl', 'no-price', $return_url ) );
+        exit;
+    }
+
+    $product_label = implode( ', ', $labels );
+
+    $params = [
+        'mode'                       => 'payment',
+        'success_url'                => add_query_arg( 'ppl', 'success', $return_url ),
+        'cancel_url'                 => add_query_arg( 'ppl', 'cancel', $return_url ),
+        'billing_address_collection' => 'auto',
+        'metadata[product_type]'     => 'cart',
+        'metadata[product_label]'    => $product_label,
+        'metadata[cart_json]'        => wp_json_encode( $cart_compact ),
+        'payment_intent_data[metadata][product_label]' => $product_label,
+    ];
+
+    foreach ( $line_items as $n => $li ) {
+        $params[ "line_items[{$n}][price]" ]    = $li['price'];
+        $params[ "line_items[{$n}][quantity]" ] = $li['quantity'];
+    }
+
+    $session = ppl_stripe_api( 'POST', '/checkout/sessions', $params );
+
+    if ( is_wp_error( $session ) || empty( $session['url'] ) ) {
+        wp_safe_redirect( add_query_arg( 'ppl', 'stripe-error', $return_url ) );
+        exit;
+    }
+
+    wp_redirect( esc_url_raw( $session['url'] ) );
+    exit;
+}
+
+
 // ── 2. WEBHOOK ─────────────────────────────────────────────────────────────────
 
 add_action( 'admin_post_nopriv_ppl_stripe_webhook', 'ppl_handle_stripe_webhook' );
@@ -107,6 +183,15 @@ function ppl_handle_stripe_webhook() {
     if ( ! $email ) {
         status_header( 200 );
         echo 'OK — no email.';
+        exit;
+    }
+
+    // Cart orders: create one order per item, send combined email
+    if ( $product_type === 'cart' ) {
+        $cart_compact = json_decode( sanitize_text_field( $session['metadata']['cart_json'] ?? '[]' ), true ) ?: [];
+        ppl_handle_cart_order( $cart_compact, $email, $name, $product_label, $session_id, $amount_total, $settings );
+        status_header( 200 );
+        echo 'OK';
         exit;
     }
 
@@ -181,6 +266,70 @@ function ppl_send_download_email( $email, $name, $product_label, $token, $settin
         get_option( 'admin_email' ),
         "[{$site_name}] New order — {$product_label} — {$email}",
         "New purchase received.\n\nProduct: {$product_label}\nCustomer: {$name} <{$email}>",
+        $headers
+    );
+}
+
+
+function ppl_handle_cart_order( $cart_compact, $email, $name, $product_label, $session_id, $amount_total, $settings ) {
+    $site_name  = get_bloginfo( 'name' );
+    $headers    = [ 'Content-Type: text/plain; charset=UTF-8', 'From: ' . $site_name . ' <' . get_option( 'admin_email' ) . '>' ];
+    $expiry_days    = (int) ( $settings['download_expiry_days'] ?? 7 );
+    $download_limit = (int) ( $settings['download_limit'] ?? 10 );
+    $download_links = [];
+
+    foreach ( $cart_compact as $entry ) {
+        $idx        = (int) ( $entry['i'] ?? -1 );
+        $file_url   = $idx >= 0 ? ( $settings['products'][ $idx ]['file_url'] ?? '' ) : '';
+        $item_label = $idx >= 0 ? ( $settings['products'][ $idx ]['label'] ?? ( 'Product ' . ( $idx + 1 ) ) ) : 'Guide';
+
+        $token   = bin2hex( random_bytes( 20 ) );
+        $expires = time() + ( $expiry_days * DAY_IN_SECONDS );
+
+        $order_id = wp_insert_post( [
+            'post_type'   => 'ppl_order',
+            'post_title'  => $item_label . ' — ' . $email . ' — ' . gmdate( 'Y-m-d H:i' ),
+            'post_status' => 'publish',
+        ] );
+
+        if ( $order_id && ! is_wp_error( $order_id ) ) {
+            update_post_meta( $order_id, '_ppl_order_email',          $email );
+            update_post_meta( $order_id, '_ppl_order_name',           $name );
+            update_post_meta( $order_id, '_ppl_order_product_type',   'product' );
+            update_post_meta( $order_id, '_ppl_order_product_idx',    $idx );
+            update_post_meta( $order_id, '_ppl_order_product_label',  $item_label );
+            update_post_meta( $order_id, '_ppl_order_stripe_session', $session_id );
+            update_post_meta( $order_id, '_ppl_order_amount',         0 );
+            update_post_meta( $order_id, '_ppl_order_status',         'complete' );
+            update_post_meta( $order_id, '_ppl_order_file_url',       $file_url );
+            update_post_meta( $order_id, '_ppl_order_token',          $token );
+            update_post_meta( $order_id, '_ppl_order_token_expires',  $expires );
+            update_post_meta( $order_id, '_ppl_order_download_count', 0 );
+        }
+
+        $download_links[] = [
+            'label' => $item_label,
+            'url'   => add_query_arg( 'ppl_download', $token, home_url( '/' ) ),
+        ];
+    }
+
+    // Build combined email
+    $greeting  = $name ? "Hi {$name}," : 'Hi there,';
+    $links_txt = implode( "\n", array_map( function( $l ) {
+        return $l['label'] . ":\n" . $l['url'];
+    }, $download_links ) );
+
+    $body = "{$greeting}\n\n"
+        . "Thank you for your purchase! Your guides are ready to download.\n\n"
+        . "{$links_txt}\n\n"
+        . "Each link expires in {$expiry_days} days and can be used up to {$download_limit} times.\n\n"
+        . "— {$site_name}";
+
+    wp_mail( $email, "Your downloads are ready — {$product_label}", $body, $headers );
+    wp_mail(
+        get_option( 'admin_email' ),
+        "[{$site_name}] New cart order — {$product_label} — {$email}",
+        "New cart purchase.\n\nItems: {$product_label}\nCustomer: {$name} <{$email}>",
         $headers
     );
 }

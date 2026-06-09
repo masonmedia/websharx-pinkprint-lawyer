@@ -144,8 +144,7 @@ function ppl_add_page_meta_box() {
 
 add_action( 'admin_enqueue_scripts', 'ppl_enqueue_media_uploader' );
 
-function ppl_enqueue_media_uploader( $hook ) {
-    if ( ! in_array( $hook, [ 'post.php', 'post-new.php' ], true ) ) return;
+function ppl_enqueue_media_uploader() {
     wp_enqueue_media();
 }
 
@@ -1052,6 +1051,8 @@ function ppl_render_shop_meta_box( $post ) {
     echo $field( 'Button label', 'ppl_shop_session_cta',     'text',     'Book a Session' );
     echo $field( 'Button URL',   'ppl_shop_session_url',     'text',     '#' );
     echo $img_field( 'Right Column Image', 'ppl_shop_session_image_url', 'Appears in the right column of the session CTA banner.' );
+
+    ppl_repeater_script();
 }
 
 add_action( 'save_post_page', 'ppl_save_shop_meta_box' );

@@ -280,6 +280,7 @@ function ppl_register_meta_fields() {
         'ppl_shop_session_body',
         'ppl_shop_session_cta',
         'ppl_shop_session_url',
+        'ppl_shop_session_image_url',
 
         // ══════════════════════════════════════════════════════════════════════
         // DARK THEME FIELDS (ppl_dk_*)
