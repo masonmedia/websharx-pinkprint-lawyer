@@ -1025,6 +1025,7 @@ function ppl_render_shop_meta_box( $post ) {
     echo $field( 'Body text',         'ppl_shop_bundle_body',             'textarea', 'The full Pinkprint collection gives you a complete roadmap...' );
     echo $field( 'Bundle price',      'ppl_shop_bundle_price',            'text',     '$67' );
     echo $field( 'Savings note',      'ppl_shop_bundle_savings',          'text',     'Save $14 vs. buying individually' );
+    echo $field( 'Subtitle (offcanvas)', 'ppl_shop_bundle_subtitle',      'text',     'Every stage. One investment.' );
     echo $field( 'CTA label',         'ppl_shop_bundle_cta',              'text',     'Get the Bundle' );
     echo $field( 'Stripe Price ID',   'ppl_shop_bundle_stripe_price_id',  'text',     'price_xxxxxxxx', 'Bundle Stripe Price ID — from your Stripe Dashboard or Settings page.' );
 
@@ -1048,9 +1049,20 @@ function ppl_render_shop_meta_box( $post ) {
     echo $field( 'Eyebrow',      'ppl_shop_session_eyebrow', 'text',     'Not sure where to start?' );
     echo $field( 'Heading',      'ppl_shop_session_heading', 'text',     'Book a 1-on-1 Strategy Session' );
     echo $field( 'Body text',    'ppl_shop_session_body',    'textarea', 'A focused, one-hour session tailored to exactly where you are...' );
+    echo $field( 'Subtitle (offcanvas)', 'ppl_shop_session_subtitle',  'text',     'One hour. Clear direction.' );
+    echo $field( 'Price',        'ppl_shop_session_price',   'text',     '$150' );
+    echo $field( 'Price note',   'ppl_shop_session_price_note', 'text', 'One-time session fee' );
     echo $field( 'Button label', 'ppl_shop_session_cta',     'text',     'Book a Session' );
     echo $field( 'Button URL',   'ppl_shop_session_url',     'text',     '#' );
     echo $img_field( 'Right Column Image', 'ppl_shop_session_image_url', 'Appears in the right column of the session CTA banner.' );
+
+    // ── CONTACT ───────────────────────────────────────────────────────────────
+    echo $section( 'Contact Section' );
+    echo $field( 'Eyebrow',     'ppl_shop_contact_eyebrow', 'text',     'Get in Touch' );
+    echo $field( 'Heading',     'ppl_shop_contact_heading', 'text',     "Questions? We're here." );
+    echo $field( 'Body text',   'ppl_shop_contact_body',    'textarea', 'Whether you have a question about a guide, need help with your order, or just want to talk through your next step — reach out.' );
+    echo $field( 'Button label','ppl_shop_contact_cta',     'text',     'Contact Us' );
+    echo $field( 'Button URL',  'ppl_shop_contact_url',     'text',     '/contact' );
 
     ppl_repeater_script();
 }
@@ -1083,8 +1095,12 @@ function ppl_save_shop_meta_box( $post_id ) {
         'ppl_shop_bundle_price', 'ppl_shop_bundle_savings', 'ppl_shop_bundle_cta',
         'ppl_shop_bundle_stripe_price_id',
         'ppl_shop_inside_eyebrow', 'ppl_shop_inside_heading',
+        'ppl_shop_bundle_subtitle',
         'ppl_shop_session_eyebrow', 'ppl_shop_session_heading', 'ppl_shop_session_body',
+        'ppl_shop_session_subtitle', 'ppl_shop_session_price', 'ppl_shop_session_price_note',
         'ppl_shop_session_cta', 'ppl_shop_session_url', 'ppl_shop_session_image_url',
+        'ppl_shop_contact_eyebrow', 'ppl_shop_contact_heading', 'ppl_shop_contact_body',
+        'ppl_shop_contact_cta', 'ppl_shop_contact_url',
     ];
 
     foreach ( $scalar_keys as $key ) {

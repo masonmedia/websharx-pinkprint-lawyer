@@ -8,14 +8,13 @@
 <?php get_template_part( 'partials/ppl-nav' ); ?>
 
 <?php
-// ── State banners (post-checkout redirect) ────────────────────────────────────
+// ── State banners (post-checkout redirect — success is handled inside the modal) ──
 $ppl_state = isset( $_GET['ppl'] ) ? sanitize_key( $_GET['ppl'] ) : '';
 $ppl_messages = [
-    'success'      => [ 'success', 'bi-check-circle-fill',       'Purchase complete!',       "Check your email — your download link is on its way. If it doesn't arrive within a few minutes, check your spam folder." ],
-    'cancel'       => [ 'cancel',  'bi-x-circle-fill',           'Payment cancelled.',        'No charge was made. You can try again whenever you\'re ready.' ],
-    'stripe-error' => [ 'error',   'bi-exclamation-circle-fill', 'Something went wrong.',     'We couldn\'t connect to the payment processor. Please try again or contact us.' ],
-    'no-price'     => [ 'error',   'bi-exclamation-circle-fill', 'Product not configured.',   'This product isn\'t ready for purchase yet. Please check back soon or contact us.' ],
-    'config-error' => [ 'error',   'bi-exclamation-circle-fill', 'Shop not configured.',      'Payment processing hasn\'t been set up yet. Please contact us directly.' ],
+    'cancel'       => [ 'cancel',  'bi-x-circle-fill',           'Payment cancelled.',       'No charge was made. You can try again whenever you\'re ready.' ],
+    'stripe-error' => [ 'error',   'bi-exclamation-circle-fill', 'Something went wrong.',    'We couldn\'t connect to the payment processor. Please try again or contact us.' ],
+    'no-price'     => [ 'error',   'bi-exclamation-circle-fill', 'Product not configured.',  'This product isn\'t ready for purchase yet. Please check back soon or contact us.' ],
+    'config-error' => [ 'error',   'bi-exclamation-circle-fill', 'Shop not configured.',     'Payment processing hasn\'t been set up yet. Please contact us directly.' ],
 ];
 if ( $ppl_state && isset( $ppl_messages[ $ppl_state ] ) ) :
     [ $type, $icon, $title, $body ] = $ppl_messages[ $ppl_state ];
@@ -73,7 +72,7 @@ if ( $ppl_state && isset( $ppl_messages[ $ppl_state ] ) ) :
       <div class="<?php echo esc_attr( $col_class ); ?> fade-up ppl-stagger-<?php echo esc_attr( $idx ); ?>">
 
         <!-- Card (triggers offcanvas) -->
-        <div class="bg-white rounded-4 overflow-hidden h-100 d-flex flex-column ppl-product-card"
+        <div class="bg-white rounded-4 overflow-hidden h-100 d-flex flex-column ppl-product-card position-relative"
              data-bs-toggle="offcanvas"
              data-bs-target="#<?php echo esc_attr( $offcanvas_id ); ?>">
 
@@ -103,22 +102,8 @@ if ( $ppl_state && isset( $ppl_messages[ $ppl_state ] ) ) :
             <p class="text-muted-pp fw-semibold mb-3 body-sm" style="font-style:italic;"><?php echo esc_html( $item['subtitle'] ?? '' ); ?></p>
             <p class="text-muted-pp mb-4 body-sm flex-grow-1"><?php echo esc_html( $item['body'] ?? '' ); ?></p>
 
-            <div class="mt-auto d-flex gap-2 flex-wrap">
-              <button type="button"
-                      class="btn btn-sm btn-outline-pp rounded-3 px-3 py-2 fw-semibold ppl-card-add-to-cart"
-                      data-price-id="<?php echo esc_attr( $price_id ); ?>"
-                      data-title="<?php echo esc_attr( $item['title'] ?? '' ); ?>"
-                      data-price="<?php echo esc_attr( $item['price'] ?? '' ); ?>"
-                      data-idx="<?php echo esc_attr( $idx ); ?>">
-                <i class="bi bi-cart-plus me-1"></i>Add to Cart
-              </button>
-              <button type="button"
-                      class="btn btn-sm btn-rose rounded-3 px-3 py-2 fw-semibold ppl-card-buy-now"
-                      data-price-id="<?php echo esc_attr( $price_id ); ?>"
-                      data-title="<?php echo esc_attr( $item['title'] ?? '' ); ?>"
-                      data-idx="<?php echo esc_attr( $idx ); ?>">
-                Buy Now <i class="bi bi-arrow-right ms-1"></i>
-              </button>
+            <div class="ppl-card-open-btn position-absolute bottom-0 end-0 m-3">
+              <span class="ppl-card-open-circle" aria-hidden="true">+</span>
             </div>
           </div>
 
@@ -183,22 +168,14 @@ if ( $ppl_state && isset( $ppl_messages[ $ppl_state ] ) ) :
                   </button>
                 </div>
                 <div class="col-12 col-sm-6">
-                  <?php if ( $price_id ) : ?>
-                  <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="h-100">
-                    <?php wp_nonce_field( 'ppl_checkout', 'ppl_checkout_nonce' ); ?>
-                    <input type="hidden" name="action" value="ppl_stripe_checkout" />
-                    <input type="hidden" name="ppl_product_type" value="product" />
-                    <input type="hidden" name="ppl_product_idx" value="<?php echo esc_attr( $idx ); ?>" />
-                    <input type="hidden" name="ppl_return_url" value="<?php echo esc_url( get_permalink() ); ?>" />
-                    <button type="submit" class="btn btn-rose rounded-3 px-4 py-3 fw-semibold w-100">
-                      Checkout <i class="bi bi-arrow-right ms-1"></i>
-                    </button>
-                  </form>
-                  <?php else : ?>
-                  <button type="button" class="btn btn-rose rounded-3 px-4 py-3 fw-semibold w-100">
-                    Checkout <i class="bi bi-arrow-right ms-1"></i>
+                  <button type="button"
+                          class="btn btn-rose rounded-3 px-4 py-3 fw-semibold w-100 ppl-offcanvas-checkout"
+                          data-price-id="<?php echo esc_attr( $price_id ); ?>"
+                          data-title="<?php echo esc_attr( $item['title'] ?? '' ); ?>"
+                          data-price="<?php echo esc_attr( $item['price'] ?? '' ); ?>"
+                          data-idx="<?php echo esc_attr( $idx ); ?>">
+                    Checkout <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short ms-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/></svg>
                   </button>
-                  <?php endif; ?>
                 </div>
               </div>
 
@@ -292,12 +269,12 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
           <input type="hidden" name="ppl_product_type" value="bundle" />
           <input type="hidden" name="ppl_return_url" value="<?php echo esc_url( get_permalink() ); ?>" />
           <button type="submit" class="btn btn-rose rounded-3 px-4 py-3 fw-semibold w-100">
-            Checkout <i class="bi bi-arrow-right ms-1"></i>
+            Checkout <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short ms-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/></svg>
           </button>
         </form>
         <?php else : ?>
         <button type="button" class="btn btn-rose rounded-3 px-4 py-3 fw-semibold w-100">
-          Checkout <i class="bi bi-arrow-right ms-1"></i>
+          Checkout <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short ms-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/></svg>
         </button>
         <?php endif; ?>
       </div>
@@ -327,17 +304,18 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
     <div class="ppl-cart-items px-4 py-3" style="display:none; flex:1 1 0; min-height:0; overflow-y:auto;"></div>
 
     <!-- Footer: total + checkout -->
-    <div class="ppl-cart-footer border-top px-4 py-4" style="display:none;">
+    <div class="ppl-cart-footer border-top px-4 py-4">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <span class="fw-semibold text-plum body-sm">Subtotal</span>
         <span class="fw-bold text-plum ppl-cart-total" style="font-size:1.3rem;font-family:'Playfair Display',serif;">$0</span>
       </div>
       <button type="button" class="btn btn-rose rounded-3 px-4 py-3 fw-semibold w-100"
               data-bs-toggle="modal" data-bs-target="#ppl-checkout-modal">
-        Checkout <i class="bi bi-arrow-right ms-1"></i>
+        Checkout <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short ms-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/></svg>
       </button>
-      <button type="button" class="btn btn-link text-muted-pp body-xs w-100 mt-2 ppl-cart-clear">
-        Clear cart
+      <button type="button" class="btn btn-outline-secondary rounded-3 px-4 py-3 fw-semibold w-100 mt-2"
+              data-bs-dismiss="offcanvas">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short me-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.146 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/></svg>Keep shopping
       </button>
     </div>
 
@@ -349,62 +327,83 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content rounded-4 overflow-hidden border-0">
 
-      <div class="modal-header border-0 px-4 pt-4 pb-0">
-        <h5 class="modal-title text-plum fw-bold font-serif" id="ppl-checkout-modal-label">Complete your order</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body p-4">
-        <div class="row g-4">
-
-          <!-- Left: payment form (Stripe mounts here later) -->
-          <div class="col-md-7" id="ppl-stripe-mount">
-            <p class="text-rose fw-semibold text-uppercase ls-wide mb-3 eyebrow" style="font-size:11px;">Payment details</p>
-
-            <div class="ppl-mock-field mb-3">
-              <label class="form-label body-xs fw-semibold text-plum mb-1">Name on card</label>
-              <input type="text" class="form-control rounded-3" placeholder="Jane Smith" />
-            </div>
-            <div class="ppl-mock-field mb-3">
-              <label class="form-label body-xs fw-semibold text-plum mb-1">Card number</label>
-              <div class="input-group">
-                <input type="text" class="form-control rounded-3" placeholder="1234 5678 9012 3456" maxlength="19" />
-                <span class="input-group-text bg-white border-start-0 rounded-end-3"><i class="bi bi-credit-card text-muted-pp"></i></span>
-              </div>
-            </div>
-            <div class="row g-3 mb-3">
-              <div class="col-6">
-                <label class="form-label body-xs fw-semibold text-plum mb-1">Expiry</label>
-                <input type="text" class="form-control rounded-3" placeholder="MM / YY" maxlength="7" />
-              </div>
-              <div class="col-6">
-                <label class="form-label body-xs fw-semibold text-plum mb-1">CVC</label>
-                <input type="text" class="form-control rounded-3" placeholder="123" maxlength="4" />
-              </div>
-            </div>
-
-            <p class="body-xs text-muted-pp mt-2 mb-0"><i class="bi bi-lock-fill me-1"></i>Secured by Stripe. Your card details are never stored.</p>
-          </div>
-
-          <!-- Right: order summary -->
-          <div class="col-md-5">
-            <p class="text-rose fw-semibold text-uppercase ls-wide mb-3 eyebrow" style="font-size:11px;">Order summary</p>
-            <div id="ppl-checkout-summary" class="mb-3"></div>
-            <div class="border-top pt-3 d-flex justify-content-between align-items-center">
-              <span class="fw-semibold text-plum body-sm">Total</span>
-              <span class="fw-bold text-plum ppl-checkout-total" style="font-size:1.3rem;font-family:'Playfair Display',serif;">$0</span>
-            </div>
-          </div>
-
+      <!-- ── Payment view ── -->
+      <div id="ppl-checkout-payment-view">
+        <div class="modal-header border-0 px-4 pt-4 pb-0">
+          <h5 class="modal-title text-plum fw-bold font-serif" id="ppl-checkout-modal-label">Complete your order</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-      </div>
 
-      <div class="modal-footer border-0 px-4 pb-4 pt-0">
-        <button type="button" class="btn btn-rose rounded-3 px-4 py-3 fw-semibold w-100" id="ppl-mock-pay-btn">
-          <span class="ppl-pay-label">Pay now <i class="bi bi-arrow-right ms-1"></i></span>
-          <span class="ppl-pay-loading d-none"><span class="spinner-border spinner-border-sm me-2"></span>Processing...</span>
-        </button>
-      </div>
+        <div class="modal-body p-4">
+          <div class="row g-4">
+
+            <!-- Left: payment form -->
+            <div class="col-md-7" id="ppl-stripe-mount">
+              <p class="text-rose fw-semibold text-uppercase ls-wide mb-3 eyebrow" style="font-size:11px;">Payment details</p>
+
+              <div class="ppl-mock-field mb-3">
+                <label class="form-label body-xs fw-semibold text-plum mb-1">Name on card</label>
+                <input type="text" class="form-control rounded-3" placeholder="Jane Smith" />
+              </div>
+              <div class="ppl-mock-field mb-3">
+                <label class="form-label body-xs fw-semibold text-plum mb-1">Card number</label>
+                <div class="input-group">
+                  <input type="text" class="form-control rounded-3" placeholder="1234 5678 9012 3456" maxlength="19" />
+                  <span class="input-group-text bg-white border-start-0 rounded-end-3"><i class="bi bi-credit-card text-muted-pp"></i></span>
+                </div>
+              </div>
+              <div class="row g-3 mb-3">
+                <div class="col-6 ppl-mock-field">
+                  <label class="form-label body-xs fw-semibold text-plum mb-1">Expiry</label>
+                  <input type="text" class="form-control rounded-3" placeholder="MM / YY" maxlength="7" />
+                </div>
+                <div class="col-6 ppl-mock-field">
+                  <label class="form-label body-xs fw-semibold text-plum mb-1">CVC</label>
+                  <input type="text" class="form-control rounded-3" placeholder="123" maxlength="4" />
+                </div>
+              </div>
+
+              <p class="body-xs text-muted-pp mt-2 mb-0"><i class="bi bi-lock-fill me-1"></i>Secured by Stripe. Your card details are never stored.</p>
+            </div>
+
+            <!-- Right: order summary -->
+            <div class="col-md-5">
+              <p class="text-rose fw-semibold text-uppercase ls-wide mb-3 eyebrow" style="font-size:11px;">Order summary</p>
+              <div id="ppl-checkout-summary" class="mb-3"></div>
+              <div class="border-top pt-3 d-flex justify-content-between align-items-center">
+                <span class="fw-semibold text-plum body-sm">Total</span>
+                <span class="fw-bold text-plum ppl-checkout-total" style="font-size:1.3rem;font-family:'Playfair Display',serif;">$0</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer border-0 px-4 pb-4 pt-0">
+          <button type="button" class="btn btn-rose rounded-3 px-4 py-3 fw-semibold w-100" id="ppl-mock-pay-btn">
+            <span class="ppl-pay-label">Pay now <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short ms-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/></svg></span>
+            <span class="ppl-pay-loading d-none"><span class="spinner-border spinner-border-sm me-2"></span>Processing...</span>
+          </button>
+        </div>
+      </div><!-- /#ppl-checkout-payment-view -->
+
+      <!-- ── Success view ── -->
+      <div id="ppl-checkout-success-view" style="display:none;">
+        <div class="modal-header border-0 px-4 pt-4 pb-0 justify-content-end">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-4 pb-5 pt-2 text-center">
+          <div class="ppl-success-icon-wrap mx-auto mb-4">
+            <i class="bi bi-check-lg ppl-success-check"></i>
+          </div>
+          <h4 class="text-plum fw-bold font-serif mb-2" style="font-size:1.6rem;">Purchase complete.</h4>
+          <p class="text-muted-pp body-md mb-1">Your download link is on its way.</p>
+          <p class="text-muted-pp body-sm mb-4">Check your email — if it doesn't arrive within a few minutes, check your spam folder.</p>
+          <button type="button" class="btn btn-outline-secondary rounded-3 px-4 py-2 fw-semibold body-sm" data-bs-dismiss="modal">
+            Back to shop
+          </button>
+        </div>
+      </div><!-- /#ppl-checkout-success-view -->
 
     </div>
   </div>
@@ -462,7 +461,7 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
           <div>
             <button type="button" class="btn btn-rose rounded-3 px-4 py-3 fw-semibold"
                     data-bs-toggle="offcanvas" data-bs-target="#ppl-session-offcanvas">
-              <?php ppl_e( 'ppl_shop_session_cta', 'Book a Session' ); ?> <i class="bi bi-arrow-right ms-1"></i>
+              <?php ppl_e( 'ppl_shop_session_cta', 'Book a Session' ); ?> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short ms-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/></svg>
             </button>
           </div>
         </div>
@@ -514,14 +513,13 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
         <h2 class="text-plum fw-bold mb-2 font-serif"><?php ppl_e( 'ppl_shop_session_heading', 'Book a 1-on-1 Strategy Session' ); ?></h2>
         <p class="text-muted-pp fw-semibold mb-3 body-sm fst-italic"><?php ppl_e( 'ppl_shop_session_subtitle', 'One hour. Clear direction.' ); ?></p>
         <p class="text-muted-pp mb-3 body-sm"><?php ppl_e( 'ppl_shop_session_body', 'A focused, one-hour session tailored to exactly where you are in your legal journey. Walk away with a clear plan.' ); ?></p>
-
         <div class="mb-4">
           <span class="fw-bold text-plum d-block mb-1 ppl-price-display"><?php ppl_e( 'ppl_shop_session_price', '$150' ); ?></span>
           <p class="text-muted-pp body-xs mb-0"><?php ppl_e( 'ppl_shop_session_price_note', 'One-time session fee' ); ?></p>
         </div>
 
         <a href="<?php echo esc_url( ppl_get( 'ppl_shop_session_url', '#' ) ); ?>" class="btn btn-rose rounded-3 px-4 py-3 fw-semibold">
-          <?php ppl_e( 'ppl_shop_session_cta', 'Book a Session' ); ?> <i class="bi bi-arrow-right ms-1"></i>
+          <?php ppl_e( 'ppl_shop_session_cta', 'Book a Session' ); ?> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short ms-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/></svg>
         </a>
       </div>
 
@@ -535,10 +533,10 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
   <div class="container">
     <div class="text-center mw-560 mx-auto">
       <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 eyebrow"><?php ppl_e( 'ppl_shop_contact_eyebrow', 'Get in Touch' ); ?></p>
-      <h2 class="text-plum ls-tight fw-bold display-6 mb-3 font-serif"><?php ppl_e( 'ppl_shop_contact_heading', 'Questions? We\'re here.' ); ?></h2>
+      <h2 class="text-plum ls-tight fw-bold display-6 mb-3 font-serif"><?php ppl_e( 'ppl_shop_contact_heading', "Questions? We're here." ); ?></h2>
       <p class="text-muted-pp body-md mb-4"><?php ppl_e( 'ppl_shop_contact_body', 'Whether you have a question about a guide, need help with your order, or just want to talk through your next step — reach out.' ); ?></p>
       <a href="<?php echo esc_url( ppl_get( 'ppl_shop_contact_url', get_page_link( get_page_by_path( 'contact' ) ) ) ); ?>" class="btn btn-rose rounded-3 px-4 py-3 fw-semibold">
-        <?php ppl_e( 'ppl_shop_contact_cta', 'Contact Us' ); ?> <i class="bi bi-arrow-right ms-1"></i>
+        <?php ppl_e( 'ppl_shop_contact_cta', 'Contact Us' ); ?> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short ms-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/></svg>
       </a>
     </div>
   </div>
@@ -596,9 +594,9 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
 /* Grape background */
 .bg-grape { background: var(--plum-mid); }
 
-/* Card outline button */
-.btn-outline-pp { border-color: var(--plum); color: var(--plum); background: transparent; }
-.btn-outline-pp:hover { background: var(--plum); color: #fff; border-color: var(--plum); }
+/* Card open (+) button */
+.ppl-card-open-circle { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--plum); color: #fff; font-size: 24px; line-height: 1; font-weight: 300; pointer-events: none; transition: transform 0.2s ease, background 0.2s ease; }
+.ppl-product-card:hover .ppl-card-open-circle { transform: scale(1.1); background: var(--pink-deep); }
 
 /* Cart offcanvas */
 .ppl-cart-item { border-bottom: 1px solid rgba(0,0,0,0.07); }
@@ -611,9 +609,13 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
 .ppl-badge-pop { animation: ppl-badge-pop 0.25s ease; }
 
 /* Checkout modal */
-.ppl-mock-field .form-control { border-color: #e8d0de; color: var(--plum); }
-.ppl-mock-field .form-control:focus { border-color: var(--pink-deep); box-shadow: 0 0 0 3px rgba(196,54,112,0.12); }
-.ppl-mock-field .input-group-text { border-color: #e8d0de; }
+.ppl-mock-field .form-control { border-color: #e8d0de; color: var(--plum); background: #fdf5f9; padding: 0.6rem 0.85rem; font-size: 0.95rem; }
+.ppl-mock-field .form-control:focus { border-color: var(--pink-deep); background: #fff; box-shadow: 0 0 0 3px rgba(196,54,112,0.12); }
+.ppl-mock-field .input-group-text { border-color: #e8d0de; background: #fdf5f9; }
+
+/* Checkout success view */
+.ppl-success-icon-wrap { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--pink-deep) 0%, var(--plum) 100%); display: flex; align-items: center; justify-content: center; }
+.ppl-success-check { font-size: 38px; color: #fff; line-height: 1; }
 
 /* State banners */
 .ppl-state-banner { border-bottom-width: 1px; border-bottom-style: solid; padding: 18px 0; }
@@ -699,13 +701,11 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
     if (!items.length) {
       if (empty)  empty.style.display  = '';
       list.style.display   = 'none';
-      if (footer) footer.style.display = 'none';
       return;
     }
 
     if (empty)  empty.style.display  = 'none';
     list.style.display   = '';
-    if (footer) footer.style.display = '';
     if (totalEl) totalEl.textContent = sym + total.toFixed(2);
 
     list.innerHTML = items.map(function(item) {
@@ -745,35 +745,25 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
     });
   }
 
-  // ── Direct listeners on card buttons (must stopPropagation before Bootstrap) ─
-  document.querySelectorAll('.ppl-card-add-to-cart').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      addItem(btn.dataset.priceId, btn.dataset.title, btn.dataset.price, btn.dataset.idx);
-    });
-  });
-
-  document.querySelectorAll('.ppl-card-buy-now').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      document.getElementById('ppl-buy-now-payload').value = JSON.stringify([{
-        price_id: btn.dataset.priceId,
-        title:    btn.dataset.title,
-        qty:      1,
-        idx:      parseInt(btn.dataset.idx, 10)
-      }]);
-      document.getElementById('ppl-buy-now-form').submit();
-    });
-  });
-
-  // ── Delegated listeners (offcanvas add-to-cart + clear cart) ────────────────
+  // ── Delegated listeners (offcanvas add-to-cart / checkout) ──────────────────
   document.addEventListener('click', function(e) {
-    if (e.target.closest('.ppl-offcanvas-add-to-cart')) {
-      var btn = e.target.closest('.ppl-offcanvas-add-to-cart');
-      addItem(btn.dataset.priceId, btn.dataset.title, btn.dataset.price, btn.dataset.idx);
-      return;
+    var addBtn = e.target.closest('.ppl-offcanvas-add-to-cart');
+    if (addBtn) {
+      addItem(addBtn.dataset.priceId, addBtn.dataset.title, addBtn.dataset.price, addBtn.dataset.idx);
+      var cartEl = document.getElementById('ppl-cart-offcanvas');
+      if (cartEl && window.bootstrap) {
+        bootstrap.Offcanvas.getOrCreateInstance(cartEl).show();
+      }
     }
-    if (e.target.closest('.ppl-cart-clear')) { save([]); refresh(); }
+
+    var checkoutBtn = e.target.closest('.ppl-offcanvas-checkout');
+    if (checkoutBtn) {
+      addItem(checkoutBtn.dataset.priceId, checkoutBtn.dataset.title, checkoutBtn.dataset.price, checkoutBtn.dataset.idx);
+      var modalEl = document.getElementById('ppl-checkout-modal');
+      if (modalEl && window.bootstrap) {
+        bootstrap.Modal.getOrCreateInstance(modalEl).show();
+      }
+    }
   });
 
   // Populate cart JSON before checkout form submit
@@ -805,8 +795,8 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
       var summary  = document.getElementById('ppl-checkout-summary');
       var totalEl  = checkoutModal.querySelector('.ppl-checkout-total');
       if (summary) {
-        summary.innerHTML = items.map(function(item) {
-          return '<div class="d-flex justify-content-between align-items-center py-2 border-bottom">'
+        summary.innerHTML = items.map(function(item, i) {
+          return '<div class="d-flex justify-content-between align-items-center py-2' + (i < items.length - 1 ? ' border-bottom' : '') + '">'
             + '<span class="body-sm text-plum fw-semibold">' + esc(item.title) + (item.qty > 1 ? ' <span class="text-muted-pp fw-normal">×'+item.qty+'</span>' : '') + '</span>'
             + '<span class="body-sm fw-bold text-plum">' + sym + (item.price_num * item.qty).toFixed(2) + '</span>'
             + '</div>';
@@ -822,8 +812,50 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
       loading.classList.remove('d-none');
       setTimeout(function() {
         save([]);
-        window.location.href = window.location.pathname + '?ppl=success';
+        refresh();
+        showCheckoutSuccess();
       }, 1200);
+    });
+  }
+
+  function showCheckoutSuccess() {
+    var modalEl = document.getElementById('ppl-checkout-modal');
+    if (!modalEl) return;
+    var payView     = document.getElementById('ppl-checkout-payment-view');
+    var successView = document.getElementById('ppl-checkout-success-view');
+    if (payView)     payView.style.display     = 'none';
+    if (successView) successView.style.display = '';
+
+    if (window.bootstrap) {
+      var modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      modal.show();
+    }
+
+    // Clean the URL without reloading
+    var url = window.location.pathname + window.location.hash;
+    history.replaceState(null, '', url);
+  }
+
+  // Auto-open success modal on ?ppl=success redirect
+  if (new URLSearchParams(window.location.search).get('ppl') === 'success') {
+    document.addEventListener('DOMContentLoaded', function() { showCheckoutSuccess(); }, { once: true });
+    // Fallback if DOMContentLoaded already fired
+    if (document.readyState !== 'loading') showCheckoutSuccess();
+  }
+
+  // Reset modal to payment view when it's closed after success
+  var checkoutModalEl = document.getElementById('ppl-checkout-modal');
+  if (checkoutModalEl) {
+    checkoutModalEl.addEventListener('hidden.bs.modal', function() {
+      var payView     = document.getElementById('ppl-checkout-payment-view');
+      var successView = document.getElementById('ppl-checkout-success-view');
+      if (payView)     payView.style.display     = '';
+      if (successView) successView.style.display = 'none';
+      var payBtn = document.getElementById('ppl-mock-pay-btn');
+      if (payBtn) {
+        payBtn.querySelector('.ppl-pay-label').classList.remove('d-none');
+        payBtn.querySelector('.ppl-pay-loading').classList.add('d-none');
+      }
     });
   }
 }());
