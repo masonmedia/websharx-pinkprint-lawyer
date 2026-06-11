@@ -23,6 +23,11 @@ function ppl_register_meta_fields() {
 
     $fields = [
 
+        // ── DEFAULT PAGE (page-default.php) ───────────────────────────────────
+        'ppl_pg_eyebrow',
+        'ppl_pg_heading',
+        'ppl_pg_subtext',
+
         // ── HERO ──────────────────────────────────────────────────────────────
         'ppl_hero_eyebrow',
         'ppl_hero_heading',

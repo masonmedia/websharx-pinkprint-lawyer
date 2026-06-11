@@ -16,7 +16,15 @@ $logo_mobile = '<img src="' . esc_url( $logo_url ) . '" class="custom-logo" alt=
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-center">
-      <?php if ( has_nav_menu( 'primary' ) ) : ?>
+      <?php
+      $ppl_header_links = (array) get_option( 'ppl_header_nav', [] );
+      if ( $ppl_header_links ) : ?>
+        <ul class="navbar-nav gap-4">
+          <?php foreach ( $ppl_header_links as $ppl_link ) : ?>
+            <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="<?php echo esc_url( $ppl_link['url'] ); ?>"><?php echo esc_html( $ppl_link['label'] ); ?></a></li>
+          <?php endforeach; ?>
+        </ul>
+      <?php elseif ( has_nav_menu( 'primary' ) ) : ?>
         <?php ppl_nav_menu( 'primary', [ 'menu_class' => 'navbar-nav gap-4', 'link_class' => 'nav-link fw-medium text-plum nav-link-sm' ] ); ?>
       <?php else : ?>
         <ul class="navbar-nav gap-4">
@@ -24,7 +32,6 @@ $logo_mobile = '<img src="' . esc_url( $logo_url ) . '" class="custom-logo" alt=
           <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="#">About</a></li>
           <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="#">Shop</a></li>
           <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="#">Membership</a></li>
-          <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="#">Legal/Admin</a></li>
           <li class="nav-item"><a class="nav-link fw-medium text-plum nav-link-sm" href="#">Contact</a></li>
         </ul>
       <?php endif; ?>
@@ -42,14 +49,17 @@ $logo_mobile = '<img src="' . esc_url( $logo_url ) . '" class="custom-logo" alt=
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body d-flex flex-column gap-3 pt-4 justify-content-end">
-    <?php if ( has_nav_menu( 'primary' ) ) : ?>
+    <?php if ( $ppl_header_links ) : ?>
+      <?php foreach ( $ppl_header_links as $ppl_link ) : ?>
+        <a href="<?php echo esc_url( $ppl_link['url'] ); ?>" class="nav-link fs-5 text-plum fw-medium"><?php echo esc_html( $ppl_link['label'] ); ?></a>
+      <?php endforeach; ?>
+    <?php elseif ( has_nav_menu( 'primary' ) ) : ?>
       <?php ppl_nav_menu( 'primary', [ 'menu_class' => 'd-flex flex-column gap-3', 'link_class' => 'nav-link fs-5 text-plum fw-medium' ] ); ?>
     <?php else : ?>
       <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="nav-link fs-5 text-plum fw-medium">Home</a>
       <a href="#" class="nav-link fs-5 text-plum fw-medium">About</a>
       <a href="#" class="nav-link fs-5 text-plum fw-medium">Shop</a>
       <a href="#" class="nav-link fs-5 text-plum fw-medium">Membership</a>
-      <a href="#" class="nav-link fs-5 text-plum fw-medium">Legal/Admin</a>
       <a href="#" class="nav-link fs-5 text-plum fw-medium">Contact</a>
     <?php endif; ?>
     <div class="d-flex flex-column gap-2 mt-3">

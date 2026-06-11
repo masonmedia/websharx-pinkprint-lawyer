@@ -11,6 +11,8 @@ function child_theme_scripts() {
 // ── Includes ───────────────────────────────────────────────────────────────
 
 require_once get_stylesheet_directory() . '/inc/ppl-helpers.php';
+require_once get_stylesheet_directory() . '/inc/ppl-nav-admin.php';
+require_once get_stylesheet_directory() . '/inc/ppl-sideload.php';
 require_once get_stylesheet_directory() . '/inc/meta-fields.php';
 require_once get_stylesheet_directory() . '/inc/meta-boxes.php';
 require_once get_stylesheet_directory() . '/inc/post-types.php';
@@ -23,11 +25,8 @@ add_action( 'after_setup_theme', 'ppl_register_menus' );
 
 function ppl_register_menus() {
     register_nav_menus( [
-        'primary'        => 'Primary Navigation',
-        'footer_about'   => 'Footer — About column',
-        'footer_shop'    => 'Footer — Shop column',
-        'footer_member'  => 'Footer — Membership column',
-        'footer_legal'   => 'Footer — Legal/Admin column',
+        'primary' => 'Primary Navigation',
+        'footer'  => 'Footer (add top-level items as column headers, sub-items as links)',
     ] );
     add_theme_support( 'custom-logo', [
         'flex-width'  => true,

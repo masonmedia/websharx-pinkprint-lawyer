@@ -18,32 +18,47 @@
         </div>
       </div>
 
+      <div class="col-lg-8">
+      <div class="row g-4">
       <?php
-      $footer_cols = [
-          [ 'location' => 'footer_about',  'label' => 'About',        'fallback' => [ 'Shakierah Smith' => '#', 'Our Mission' => '#', 'The Book' => '#', 'Press' => '#' ] ],
-          [ 'location' => 'footer_shop',   'label' => 'Shop',         'fallback' => [ 'Browse the Shop' => '#', 'Book a Session' => '#' ] ],
-          [ 'location' => 'footer_member', 'label' => 'Membership',   'fallback' => [ 'Join' => '#', 'Member Login' => '#' ] ],
-          [ 'location' => 'footer_legal',  'label' => 'Legal/Admin',  'fallback' => [ 'Contact' => '#', 'Privacy Policy' => '#', 'Terms of Use' => '#' ] ],
-      ];
-      foreach ( $footer_cols as $col ) :
+      $ppl_footer_data = (array) get_option( 'ppl_footer_nav', [] );
+      $ppl_footer_cols = (array) ( $ppl_footer_data['cols'] ?? [] );
+      $ppl_col_count   = max( 2, min( 4, intval( $ppl_footer_data['columns'] ?? 4 ) ) );
+
+      // col class per column count (nested inside col-lg-8 wrapper, so 12-col grid within)
+      $ppl_col_class = [ 2 => 'col-12 col-md-6 col-lg-6', 3 => 'col-12 col-md-6 col-lg-4', 4 => 'col-12 col-md-6 col-lg-3' ];
+      $ppl_item_class = $ppl_col_class[ $ppl_col_count ] ?? 'col-6 col-lg-3';
+
+      if ( $ppl_footer_cols ) :
+        foreach ( $ppl_footer_cols as $ppl_col ) : ?>
+          <div class="<?php echo esc_attr( $ppl_item_class ); ?>">
+            <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label"><?php echo esc_html( $ppl_col['heading'] ?? '' ); ?></p>
+            <?php foreach ( (array) ( $ppl_col['links'] ?? [] ) as $ppl_link ) : ?>
+              <a href="<?php echo esc_url( $ppl_link['url'] ); ?>" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm"><?php echo esc_html( $ppl_link['label'] ); ?></a>
+            <?php endforeach; ?>
+          </div>
+        <?php endforeach;
+      else :
+        // Fallback until Footer Nav is configured
+        $ppl_fallback = [
+          'About'       => [ 'Shakierah Smith' => '#', 'Our Mission' => '#', 'The Book' => '#', 'Press' => '#' ],
+          'Shop'        => [ 'Browse the Shop' => '#', 'Book a Session' => '#' ],
+          'Membership'  => [ 'Join' => '#', 'Member Login' => '#' ],
+          'Legal/Admin' => [ 'Contact' => '#', 'Privacy Policy' => '#', 'Terms of Use' => '#' ],
+        ];
+        foreach ( $ppl_fallback as $ppl_heading => $ppl_links ) : ?>
+          <div class="col-12 col-md-6 col-lg-3">
+            <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label"><?php echo esc_html( $ppl_heading ); ?></p>
+            <?php foreach ( $ppl_links as $ppl_text => $ppl_href ) : ?>
+              <a href="<?php echo esc_url( $ppl_href ); ?>" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm"><?php echo esc_html( $ppl_text ); ?></a>
+            <?php endforeach; ?>
+          </div>
+        <?php endforeach;
+      endif;
       ?>
-      <div class="col-6 col-lg-2">
-        <p class="text-plum fw-semibold text-uppercase ls-wide mb-3 footer-section-label"><?php echo esc_html( $col['label'] ); ?></p>
-        <?php if ( has_nav_menu( $col['location'] ) ) : ?>
-          <?php wp_nav_menu( [
-            'theme_location' => $col['location'],
-            'container'      => false,
-            'items_wrap'     => '%3$s',
-            'walker'         => new PPL_Footer_Link_Walker(),
-          ] ); ?>
-        <?php else : ?>
-          <?php foreach ( $col['fallback'] as $text => $href ) : ?>
-            <a href="<?php echo esc_url( $href ); ?>" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm"><?php echo esc_html( $text ); ?></a>
-          <?php endforeach; ?>
-        <?php endif; ?>
-      </div>
-      <?php endforeach; ?>
-    </div>
+      </div><!-- /.row g-4 -->
+      </div><!-- /.col-lg-8 -->
+    </div><!-- /.row g-5 -->
 
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 border-top border-blush pt-4 mt-5">
       <p class="text-muted-pp mb-0 footer-meta">© <?php echo esc_html( gmdate( 'Y' ) ); ?> The Pinkprint Lawyer. All rights reserved.</p>
@@ -54,20 +69,6 @@
     </div>
   </div>
 </footer>
-
-<?php
-// Minimal walker: renders each menu item as a plain <a> with footer-link-sm class.
-if ( ! class_exists( 'PPL_Footer_Link_Walker' ) ) :
-class PPL_Footer_Link_Walker extends Walker_Nav_Menu {
-    public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
-        $output .= '<a href="' . esc_url( $item->url ) . '" class="d-block text-muted-pp text-decoration-none mb-2 footer-link-sm">' . esc_html( $item->title ) . '</a>';
-    }
-    public function end_el( &$output, $item, $depth = 0, $args = null ) {}
-    public function start_lvl( &$output, $depth = 0, $args = null ) {}
-    public function end_lvl( &$output, $depth = 0, $args = null ) {}
-}
-endif;
-?>
 
 <script>
 (function () {

@@ -127,10 +127,13 @@ function ppl_add_page_meta_box() {
     $screen = get_current_screen();
     if ( 'page' !== $screen->post_type ) return;
 
-    global $post;
-    if ( ! $post ) return;
+    $post_id = isset( $_GET['post'] ) ? (int) $_GET['post'] : ( isset( $_POST['post_ID'] ) ? (int) $_POST['post_ID'] : 0 );
+    if ( ! $post_id ) {
+        global $post;
+        $post_id = $post ? $post->ID : 0;
+    }
 
-    $template = get_post_meta( $post->ID, '_wp_page_template', true );
+    $template = $post_id ? get_post_meta( $post_id, '_wp_page_template', true ) : '';
     if ( in_array( basename( $template ), [ 'page-home.php', 'page-dark.php' ], true ) ) {
         add_meta_box( 'ppl_page_content', 'Page Content', 'ppl_render_meta_box', 'page', 'normal', 'high' );
     } elseif ( basename( $template ) === 'page-about.php' ) {
@@ -139,6 +142,54 @@ function ppl_add_page_meta_box() {
         add_meta_box( 'ppl_credentials_page_content', 'Page Content', 'ppl_render_credentials_meta_box', 'page', 'normal', 'high' );
     } elseif ( basename( $template ) === 'page-shop.php' ) {
         add_meta_box( 'ppl_shop_page_content', 'Shop Page Content', 'ppl_render_shop_meta_box', 'page', 'normal', 'high' );
+    } elseif ( basename( $template ) === 'page-default.php' || $template === '' || $template === 'default' ) {
+        add_meta_box( 'ppl_default_page_content', 'Page Header', 'ppl_render_default_meta_box', 'page', 'normal', 'high' );
+    }
+}
+
+// ── Default page meta box ──────────────────────────────────────────────────
+
+function ppl_render_default_meta_box( $post ) {
+    wp_nonce_field( 'ppl_save_default_meta', 'ppl_default_meta_nonce' );
+
+    $get   = fn( $key ) => get_post_meta( $post->ID, $key, true );
+    $s_inp = 'style="width:100%;padding:6px 8px;margin-bottom:12px;box-sizing:border-box;border:1px solid #ddd;border-radius:5px;"';
+    $s_ta  = 'style="width:100%;padding:6px 8px;margin-bottom:12px;box-sizing:border-box;border:1px solid #ddd;border-radius:5px;resize:vertical;"';
+    $s_lbl = 'style="display:block;font-size:12px;font-weight:600;margin-bottom:3px;color:#555;"';
+    ?>
+    <p style="font-size:12px;color:#888;margin-bottom:16px;">
+      These fields power the hero header. Use the standard <strong>Featured Image</strong> for the full-bleed banner below it.
+    </p>
+
+    <label <?php echo $s_lbl; ?>>Eyebrow Label</label>
+    <input type="text" name="ppl_pg_eyebrow"
+           value="<?php echo esc_attr( $get( 'ppl_pg_eyebrow' ) ); ?>"
+           placeholder="e.g. Legal"
+           <?php echo $s_inp; ?> />
+
+    <label <?php echo $s_lbl; ?>>Title <span style="font-weight:400;color:#aaa;">(leave blank to use the page title)</span></label>
+    <input type="text" name="ppl_pg_heading"
+           value="<?php echo esc_attr( $get( 'ppl_pg_heading' ) ); ?>"
+           placeholder="<?php echo esc_attr( get_the_title( $post->ID ) ); ?>"
+           <?php echo $s_inp; ?> />
+
+    <label <?php echo $s_lbl; ?>>Subtext / Description</label>
+    <textarea name="ppl_pg_subtext" rows="3" <?php echo $s_ta; ?>><?php echo esc_textarea( $get( 'ppl_pg_subtext' ) ); ?></textarea>
+    <?php
+}
+
+add_action( 'save_post_page', 'ppl_save_default_meta_box' );
+
+function ppl_save_default_meta_box( $post_id ) {
+    if ( ! isset( $_POST['ppl_default_meta_nonce'] ) ) return;
+    if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ppl_default_meta_nonce'] ) ), 'ppl_save_default_meta' ) ) return;
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+    if ( ! current_user_can( 'edit_page', $post_id ) ) return;
+
+    foreach ( [ 'ppl_pg_eyebrow', 'ppl_pg_heading', 'ppl_pg_subtext' ] as $key ) {
+        if ( isset( $_POST[ $key ] ) ) {
+            update_post_meta( $post_id, $key, sanitize_textarea_field( wp_unslash( $_POST[ $key ] ) ) );
+        }
     }
 }
 

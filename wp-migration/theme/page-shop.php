@@ -486,10 +486,23 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
 
 
 <!-- Offcanvas: Strategy Session -->
+<?php
+$session_price_id = ppl_get( 'ppl_shop_session_stripe_price_id', '' );
+$session_price    = ppl_get( 'ppl_shop_session_price', '$150' );
+?>
 <div class="offcanvas offcanvas-bottom ppl-product-offcanvas h-100" tabindex="-1" id="ppl-session-offcanvas" aria-labelledby="ppl-session-offcanvas-label">
   <div class="offcanvas-header border-bottom px-4 py-3 d-flex align-items-center justify-content-between">
     <h5 class="offcanvas-title text-plum fw-bold mb-0" id="ppl-session-offcanvas-label"><?php ppl_e( 'ppl_shop_session_heading', 'Book a 1-on-1 Strategy Session' ); ?></h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="d-flex align-items-center gap-3">
+      <button type="button"
+              class="btn btn-outline-secondary btn-sm rounded-3 position-relative"
+              data-bs-toggle="offcanvas" data-bs-target="#ppl-cart-offcanvas"
+              aria-label="Cart">
+        <i class="bi bi-cart3 fs-5"></i>
+        <span class="ppl-cart-badge position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background:var(--pink-deep);font-size:9px;display:none;">0</span>
+      </button>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
   </div>
   <div class="offcanvas-body p-0">
     <div class="row g-0 h-100">
@@ -512,15 +525,34 @@ $bundle_price_id = ppl_get( 'ppl_shop_bundle_stripe_price_id' )
         <p class="text-rose fw-semibold text-uppercase ls-wide mb-2 eyebrow"><?php ppl_e( 'ppl_shop_session_eyebrow', 'Not sure where to start?' ); ?></p>
         <h2 class="text-plum fw-bold mb-2 font-serif"><?php ppl_e( 'ppl_shop_session_heading', 'Book a 1-on-1 Strategy Session' ); ?></h2>
         <p class="text-muted-pp fw-semibold mb-3 body-sm fst-italic"><?php ppl_e( 'ppl_shop_session_subtitle', 'One hour. Clear direction.' ); ?></p>
-        <p class="text-muted-pp mb-3 body-sm"><?php ppl_e( 'ppl_shop_session_body', 'A focused, one-hour session tailored to exactly where you are in your legal journey. Walk away with a clear plan.' ); ?></p>
-        <div class="mb-4">
-          <span class="fw-bold text-plum d-block mb-1 ppl-price-display"><?php ppl_e( 'ppl_shop_session_price', '$150' ); ?></span>
-          <p class="text-muted-pp body-xs mb-0"><?php ppl_e( 'ppl_shop_session_price_note', 'One-time session fee' ); ?></p>
+        <p class="text-muted-pp mb-2 body-sm">This isn't a generic coaching call — it's a focused, personalized session built around your specific situation. Before we meet, you'll share where you are in your journey so the entire hour is spent on what actually matters to you.</p>
+        <p class="text-muted-pp mb-3 body-sm">Whether you're deciding between schools, struggling to find a study rhythm, or trying to figure out your next career move after the bar — we'll dig into your questions, identify what's blocking you, and map out a clear next step you can act on immediately.</p>
+        <div class="mb-3">
+          <span class="fw-bold text-plum d-block mb-1 ppl-price-display" data-unit-price="<?php echo esc_attr( $session_price ); ?>"><?php echo esc_html( $session_price ); ?></span>
         </div>
 
-        <a href="<?php echo esc_url( ppl_get( 'ppl_shop_session_url', '#' ) ); ?>" class="btn btn-rose rounded-3 px-4 py-3 fw-semibold">
-          <?php ppl_e( 'ppl_shop_session_cta', 'Book a Session' ); ?> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short ms-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/></svg>
-        </a>
+        <div class="row g-2">
+          <div class="col-12 col-sm-6">
+            <button type="button"
+                    class="btn btn-secondary rounded-3 px-4 py-3 fw-semibold w-100 ppl-offcanvas-add-to-cart"
+                    data-price-id="<?php echo esc_attr( $session_price_id ); ?>"
+                    data-title="<?php ppl_e( 'ppl_shop_session_heading', '1-on-1 Strategy Session' ); ?>"
+                    data-price="<?php echo esc_attr( $session_price ); ?>"
+                    data-idx="session">
+              <i class="bi bi-cart-plus me-2"></i>Add to Cart
+            </button>
+          </div>
+          <div class="col-12 col-sm-6">
+            <button type="button"
+                    class="btn btn-rose rounded-3 px-4 py-3 fw-semibold w-100 ppl-offcanvas-checkout"
+                    data-price-id="<?php echo esc_attr( $session_price_id ); ?>"
+                    data-title="<?php ppl_e( 'ppl_shop_session_heading', '1-on-1 Strategy Session' ); ?>"
+                    data-price="<?php echo esc_attr( $session_price ); ?>"
+                    data-idx="session">
+              Checkout <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short ms-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/></svg>
+            </button>
+          </div>
+        </div>
       </div>
 
     </div>
